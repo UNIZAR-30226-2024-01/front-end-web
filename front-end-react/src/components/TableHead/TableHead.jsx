@@ -3,10 +3,8 @@ import './TableHead.css'
 
 export const TableHead = ({ title }) => {
     return (
-        <thead className="titulos">
-        <tr>
+        <tr className="titulos">
             <th>{title}</th>
         </tr>
-    </thead>
     )
 }
