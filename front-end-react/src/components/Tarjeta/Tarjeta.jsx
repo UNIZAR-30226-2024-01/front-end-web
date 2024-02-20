@@ -1,26 +1,32 @@
 import './Tarjeta.css'
-import { TableRow } from '../TableRow/TableRow.jsx'
-import { TableHead } from '../TableHead/TableHead.jsx'
+
 import { useState } from 'react'
+
+import { TableRow } from './TableRow.jsx'
+import { TableHead } from './TableHead.jsx'
+import { TableHeaderCell } from './TableHeaderCell.jsx'
+
 
 export function Tarjeta() {
     const [desplegable, setDesplegable] = useState(false)
 
     const style = { right: `${desplegable ? '0px' : '-20%' }`} 
+    const max_chars = 4
 
-    const toggleDesplegable = () => { setDesplegable(!desplegable) }
-
+    const toggleDesplegable = () => {
+        setDesplegable(!desplegable)
+    }
 
     return (
         <div id="tarjeta" data-hidden="true" style={style}>
             <div id="desplegable" onClick={toggleDesplegable}>
             {
             desplegable ?
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                 </svg>
             :            
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                 </svg>
             }
@@ -30,15 +36,13 @@ export function Tarjeta() {
                 <thead className="cabecera">
                     <tr>
                         <th></th>
-                        <th><input type="text" style={{width: '100%'}} maxLength={2} /></th>
-                        <th><input type="text" style={{width: '100%'}} maxLength={2} /></th>
-                        <th><input type="text" style={{width: '100%'}} maxLength={2} /></th>
-                        <th><input type="text" style={{width: '100%'}} maxLength={2} /></th>
-                        <th><input type="text" style={{width: '100%'}} maxLength={2} /></th>
-                        <th><input type="text" style={{width: '100%'}} maxLength={2} /></th>
-                        <th><input type="text" style={{width: '100%'}} maxLength={2} /></th>
-
-
+                        <TableHeaderCell max_chars={max_chars} text="hola" />
+                        <TableHeaderCell max_chars={max_chars} />
+                        <TableHeaderCell max_chars={max_chars} />
+                        <TableHeaderCell max_chars={max_chars} />
+                        <TableHeaderCell max_chars={max_chars} />
+                        <TableHeaderCell max_chars={max_chars} />
+                        <TableHeaderCell max_chars={max_chars} />
                     </tr>
                 </thead>
                 <tbody id="table-body">
@@ -70,6 +74,8 @@ export function Tarjeta() {
                     <TableRow name="aulas norte" />
                 </tbody>
             </table>
+
+            <span>&#169; 2024 - Desarrollado por Grace Hopper</span>
         </div>
     )
 }

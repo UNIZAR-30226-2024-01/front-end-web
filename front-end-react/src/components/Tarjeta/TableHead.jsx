@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import './TableHead.css'
 
 export const TableHead = ({ title }) => {
     return (

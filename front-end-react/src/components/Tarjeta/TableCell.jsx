@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import './TableCell.css'
 import { useState, useEffect } from 'react'
 
 export const TableCell = ({ state }) => {
@@ -11,6 +10,7 @@ export const TableCell = ({ state }) => {
 
     useEffect(() => {
         setText(texts[state]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [state]);
 
     const handleClick = () => {
