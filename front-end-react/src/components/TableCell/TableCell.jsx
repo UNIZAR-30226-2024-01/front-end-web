@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import './TableCell.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export const TableCell = ({ state }) => {
 
@@ -8,6 +8,10 @@ export const TableCell = ({ state }) => {
     const colors = ['#ffffff', '#995555', '#559955', '#555599']
 
     const [text, setText] = useState(texts[state])
+
+    useEffect(() => {
+        setText(texts[state]);
+    }, [state]);
 
     const handleClick = () => {
         const index = texts.indexOf(text)
