@@ -29,7 +29,16 @@ export function Tarjeta() {
             <table id="tabla">
                 <thead className="cabecera">
                     <tr>
-                        <th/><th/><th/><th/><th/><th/><th/><th/>
+                        <th></th>
+                        <th><input type="text" style={{width: '100%'}} maxLength={2} /></th>
+                        <th><input type="text" style={{width: '100%'}} maxLength={2} /></th>
+                        <th><input type="text" style={{width: '100%'}} maxLength={2} /></th>
+                        <th><input type="text" style={{width: '100%'}} maxLength={2} /></th>
+                        <th><input type="text" style={{width: '100%'}} maxLength={2} /></th>
+                        <th><input type="text" style={{width: '100%'}} maxLength={2} /></th>
+                        <th><input type="text" style={{width: '100%'}} maxLength={2} /></th>
+
+
                     </tr>
                 </thead>
                 <tbody id="table-body">
