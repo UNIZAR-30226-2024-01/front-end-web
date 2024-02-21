@@ -1,0 +1,5 @@
+.message {
+    all: unset;
+    text-align: left !important;
+    display: flex;
+} 
