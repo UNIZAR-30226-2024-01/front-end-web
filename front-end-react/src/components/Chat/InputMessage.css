@@ -1,0 +1,21 @@
+button {
+    background-color: #1315a2;
+    color: #ffffff;
+    border-radius: 10px;
+    margin: 10px;
+    /* padding-top: 20px; */
+    /* padding-bottom: 20px; */
+    padding-left: 20px;
+    padding-right: 20px;
+    /* display: flex;
+    align-items: center; */
+  }
+
+
+  .input-message-container {
+    display: flex;
+    background-color: 'red';
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }

@@ -11,7 +11,7 @@ import { Desplegable } from '../Desplegable.jsx'
 export function Tarjeta() {
     const [desplegable, setDesplegable] = useState(false)
 
-    const style = { right: `${desplegable ? '0px' : '-20%' }`} 
+    const style = { right: `${desplegable ? '0px' : '-354px' }`} 
     const max_chars = 4
 
     // const toggleDesplegable = () => {
@@ -19,22 +19,10 @@ export function Tarjeta() {
     // }
 
     return (
-        <div id="tarjeta" data-hidden="true" style={style}>
-            <Desplegable izquierda_inicial={true} setStyle={setDesplegable}/>
-            {/* <div id="desplegable-tarjeta" onClick={toggleDesplegable}>
-            {
-            desplegable ?
-                <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                </svg>
-            :            
-                <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-                </svg>
-            }
-            </div> */}
+        <div className="tarjeta" data-hidden="true" style={style}>
+            <Desplegable left_initial={true} setStyle={setDesplegable}/>
 
-            <table id="tabla">
+            <table className="tabla">
                 <thead className="cabecera">
                     <tr>
                         <th></th>

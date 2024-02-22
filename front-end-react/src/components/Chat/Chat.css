@@ -1,15 +1,3 @@
-/* #tarjeta {
-  position: absolute;
-  top: 0;
-  right: -20%;
-  background-color: #1315a2;
-  border-radius: 10px;
-  margin: 10px;
-  margin: 10px;
-  padding: 20px 20px 10px 20px;
-  transition:all 0.5s ;
-} */
-
 .chat-container {
   position: absolute;
   top: 0;
@@ -18,14 +6,48 @@
   flex-direction: column;
   justify-content: space-between;
   /* align-items: center; */
-  width: 400px; /* Ancho fijo del contenedor del chat */
-  height: calc(100% - 100px); /*Altura variable del contenedor del chat */
-  margin: 10px; /* Margen exterior para centrar el chat horizontalmente */
-  background-color: #f3f3f3; /* Color de fondo del chat */
-  border-radius: 10px; /* Borde redondeado */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
-  padding: 20px; /* Añadir espacio interno */
-  border: 20px solid #1315a2; /* Borde sólido de 2px con color gris */
+  width: 400px; 
+  height: calc(100% - 100px); 
+  margin: 10px; 
+  background-color: #f3f3f3;
+  border-radius: 10px; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition:all 0.5s ;
+  border: 20px solid #1315a2; 
+}
+
+.chat-container div {
+  position: absolute;
+  height: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -14%;
+  background-color: #1315a2;
+  color: #ffffff;
+  border-radius: 10px;
+  margin: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+  padding-right: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.chat-container div svg {
+  width: 30px;
+  height: 30px;
+  fill: #ffffff;
+  display: flex;
+  align-items: center;
+  z-index: -1;
+  transition: all 1s;
+}
+
+.chat-container div:hover {
+  cursor: pointer;
+  background-color: #3a3dd2;
 }
 
 .input-message-container {

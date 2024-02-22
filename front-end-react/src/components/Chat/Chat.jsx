@@ -2,10 +2,13 @@ import './Chat.css';
 import { useState } from 'react'
 import { MessageList } from './MessageList.jsx';
 import { InputMessage } from './InputMessage.jsx';
-// import { Desplegable } from '../Desplegable.jsx';
+import { Desplegable } from '../Desplegable.jsx';
 
 export function Chat (){
     const [messages, setMessages] = useState([]);
+    
+    const [desplegable, setDesplegable] = useState(false)
+    const style = { left: `${desplegable ? '0px' : '-425px' }`} 
 
     const sendMessage = (message) => {
         setMessages([...messages, message]);
@@ -13,12 +16,11 @@ export function Chat (){
 
 
     return (
-        <div className="chat-container">
-            {/* <Desplegable /> */}
+        <div className="chat-container" style={style}>
+            <Desplegable left_initial={false} setStyle={setDesplegable}/>
+            
             <MessageList messages={messages} />
-            <div className="input-message-container">
-                <InputMessage sendMessage={sendMessage} />
-            </div>
+            <InputMessage sendMessage={sendMessage} />
         </div>
-    );
+    )
 }
