@@ -2,6 +2,7 @@ import './Chat.css';
 import { useState } from 'react'
 import { MessageList } from './MessageList.jsx';
 import { InputMessage } from './InputMessage.jsx';
+// import { Desplegable } from '../Desplegable.jsx';
 
 export function Chat (){
     const [messages, setMessages] = useState([]);
@@ -10,12 +11,14 @@ export function Chat (){
         setMessages([...messages, message]);
     };
 
+
     return (
         <div className="chat-container">
+            {/* <Desplegable /> */}
             <MessageList messages={messages} />
             <div className="input-message-container">
                 <InputMessage sendMessage={sendMessage} />
             </div>
         </div>
     );
-};
+}

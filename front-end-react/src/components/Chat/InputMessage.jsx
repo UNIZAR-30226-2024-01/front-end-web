@@ -21,9 +21,9 @@ export const InputMessage = ({ sendMessage }) => {
         type="text"
         value={inputValue}
         onChange={handleInputChange}
-        placeholder="Type your message..."
+        placeholder="escribe aquí..."
       />
-      <button type="submit">Send</button>
+      <button type="submit">Enviar</button>
     </form>
   );
 };

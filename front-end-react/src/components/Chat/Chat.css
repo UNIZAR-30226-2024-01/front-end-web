@@ -1,17 +1,31 @@
+/* #tarjeta {
+  position: absolute;
+  top: 0;
+  right: -20%;
+  background-color: #1315a2;
+  border-radius: 10px;
+  margin: 10px;
+  margin: 10px;
+  padding: 20px 20px 10px 20px;
+  transition:all 0.5s ;
+} */
+
 .chat-container {
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  /* align-items: center; */
   width: 400px; /* Ancho fijo del contenedor del chat */
-  height: 300px; /* Altura fija del contenedor del chat */
-  margin: 20px auto; /* Margen exterior para centrar el chat horizontalmente */
+  height: calc(100% - 100px); /*Altura variable del contenedor del chat */
+  margin: 10px; /* Margen exterior para centrar el chat horizontalmente */
   background-color: #f3f3f3; /* Color de fondo del chat */
   border-radius: 10px; /* Borde redondeado */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
   padding: 20px; /* Añadir espacio interno */
-  border: 30px solid #1315a2; /* Borde sólido de 2px con color gris */
-
+  border: 20px solid #1315a2; /* Borde sólido de 2px con color gris */
 }
 
 .input-message-container {

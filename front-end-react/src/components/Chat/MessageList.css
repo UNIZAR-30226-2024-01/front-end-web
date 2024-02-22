@@ -1,17 +1,16 @@
 .message {
-    all: unset;
-    text-align: left !important;
+    text-align: left;
     display: flex;
 } 
 
 /*
 ul is in the left side of his parent, so we need to change the direction of the flex container
 */
-/* .ul {
-    display: flex;
+ul {
+    width: 100%;    
     flex-direction: column;
     align-items: flex-start;
     margin: 0;
     padding: 0;
     list-style: none;
-} */
+}

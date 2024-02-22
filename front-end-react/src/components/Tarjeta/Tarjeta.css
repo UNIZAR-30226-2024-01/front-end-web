@@ -9,7 +9,7 @@
     transition:all 0.5s ;
 }
 
-#desplegable {
+#desplegable-tarjeta {
     position: absolute;
     height: 20px;
     top: 50%;
@@ -27,7 +27,7 @@
     align-items: center;
 }
 
-#desplegable svg {
+#desplegable-tarjeta svg {
     width: 30px;
     height: 30px;
     fill: #ffffff;

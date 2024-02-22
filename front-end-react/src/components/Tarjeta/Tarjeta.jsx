@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { TableRow } from './TableRow.jsx'
 import { TableHead } from './TableHead.jsx'
 import { TableHeaderCell } from './TableHeaderCell.jsx'
+import { Desplegable } from '../Desplegable.jsx'
 
 
 export function Tarjeta() {
@@ -13,13 +14,14 @@ export function Tarjeta() {
     const style = { right: `${desplegable ? '0px' : '-20%' }`} 
     const max_chars = 4
 
-    const toggleDesplegable = () => {
-        setDesplegable(!desplegable)
-    }
+    // const toggleDesplegable = () => {
+    //     setDesplegable(!desplegable)
+    // }
 
     return (
         <div id="tarjeta" data-hidden="true" style={style}>
-            <div id="desplegable" onClick={toggleDesplegable}>
+            <Desplegable izquierda_inicial={true} setStyle={setDesplegable}/>
+            {/* <div id="desplegable-tarjeta" onClick={toggleDesplegable}>
             {
             desplegable ?
                 <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -30,7 +32,7 @@ export function Tarjeta() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                 </svg>
             }
-            </div>
+            </div> */}
 
             <table id="tabla">
                 <thead className="cabecera">
