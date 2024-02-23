@@ -1,4 +1,5 @@
-import './Tarjeta.css'
+import '../../../../../front-end-shared/css/Tarjeta.css';
+
 
 import { useState } from 'react'
 

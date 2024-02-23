@@ -1,4 +1,4 @@
-import './Chat.css';
+import '../../../../../front-end-shared/css/Chat.css';
 import { useState } from 'react'
 import { MessageList } from './MessageList.jsx';
 import { InputMessage } from './InputMessage.jsx';

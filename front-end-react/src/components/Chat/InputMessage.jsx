@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import './InputMessage.css'
 
 export const InputMessage = ({ sendMessage }) => {
   const [inputValue, setInputValue] = useState('');

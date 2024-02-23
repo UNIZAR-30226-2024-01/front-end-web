@@ -1,5 +1,4 @@
 import React from 'react';
-import './MessageList.css';
 
 export const MessageList = ({ messages }) => {
   return (

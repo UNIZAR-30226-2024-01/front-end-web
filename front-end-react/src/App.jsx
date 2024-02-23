@@ -1,4 +1,4 @@
-import './App.css'
+import '../../../front-end-shared/css/App.css'
 import {Tarjeta} from './components/Tarjeta/Tarjeta.jsx'
 import {Chat} from './components/Chat/Chat.jsx'
 
