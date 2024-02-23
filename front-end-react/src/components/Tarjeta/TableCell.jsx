@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react'
 
-export const TableCell = ({ state }) => {
+export const TableCell = ({ idx, state, setEstado }) => {
 
     const texts = ['', '❌' , '✔' , '❔']
     const colors = ['#ffffff', '#995555', '#559955', '#555599']
@@ -14,8 +14,7 @@ export const TableCell = ({ state }) => {
     }, [state]);
 
     const handleClick = () => {
-        const index = texts.indexOf(text)
-        setText(texts[(index + 1) % texts.length])
+        setEstado(idx)
     }
 
     const style = {
