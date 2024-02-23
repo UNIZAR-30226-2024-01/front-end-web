@@ -9,14 +9,10 @@ import { Desplegable } from '../Desplegable.jsx'
 
 
 export function Tarjeta() {
-    const [desplegable, setDesplegable] = useState(false)
 
+    const [desplegable, setDesplegable] = useState(false)
     const style = { right: `${desplegable ? '0px' : '-354px' }`} 
     const max_chars = 4
-
-    // const toggleDesplegable = () => {
-    //     setDesplegable(!desplegable)
-    // }
 
     return (
         <div className="tarjeta" data-hidden="true" style={style}>
