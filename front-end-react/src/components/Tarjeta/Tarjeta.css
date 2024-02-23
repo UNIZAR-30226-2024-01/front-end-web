@@ -1,4 +1,4 @@
-#tarjeta {
+.tarjeta {
     position: absolute;
     top: 0;
     right: -20%;
@@ -9,7 +9,7 @@
     transition:all 0.5s ;
 }
 
-#desplegable {
+.tarjeta div {
     position: absolute;
     height: 20px;
     top: 50%;
@@ -27,7 +27,7 @@
     align-items: center;
 }
 
-#desplegable svg {
+.tarjeta div svg {
     width: 30px;
     height: 30px;
     fill: #ffffff;
@@ -37,12 +37,12 @@
     transition: all 1s;
 }
 
-#desplegable:hover {
+.tarjeta div:hover {
     cursor: pointer;
     background-color: #3a3dd2;
 }
 
-#tabla {
+.tabla {
     width: 100%;
     margin: 1 px solid #000000;
     border-spacing: 2px;

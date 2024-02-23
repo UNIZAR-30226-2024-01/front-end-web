@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import './InputMessage.css'
 
 export const InputMessage = ({ sendMessage }) => {
   const [inputValue, setInputValue] = useState('');
@@ -16,15 +17,15 @@ export const InputMessage = ({ sendMessage }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='input-message-container' onSubmit={handleSubmit}>
       <input
         type="text"
         value={inputValue}
         onChange={handleInputChange}
-        placeholder="Type your message..."
+        placeholder="escribe aquí..."
       />
-      <button type="submit">Send</button>
+      <button type="submit">Enviar</button>
     </form>
   );
-};
+}
 
