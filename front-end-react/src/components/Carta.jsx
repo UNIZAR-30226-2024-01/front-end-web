@@ -1,7 +1,7 @@
 import '../../../../front-end-shared/css/Carta.css'
 import { Player } from "./Player";
 
-export function Carta({player_name}) {
+export function Carta( {player_name} ) {
     
     return (
         <div className="carta">
@@ -12,5 +12,5 @@ export function Carta({player_name}) {
             <h1>{player_name.toUpperCase()}</h1>
         </div>
     )
-    
+
 }

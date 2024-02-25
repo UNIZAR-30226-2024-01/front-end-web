@@ -57,8 +57,8 @@ export function Tarjeta() {
                     <TableRow name="bibloteca" />
                     <TableRow name="laboratorio" />
                     <TableRow name="despacho" />
-                    <TableRow name="aulas sur" />
                     <TableRow name="aulas norte" />
+                    <TableRow name="aulas sur" />
                 </tbody>
             </table>
 

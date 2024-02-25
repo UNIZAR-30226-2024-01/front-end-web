@@ -24,7 +24,6 @@ export const TableRow = ({ name }) => {
     const changeState = (index) => {
         const nuevoEstado = [...estado]
         nuevoEstado[index] = (nuevoEstado[index] + 1) % 4
-        console.log(nuevoEstado)
         setEstado(nuevoEstado)
     }
 
