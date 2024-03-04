@@ -1,3 +1,4 @@
+import '../../../../../front-end-shared/css/Chat/input-message.css';
 import { useState } from 'react'
 
 export const InputMessage = ({ sendMessage }) => {

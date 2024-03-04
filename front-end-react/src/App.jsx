@@ -18,7 +18,7 @@ function App() {
         <Carta player_name='prog'/>
         <Carta player_name='fisica'/>
         <Carta player_name='discreto'/>
-        <Carta player_name='ia'/>
+        <Carta player_name='ia'/> 
       </div> */}
     </>
   )
