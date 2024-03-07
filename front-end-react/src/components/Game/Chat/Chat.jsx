@@ -1,8 +1,8 @@
-import '../../../../../front-end-shared/css/Chat/chat.css';
+import '../../../../../../front-end-shared/css/Chat/chat.css';
 import { useState } from 'react'
 import { MessageList } from './MessageList.jsx';
 import { InputMessage } from './InputMessage.jsx';
-import { Desplegable } from '../Desplegable.jsx';
+import { Desplegable } from '../../Desplegable.jsx';
 
 export function Chat (){
     const [messages, setMessages] = useState([]);

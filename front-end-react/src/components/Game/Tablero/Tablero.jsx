@@ -1,4 +1,4 @@
-import { Celda } from "./Celda";
+import { Celda } from "./Celda.jsx";
 import { useState, useEffect } from "react";
 
 export function Tablero () {
@@ -33,5 +33,5 @@ export function Tablero () {
                 ))}
             </div>
         </>
-    );
+    ); 
 }

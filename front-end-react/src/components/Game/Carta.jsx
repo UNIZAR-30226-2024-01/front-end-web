@@ -1,5 +1,5 @@
 import '../../../../front-end-shared/css/Carta.css'
-import { Player } from "./Player";
+import { Player } from "../Player";
 
 export function Carta( {player_name} ) {
     
