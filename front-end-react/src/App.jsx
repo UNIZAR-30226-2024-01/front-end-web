@@ -27,14 +27,20 @@ function App() {
 
           Use 'Link' to navigate between pages instead of 'a' tags because 'a' tags will refresh the page
           and 'Link' will only change the URL (fast and smooth navigation between pages)
+
+          If you try to navigate to an url but you're not logged in, after logging in it can be used 'useLocation' hook 
+          to navigate to that previous url you were trying to access. 
       */}
       
 
     {/* 
       <Routes>
         <Route path='/' element={<LoginOrRegister />}/>
+        <Route path='/game' element={<Game />}/>
         ...
         Add the rest of routes
+        ...
+        <Route path='*' element={<NotFound />}/> 👈🏼 Way to implement the 404 error even though it returns status 200 
       </Routes> 
     */}
 
