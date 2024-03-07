@@ -31,6 +31,7 @@ function App() {
     
       <Routes>
         <Route path='/' element={<Login/>}/>
+        <Route path='/login' element={<h1>¡Inicia sesión!</h1>}/>        
         <Route path='/menu' element={<h1>Menu</h1>}/>
         <Route path='/game' element={<Game/>}/>
         <Route path='*' element={<h1>Not found</h1>}/> 

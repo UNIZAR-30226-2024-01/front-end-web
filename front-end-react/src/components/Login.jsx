@@ -12,8 +12,8 @@ export function Login() {
                 <input type="password" placeholder="Contraseña"/>
             </div>
         </div>
-        <Link className='styled-link'>Ya tengo cuenta...</Link>        
-        <Button variant="primary" className='styled-button'>Crear cuenta</Button>
+        <Button className='styled-button'>Crear cuenta</Button>
+        <Link to="/login" className='styled-link'>Ya tengo cuenta...</Link>        
         </>
     )
 }
