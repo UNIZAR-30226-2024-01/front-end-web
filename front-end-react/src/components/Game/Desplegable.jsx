@@ -11,7 +11,7 @@ export function Desplegable ({ left_initial, setStyle }) {
     }
 
     return (
-        <div onClick={handleClick}>
+        <div className='desplegable' onClick={handleClick}>
         {
         left ?
             <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">

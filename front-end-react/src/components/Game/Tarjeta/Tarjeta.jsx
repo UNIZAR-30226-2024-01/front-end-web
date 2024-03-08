@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { TableRow } from './TableRow.jsx'
 import { TableHead } from './TableHead.jsx'
 import { TableHeaderCell } from './TableHeaderCell.jsx'
-import { Desplegable } from '../../Desplegable.jsx'
+import { Desplegable } from '../Desplegable.jsx'
 
 
 export function Tarjeta() {

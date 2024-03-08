@@ -19,6 +19,7 @@ export const InputMessage = ({ sendMessage }) => {
   return (
     <form className='input-message-container' onSubmit={handleSubmit}>
       <input
+        className='input-message'
         type="text"
         value={inputValue}
         onChange={handleInputChange}

@@ -1,4 +1,4 @@
-import { Button } from 'react-bootstrap';
+// import { Button } from 'react-bootstrap';
 import '../../../../front-end-shared/css/Login/Login.css'
 import { Link } from 'react-router-dom'
 
@@ -12,8 +12,11 @@ export function Login() {
                 <input type="password" placeholder="Contraseña"/>
             </div>
         </div>
-        <Button className='styled-button'>Crear cuenta</Button>
-        <Link to="/login" className='styled-link'>Ya tengo cuenta...</Link>        
+        {/* <Button className='styled-button'>Crear cuenta</Button> */}
+        <div>
+            <Link to="/login" className='styled-link'>Ya tengo cuenta...</Link>    
+            <Link to="/game" className='styled-link'>Jugar como invitado</Link>    
+        </div>
         </>
     )
 }

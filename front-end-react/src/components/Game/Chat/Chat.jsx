@@ -1,10 +1,9 @@
 
-import '../../../../../front-end-shared/css/Chat/chat.css';
+import '../../../../../../front-end-shared/css/Chat/chat.css';
 import { useState, useEffect } from 'react'
 import { MessageList } from './MessageList.jsx';
 import { InputMessage } from './InputMessage.jsx';
 import { Desplegable } from '../Desplegable.jsx';
-// import { io } from 'https://cdn.socket.io/4.3.2/socket.io.esm.min.js';
 import { socket } from './chat.js';
 
 export function Chat (){
@@ -31,8 +30,12 @@ export function Chat (){
     
         const onChatResponse = (username, message) => {
             console.log('Received message:', message);
-            const messageToShow = `${username} sent: ${message}`
-            setMessages((prevMessages) => [...prevMessages, messageToShow]);
+            const newMessage = {"type":"message", "username":username, "text":message};
+            console.log('newMessage:', newMessage); 
+
+            username == "admin"
+            ? setMessages((prevMessages) => [...prevMessages, {"type":"otro","username":username,"text":message}])
+            : setMessages((prevMessages) => [...prevMessages, newMessage])
         };
     
         socket.on('connect', onConnect);
