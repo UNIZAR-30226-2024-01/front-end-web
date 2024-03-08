@@ -1,3 +1,4 @@
+
 import '../../../../../front-end-shared/css/Chat/chat.css';
 import { useState, useEffect } from 'react'
 import { MessageList } from './MessageList.jsx';
@@ -5,8 +6,6 @@ import { InputMessage } from './InputMessage.jsx';
 import { Desplegable } from '../Desplegable.jsx';
 // import { io } from 'https://cdn.socket.io/4.3.2/socket.io.esm.min.js';
 import { socket } from './chat.js';
-
-
 
 export function Chat (){
     const [messages, setMessages] = useState([]);

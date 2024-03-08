@@ -1,4 +1,4 @@
-import '../../../../../front-end-shared/css/Chat/message-list.css';
+import '../../../../../../front-end-shared/css/Chat/message-list.css';
 
 export const MessageList = ({ messages }) => {
   return (

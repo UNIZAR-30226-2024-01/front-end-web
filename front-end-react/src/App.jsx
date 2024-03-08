@@ -1,10 +1,7 @@
 import '../../../front-end-shared/css/App.css'
-import {Tarjeta} from './components/Tarjeta/Tarjeta.jsx'
-import {Chat} from './components/Chat/Chat.jsx'
-import {Tablero} from './components/Tablero/Tablero.jsx'
-// import { Routes } from 'react-router-dom'
-// import { Route } from 'react-router-dom'
-// import { Link } from 'react-router-dom'
+import { Login } from './components/Login'
+import { Game } from './components/Game/Game'
+import { Routes, Route, /*Link*/ } from 'react-router-dom'
 // import { Carta } from './components/Carta.jsx'
 
 /****** 👇🏼 ROUTES 👇🏼 ****** 
@@ -31,30 +28,15 @@ function App() {
           If you try to navigate to an url but you're not logged in, after logging in it can be used 'useLocation' hook 
           to navigate to that previous url you were trying to access. 
       */}
-      
-
-    {/* 
+    
       <Routes>
-        <Route path='/' element={<LoginOrRegister />}/>
-        <Route path='/game' element={<Game />}/>
-        ...
-        Add the rest of routes
-        ...
-        <Route path='*' element={<NotFound />}/> 👈🏼 Way to implement the 404 error even though it returns status 200 
+        <Route path='/' element={<Login/>}/>
+        <Route path='/login' element={<h1>¡Inicia sesión!</h1>}/>        
+        <Route path='/menu' element={<h1>Menu</h1>}/>
+        <Route path='/game' element={<Game/>}/>
+        <Route path='*' element={<h1>Not found</h1>}/> 
       </Routes> 
-    */}
-
-      <Tarjeta />
-      <Chat />
-      < Tablero />
-      {/* <div className='cart-container'>
-        <Carta player_name='soper'/>
-        <Carta player_name='redes'/>
-        <Carta player_name='prog'/>
-        <Carta player_name='fisica'/>
-        <Carta player_name='discreto'/>
-        <Carta player_name='ia'/> 
-      </div> */}
+   
     </>
   )
 }
