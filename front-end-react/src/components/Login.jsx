@@ -13,26 +13,26 @@ export function Login() {
             return;
         }
 
-        alert('Creating account...')
-        // Send a POST request
-        // fetch('http://localhost:3000/createAccount', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({
-        //         username: username,
-        //         password: password,
-        //     }),
-        // })
-        // .then(response => response.json())
-        // .then(data => {
-        //     alert('Account created!');
-        //     // Handle the response data
-        // })
-        // .catch((error) => {
-        //     console.error('Error:', error);
-        // });
+        //alert('Creating account...')
+        //Send a POST request
+        fetch('http://localhost:3000/createAccount', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            //alert('Account created!');
+            // Handle the response data
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+         });
     }
 
     return (

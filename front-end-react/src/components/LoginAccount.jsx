@@ -8,13 +8,13 @@ export function LoginAccount() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    //const [confirmPassword, setConfirmPassword] = useState('');
     
-    const handleCreateAccount = () => {
+    const handleLogin = () => {
         alert("Loggin in...")
 
         fetch('http://localhost:3000/login', {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -42,7 +42,7 @@ export function LoginAccount() {
                 <input type="password" placeholder="Contraseña" onChange={e => setPassword(e.target.value)}/>
             </div>
         </div>
-        <button className='styled-button' onClick={handleCreateAccount}>Crear cuenta</button>
+        <button className='styled-button' onClick={handleLogin}>Crear cuenta</button>
         {/* <div>
             <Link to="/login" className='styled-link'>Ya tengo cuenta...</Link>
             <Link to="/game" className='styled-link'>Jugar como invitado</Link>    
