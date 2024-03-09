@@ -1,4 +1,7 @@
+import '../../../../../../front-end-shared/css/Tablero/Tablero.css'
+
 import { Celda } from "./Celda.jsx";
+import { Text } from "./Text.jsx";
 import { useState, useEffect } from "react";
 
 export function Tablero () {
@@ -20,18 +23,31 @@ export function Tablero () {
         setTablero(newTablero);
     }, [filas, columnas]);
 
+    const [rooms] = useState(10)
+
+
     return (
         <>
             <div className="tablero">
                 {tablero.map((fila, i) => (
                     <div className="fila" key={i}>
                         {fila.map((celda, j) => (
-                            // <div>holaa</div>, 
                             <Celda key={j} fil={i} col={j}/>
                         ))}
                     </div>
                 ))}
+                <div className='texts'>
+                    {
+                        [...Array(rooms)].map((_, idx) => {
+                            return (
+                                <Text idx={idx+1} key={idx}/>
+                            )
+                        })
+                    }
+                    
+                </div>
             </div>
+
         </>
     ); 
 }
