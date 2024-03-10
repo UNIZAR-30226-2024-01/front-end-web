@@ -43,13 +43,13 @@ export function Login() {
         <div className='parent'>
             <div className='container'>
                 <div>
-                    <h1>Crear una cuenta</h1>
+                    <h1 className='create-account'>Crear una cuenta</h1>
                     <div className='loginForm'>
-                        <p>Nombre de usuario</p>
+                        <p className='p-login'>Nombre de usuario</p>
                         <input type="text" placeholder="username" onChange={e => setUsername(e.target.value)}/>
-                        <p>Contraseña</p>
+                        <p className='p-login'>Contraseña</p>
                         <input type="password" placeholder="password" onChange={e => setPassword(e.target.value)}/>
-                        <p>Repite la contraseña</p>
+                        <p className='p-login'>Repite la contraseña</p>
                         <input type="password" placeholder="repeat password" onChange={e => setConfirmPassword(e.target.value)}/>
                     </div>
                 </div>
@@ -57,7 +57,8 @@ export function Login() {
             </div>
             <div>
                 <Link to="/login" className='styled-link'>Ya tengo cuenta...</Link>
-                <Link to="/game" className='styled-link'>Jugar como invitado</Link>    
+                <Link to="/game" className='styled-link'>Jugar como invitado</Link>
+                <Link to="/logflow" className='styled-link'>LogIn hecho por Diego Roldi</Link>
             </div>
         </div>
         </>

@@ -2,6 +2,7 @@ import '../../../front-end-shared/css/App.css'
 import { Login } from './components/Login'
 import { LoginAccount } from './components/LoginAccount'
 import { Game } from './components/Game/Game'
+import { LoginFlowbite } from './components/LoginFlowbite'
 import { Routes, Route, /*Link*/ } from 'react-router-dom'
 // import { Carta } from './components/Carta.jsx'
 
@@ -35,6 +36,7 @@ function App() {
         <Route path='/login' element={<LoginAccount/>}/>        
         <Route path='/menu' element={<h1>Menu</h1>}/>
         <Route path='/game' element={<Game/>}/>
+        <Route path='/logflow' element={<LoginFlowbite/>}/>
         <Route path='*' element={<h1>Not found</h1>}/> 
       </Routes> 
    

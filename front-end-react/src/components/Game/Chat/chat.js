@@ -7,5 +7,7 @@ export const socket = io(URL, {
     auth: {
         // username: sessionStorage.getItem('username') ?? 'anonymous'
     },
-    autoConnect: false
+    autoConnect: false,
+
+    transports: ['polling', 'websocket']
 });

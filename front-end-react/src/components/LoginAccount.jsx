@@ -37,11 +37,11 @@ export function LoginAccount() {
         <>
         <div className='parent'>
             <div className='container'>
-                <h1>Inicia sesión</h1>
+                <h1 className='inicia-sesion'>Inicia sesión</h1>
                 <div className='loginForm'>
-                    <p>Nombre de usuario</p>
+                    <p className='p-login-account'>Nombre de usuario</p>
                     <input type="text" placeholder="username" onChange={e => setUsername(e.target.value)}/>
-                    <p>Contraseña</p>
+                    <p className='p-login-account'>Contraseña</p>
                     <input type="password" placeholder="password" onChange={e => setPassword(e.target.value)}/>
                 </div>
                 <button className='styled-button' onClick={handleLogin}>Iniciar sesión</button>
