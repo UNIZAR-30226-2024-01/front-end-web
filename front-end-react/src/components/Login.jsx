@@ -3,22 +3,20 @@ import '../../../../front-end-shared/css/Login/Login.css'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 
+
+
 export function Login() {
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const navigate = useNavigate();
 
-    const HandleCreateAccount = () => {
-        const navigate = useNavigate();
 
-        if (password !== confirmPassword) {
-            alert('Passwords do not match!');
-            return;
-        }
-
-        //alert('Creating account...')
-        //Send a POST request
-        fetch('http://localhost:3000/createAccount', {
+    const handleLogin = () => {
+        console.log('username: ', username)
+        console.log('password: ', password)
+        alert("Loggin in...")
+        fetch('http://localhost:3000/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -29,37 +27,30 @@ export function Login() {
             }),
         })
         .then(response => response.json())
-        .then(() => {
-            alert('Account created!');
+        .then( () => {
+            // alert('Successfully logged in!');
             navigate('/game');
         })
-        .catch((error) => {
-            console.error('Error:', error);
-         });
+
     }
 
     return (
         <>
         <div className='parent'>
             <div className='container'>
-                <div>
-                    <h1 className='create-account'>Crear una cuenta</h1>
-                    <div className='loginForm'>
-                        <p className='p-login'>Nombre de usuario</p>
-                        <input type="text" placeholder="username" onChange={e => setUsername(e.target.value)}/>
-                        <p className='p-login'>Contraseña</p>
-                        <input type="password" placeholder="password" onChange={e => setPassword(e.target.value)}/>
-                        <p className='p-login'>Repite la contraseña</p>
-                        <input type="password" placeholder="repeat password" onChange={e => setConfirmPassword(e.target.value)}/>
-                    </div>
+                <h1 className='inicia-sesion'>Inicia sesión</h1>
+                <div className='loginForm'>
+                    <p className='p-login-account'>Nombre de usuario</p>
+                    <input type="text" placeholder="username" onChange={e => setUsername(e.target.value)}/>
+                    <p className='p-login-account'>Contraseña</p>
+                    <input type="password" placeholder="password" onChange={e => setPassword(e.target.value)}/>
                 </div>
-                <button className='styled-button' onClick={HandleCreateAccount}>Crear cuenta</button>
+                <button className='styled-button' onClick={handleLogin}>Iniciar sesión</button>
             </div>
             <div>
-                <Link to="/login" className='styled-link'>Ya tengo cuenta...</Link>
-                <Link to="/game" className='styled-link'>Jugar como invitado</Link>
-                <Link to="/logflow" className='styled-link'>LogIn hecho por Diego Roldi</Link>
-            </div>
+                <Link to="/createUser" className='styled-link'>No tengo cuenta...</Link>
+                <Link to="/game" className='styled-link'>Jugar como invitado</Link>    
+            </div>        
         </div>
         </>
     )

@@ -21,8 +21,8 @@ export function Tarjeta() {
 
             <table className="tabla">
                 <thead className="cabecera">
-                    <tr>
-                        <th></th>
+                    <tr className='table-row'>
+                        <th className="table-head" />
                         <TableHeaderCell max_chars={max_chars} text="hola" />
                         <TableHeaderCell max_chars={max_chars} />
                         <TableHeaderCell max_chars={max_chars} />

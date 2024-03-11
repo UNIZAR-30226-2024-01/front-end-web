@@ -22,7 +22,7 @@ export const TableCell = ({ idx, state, setEstado }) => {
 
     return (
         <td onClick={handleClick} style={style}>
-            {text}
+            <p className={style.paragraph}>{text}</p>
         </td>
     )
 }

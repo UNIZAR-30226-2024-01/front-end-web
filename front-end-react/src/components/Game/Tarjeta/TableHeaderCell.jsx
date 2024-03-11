@@ -2,8 +2,8 @@
 
 export const TableHeaderCell = ({ max_chars, text }) => {
     return (
-        <th>
-            <input type="text" maxLength={max_chars} defaultValue={text}/>
+        <th className="table-head">
+            <input className="input-tarjeta" type="text" maxLength={max_chars} defaultValue={text}/>
         </th>
     )
 }

@@ -3,7 +3,7 @@
 export const TableHead = ({ title }) => {
     return (
         <tr className="titulos">
-            <th>{title}</th>
+            <th className="table-head">{title}</th>
         </tr>
     )
 }
