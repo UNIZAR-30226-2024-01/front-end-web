@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 
 
-
 export function Login() {
 
     const [username, setUsername] = useState('');
@@ -12,11 +11,8 @@ export function Login() {
     const navigate = useNavigate();
 
 
-    const handleLogin = () => {
-        console.log('username: ', username)
-        console.log('password: ', password)
-        alert("Loggin in...")
-        fetch('http://localhost:3000/login', {
+    const handleLogin = async () => {
+        const response = await fetch('http://localhost:3000/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -25,33 +21,34 @@ export function Login() {
                 username: username,
                 password: password,
             }),
-        })
-        .then(response => response.json())
-        .then( () => {
-            // alert('Successfully logged in!');
+        });
+        const data = await response.json();
+        if (data.success === true) {
             navigate('/game');
-        })
-
+        } else {
+            alert('Usuario o contraseña incorrectos');
+        }
     }
+
 
     return (
         <>
-        <div className='parent'>
-            <div className='container'>
-                <h1 className='inicia-sesion'>Inicia sesión</h1>
-                <div className='loginForm'>
-                    <p className='p-login-account'>Nombre de usuario</p>
-                    <input type="text" placeholder="username" onChange={e => setUsername(e.target.value)}/>
-                    <p className='p-login-account'>Contraseña</p>
-                    <input type="password" placeholder="password" onChange={e => setPassword(e.target.value)}/>
+            <div className='parent'>
+                <div className='container'>
+                    <h1 className='inicia-sesion'>Inicia sesión</h1>
+                    <div className='loginForm'>
+                        <p className='p-login-account'>Nombre de usuario</p>
+                        <input type="text" placeholder="username" onChange={e => setUsername(e.target.value)}/>
+                        <p className='p-login-account'>Contraseña</p>
+                        <input type="password" placeholder="password" onChange={e => setPassword(e.target.value)}/>
+                    </div>
+                    <button className='styled-button' onClick={handleLogin}>Iniciar sesión</button>
                 </div>
-                <button className='styled-button' onClick={handleLogin}>Iniciar sesión</button>
+                <div>
+                    <Link to="/createUser" className='styled-link'>No tengo cuenta...</Link>
+                    <Link to="/game" className='styled-link'>Jugar como invitado</Link>    
+                </div>        
             </div>
-            <div>
-                <Link to="/createUser" className='styled-link'>No tengo cuenta...</Link>
-                <Link to="/game" className='styled-link'>Jugar como invitado</Link>    
-            </div>        
-        </div>
         </>
     )
 }
