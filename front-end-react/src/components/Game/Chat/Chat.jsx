@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { MessageList } from './MessageList.jsx';
 import { InputMessage } from './InputMessage.jsx';
 import { Desplegable } from '../Desplegable.jsx';
+
 import { socket } from './chat.js';
 
 export function Chat (){
@@ -55,7 +56,10 @@ export function Chat (){
             <Desplegable left_initial={false} setStyle={setDesplegable}/>
             
             <MessageList messages={messages} />
-            <InputMessage sendMessage={sendMessage} />
+            <div className=''>
+                <InputMessage sendMessage={sendMessage} />
+            </div>
+
         </div>
     )
 }
