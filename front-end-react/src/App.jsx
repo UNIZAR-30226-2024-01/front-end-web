@@ -5,6 +5,7 @@ import { Home } from './components/Home/Home'
 import { Game } from './components/Game/Game'
 import { Page404 } from './components/Page404'
 import { Routes, Route, /*Link*/ } from 'react-router-dom'
+import { ShowCartas } from './components/Cartas/ShowCartas'
 // import { Carta } from './components/Carta.jsx'
 
 /****** 👇🏼 ROUTES 👇🏼 ****** 
@@ -37,6 +38,7 @@ function App() {
         <Route path='/createuser' element={<CreateUser/>}/>
         <Route path='/home' element={<Home/>}/>
         <Route path='/game' element={<Game/>}/>
+        <Route path='/cartas' element={<ShowCartas/>}/>
         <Route path='*' element={<Page404 />}/> 
       </Routes> 
    

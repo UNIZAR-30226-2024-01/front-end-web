@@ -1,6 +1,6 @@
 import '../../../../../front-end-shared/css/Home/ProgressBar.css'
 
-export function ProgressBar({completed}) {
+export function ProgressBar({completed, width='500px', height='70px'}) {
 
     const colorPalette = ['red', 'orange', 'yellow', 'green', 'blue']; // Define your color palette here
 
@@ -17,12 +17,17 @@ export function ProgressBar({completed}) {
         color = colorPalette[4];
     }
 
+    const containerStyles = {
+        height: height,
+        width: width
+    }
+
 
     return (
-        <div className='container-progress'>
+        <div className='container-progress' style={containerStyles}>
             <div className='container-styles' style={{backgroundColor: '#e0e0de'}}>
-                {/* <div className='border'/> */}
                 <div className='filler-styles' style={{width: `${completed}%`, backgroundColor: color}} />
+                <div className='border'/>
             </div>
             <span className='label-styles'>{`${completed}%`}</span>
         </div>
