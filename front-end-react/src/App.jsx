@@ -1,7 +1,9 @@
 import '../../../front-end-shared/css/App.css'
 import { CreateUser } from './components/CreateUser'
 import { Login } from './components/Login'
+import { Home } from './components/Home/Home'
 import { Game } from './components/Game/Game'
+import { Page404 } from './components/Page404'
 import { Routes, Route, /*Link*/ } from 'react-router-dom'
 // import { Carta } from './components/Carta.jsx'
 
@@ -33,9 +35,9 @@ function App() {
       <Routes>
         <Route path='/' element={<Login/>}/>        
         <Route path='/createuser' element={<CreateUser/>}/>
-        <Route path='/menu' element={<h1>Menu</h1>}/>
+        <Route path='/home' element={<Home/>}/>
         <Route path='/game' element={<Game/>}/>
-        <Route path='*' element={<h1>Not found</h1>}/> 
+        <Route path='*' element={<Page404 />}/> 
       </Routes> 
    
     </>
