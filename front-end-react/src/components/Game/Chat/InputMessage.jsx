@@ -1,4 +1,4 @@
-import '../../../../../../front-end-shared/css/Chat/input-message.css';
+import '../../../../../../front-end-shared/css/Game/Chat/input-message.css';
 import { useState } from 'react'
 import GifPicker from 'gif-picker-react';
 

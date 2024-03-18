@@ -1,4 +1,4 @@
-import '../../../../../../front-end-shared/css/Chat/message.css';
+import '../../../../../../front-end-shared/css/Game/Chat/message.css';
 
 
 export function Message({ text, username }) {

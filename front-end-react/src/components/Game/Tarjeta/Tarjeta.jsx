@@ -1,4 +1,4 @@
-import '../../../../../../front-end-shared/css/Tarjeta/Tarjeta.css';
+import '../../../../../../front-end-shared/css/Game/Tarjeta/Tarjeta.css';
 
 
 import { useState } from 'react'

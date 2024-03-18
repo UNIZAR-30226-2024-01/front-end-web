@@ -1,4 +1,4 @@
-import '../../../../../../front-end-shared/css/Chat/special-message.css';
+import '../../../../../../front-end-shared/css/Game/Chat/special-message.css';
 
 export function SpecialMessage({props}) {
     const who = "MrSoper"

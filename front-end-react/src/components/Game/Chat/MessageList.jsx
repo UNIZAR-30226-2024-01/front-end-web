@@ -1,4 +1,4 @@
-import '../../../../../../front-end-shared/css/Chat/message-list.css';
+import '../../../../../../front-end-shared/css/Game/Chat/message-list.css';
 import { Message } from './Message';
 import { SpecialMessage } from './SpecialMessage';
 

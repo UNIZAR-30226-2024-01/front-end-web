@@ -1,4 +1,4 @@
-import '../../../../../../front-end-shared/css/Tablero/Tablero.css'
+import '../../../../../../front-end-shared/css/Game/Tablero/Tablero.css'
 
 import { Celda } from "./Celda.jsx";
 import { Text } from "./Text.jsx";

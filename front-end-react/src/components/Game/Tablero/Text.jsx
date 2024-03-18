@@ -1,5 +1,5 @@
 import { infoHabitaciones } from "../../../../../../front-end-shared/infoTablero.js";
-import '../../../../../../front-end-shared/css/Tablero/Text.css'
+import '../../../../../../front-end-shared/css/Game/Tablero/Text.css'
 
 
 

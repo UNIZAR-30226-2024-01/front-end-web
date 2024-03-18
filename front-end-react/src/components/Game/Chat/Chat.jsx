@@ -1,5 +1,5 @@
 
-import '../../../../../../front-end-shared/css/Chat/chat.css';
+import '../../../../../../front-end-shared/css/Game/Chat/chat.css';
 import { useState, useEffect } from 'react'
 import { MessageList } from './MessageList.jsx';
 import { InputMessage } from './InputMessage.jsx';
