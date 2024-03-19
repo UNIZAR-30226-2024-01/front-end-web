@@ -44,7 +44,6 @@ export function Tablero () {
                             )
                         })
                     }
-                    
                 </div>
             </div>
 
