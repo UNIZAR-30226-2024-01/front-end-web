@@ -1,10 +1,17 @@
 import '../../../../../../front-end-shared/css/Game/Chat/message-list.css';
-import { Message } from './Message';
+import { useEffect, useRef } from 'react'
 import { SpecialMessage } from './SpecialMessage';
+import { Message } from './Message';
 
 export const MessageList = ({ messages }) => {
+  const chatRef = useRef(null)
+  useEffect(() => {
+    chatRef.current.scrollTop = chatRef.current.scrollHeight;
+  }, [messages])
+
+
   return (
-    <ul className='message-list'>
+    <ul ref={chatRef} className='message-list'>
       {messages.map((props, index) => (
 
         props.type == 'message' 

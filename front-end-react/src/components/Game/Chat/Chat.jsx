@@ -12,6 +12,7 @@ export function Chat (){
     const [desplegable, setDesplegable] = useState(false)
     const style = { left: `${desplegable ? '0px' : '-425px' }`} 
 
+
     const sendMessage = (message) => {
         console.log('Sending message:', message);
         socket.auth.username = sessionStorage.getItem('username') ?? 'anonymous';
@@ -24,15 +25,16 @@ export function Chat (){
         socket.auth.username = sessionStorage.getItem('username') ?? 'anonymous';
         socket.auth.group = sessionStorage.getItem('group') ?? '0';
         socket.connect();
-
+        
         const onConnect = () => {
             console.log('Connected to server');
         } 
-    
-        const onChatResponse = (username, message) => {
+        
+        const onChatResponse = (username, message,serverOffset) => {
             console.log('Received message:', message);
             const newMessage = {"type":"message", "username":username, "text":message};
             console.log('newMessage:', newMessage); 
+            socket.auth.offset = serverOffset;
 
             username == "admin"
             ? setMessages((prevMessages) => [...prevMessages, {"type":"otro","username":username,"text":message}])
