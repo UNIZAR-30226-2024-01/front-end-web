@@ -11,6 +11,8 @@ export function Login() {
     const navigate = useNavigate();
     const [cookies, setCookie] = useCookies(['user']);
 
+
+
     const handleLogin = async () => {
         const response = await fetch('http://localhost:3000/login', {
             method: 'POST',
@@ -44,11 +46,11 @@ export function Login() {
                         <p className='p-login-account'>Contraseña</p>
                         <input type="password" placeholder="password" onChange={e => setPassword(e.target.value)}/>
                     </div>
-                    <button className='styled-button' onClick={handleLogin}>Iniciar sesión</button>
+                    <button className='login-button' onClick={handleLogin}>Iniciar sesión</button>
                 </div>
                 <div>
-                    <Link to="/createUser" className='styled-link'>No tengo cuenta...</Link>
-                    <Link to="/game" className='styled-link'>Jugar como invitado</Link>    
+                    <Link to="/createUser" className='login-link'>No tengo cuenta...</Link>
+                    <Link to="/game" className='login-link'>Jugar como invitado</Link>    
                 </div>        
             </div>
         </>

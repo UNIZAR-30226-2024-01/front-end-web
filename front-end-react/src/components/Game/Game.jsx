@@ -1,4 +1,5 @@
 import { Tarjeta } from "./Tarjeta/Tarjeta.jsx";
+// import { Navbar } from "../Home/Navbar.jsx";
 import { Chat } from "./Chat/Chat.jsx";
 import { Tablero } from "./Tablero/Tablero.jsx";
 import { CartaDesplegable } from "./Cartas/CartaDesplegable.jsx";
@@ -14,6 +15,7 @@ export function Game() {
 
   return (
     <>
+      {/* <Navbar /> */}
       <Tarjeta />
       <Chat />
       <CartaDesplegable />

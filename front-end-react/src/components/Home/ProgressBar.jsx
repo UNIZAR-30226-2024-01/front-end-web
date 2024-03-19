@@ -1,6 +1,7 @@
 import '../../../../../front-end-shared/css/Home/ProgressBar.css'
+import { useCookies } from 'react-cookie'
 
-export function ProgressBar({completed, width='500px', height='70px'}) {
+export function ProgressBar({completed, width='550px', height='70px'}) {
 
     const colorPalette = ['red', 'orange', 'yellow', 'green', 'blue']; // Define your color palette here
 
@@ -22,6 +23,30 @@ export function ProgressBar({completed, width='500px', height='70px'}) {
         width: width
     }
 
+    const [cookies] = useCookies(['user'])
+
+    /* 
+        Obtain XP from the DB and calculate the level. Level is calculated by the following formula:
+        level = 100 * 1.2^(xp); where xp is the amount of experience points the user has (obtained from the DB)
+    */
+    const obtainXP = async () => { 
+        const response = await fetch('http://localhost:3000/obtainXP', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: cookies.user,
+            }),
+        });
+        const data = await response.json();
+        return data.xp;
+    }
+
+    const calculateLevel = async () => {
+        const xp = await obtainXP();
+        return Math.floor(100 * Math.pow(1.2, xp));
+    }
 
     return (
         <div className='container-progress' style={containerStyles}>
@@ -29,7 +54,8 @@ export function ProgressBar({completed, width='500px', height='70px'}) {
                 <div className='filler-styles' style={{width: `${completed}%`, backgroundColor: color}} />
                 <div className='border'/>
             </div>
-            <span className='label-styles'>{`${completed}%`}</span>
+            <span className='xp-percentage'>{`${completed}%`}</span>
+            <span className='xp-level'>{`Lvl: 22`}</span>
         </div>
       )
 }
