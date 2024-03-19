@@ -1,6 +1,5 @@
-// import '../../../../../front-end-shared/css/Carta.css'
-import '../../../../../front-end-shared/css/Carta.css'
-import { GameItems } from "../GameItems";
+import '../../../../../../front-end-shared/css/Game/Cartas/Carta.css'
+import { GameItems } from "../../GameItems";
 
 export function Carta( {player_name} ) {
 

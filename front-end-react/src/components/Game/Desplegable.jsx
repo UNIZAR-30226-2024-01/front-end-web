@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 
-export function Desplegable ({ left_initial, setStyle }) {
+export function Desplegable({ left_initial, setStyle }) {
 
     const [left, setLeft] = useState(left_initial) 
 

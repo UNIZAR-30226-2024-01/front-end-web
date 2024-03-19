@@ -1,6 +1,7 @@
 import { Tarjeta } from "./Tarjeta/Tarjeta.jsx";
 import { Chat } from "./Chat/Chat.jsx";
 import { Tablero } from "./Tablero/Tablero.jsx";
+import { CartaDesplegable } from "./Cartas/CartaDesplegable.jsx";
 
 export function Game() {
   const style= {
@@ -15,6 +16,7 @@ export function Game() {
     <>
       <Tarjeta />
       <Chat />
+      <CartaDesplegable />
       <div style={style}>
         <Tablero />
       </div>

@@ -1,4 +1,4 @@
-import { Carta } from "../Game/Carta"
+import { Carta } from "../Game/Cartas/Carta"
 import './ShowCartas.css'
 
 export function ShowCartas() {

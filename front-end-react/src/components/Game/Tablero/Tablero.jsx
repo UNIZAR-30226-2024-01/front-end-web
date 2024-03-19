@@ -5,7 +5,7 @@ import { Text } from "./Text.jsx";
 import { useState, useEffect } from "react";
 
 export function Tablero () {
-
+    const [size, setSize] = useState('m');
     const [filas] = useState(24);
     const [columnas] = useState(24);
     const [tablero, setTablero] = useState([]);
@@ -25,14 +25,13 @@ export function Tablero () {
 
     const [rooms] = useState(10)
 
-
     return (
-        <>
+        <div className='tablero-body'>
             <div className="tablero">
                 {tablero.map((fila, i) => (
                     <div className="fila" key={i}>
                         {fila.map((celda, j) => (
-                            <Celda key={j} fil={i} col={j}/>
+                            <Celda key={j} fil={i} col={j} tam={size}/>
                         ))}
                     </div>
                 ))}
@@ -46,7 +45,11 @@ export function Tablero () {
                     }
                 </div>
             </div>
-
-        </>
+            <div className='tablero-container-button'>
+                <button onClick={() => {setSize('s')}}>S</button>
+                <button onClick={() => {setSize('m')}}>M</button>
+                <button onClick={() => {setSize('l')}}>L</button>
+            </div>
+        </div>
     ); 
 }
