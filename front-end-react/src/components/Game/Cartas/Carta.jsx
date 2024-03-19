@@ -1,7 +1,7 @@
 import '../../../../../../front-end-shared/css/Game/Cartas/Carta.css'
 import { GameItems } from "../../GameItems";
 
-export function Carta( {player_name} ) {
+export function Carta( {player_name, hover=true} ) {
 
     let styleImage 
     if (player_name === 'back') {
@@ -12,9 +12,11 @@ export function Carta( {player_name} ) {
             objectPosition: 'center'
         }
     }
+   
+    const className = 'carta' + (hover ? ' carta-hover': '')
 
     return (
-        <div className="carta">
+        <div className={className}>
             <div className='image' style={styleImage}>
                 <GameItems player_name={player_name}/>
                 <GameItems player_name={player_name}/>

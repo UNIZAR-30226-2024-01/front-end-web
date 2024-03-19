@@ -45,11 +45,11 @@ export function Tablero () {
                     }
                 </div>
             </div>
-            <div className='tablero-container-button'>
+            {/* <div className='tablero-container-button'>
                 <button onClick={() => {setSize('s')}}>S</button>
                 <button onClick={() => {setSize('m')}}>M</button>
                 <button onClick={() => {setSize('l')}}>L</button>
-            </div>
+            </div> */}
         </div>
     ); 
 }
