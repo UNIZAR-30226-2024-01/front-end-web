@@ -31,7 +31,7 @@ export function CreateUser() {
         .then(response => response.json())
         .then(() => {
             alert('Account created!');
-            navigate('/game');
+            navigate('/home');
         })
         .catch((error) => {
             console.error('Error:', error);

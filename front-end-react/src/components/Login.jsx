@@ -2,14 +2,14 @@ import { useState } from 'react';
 import '../../../../front-end-shared/css/Login/Login.css'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
-
+import { useCookies } from 'react-cookie';
 
 export function Login() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-
+    const [cookies, setCookie] = useCookies(['user']);
 
     const handleLogin = async () => {
         const response = await fetch('http://localhost:3000/login', {
@@ -24,7 +24,9 @@ export function Login() {
         });
         const data = await response.json();
         if (data.success === true) {
-            navigate('/game');
+            setCookie('user', username, { path: '/' });
+
+            navigate('/home');
         } else {
             alert('Usuario o contraseña incorrectos');
         }
