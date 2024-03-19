@@ -1,14 +1,17 @@
 /* eslint-disable react/prop-types */
 import { TableCell } from './TableCell'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-export const TableRow = ({ name }) => {
+export const TableRow = ({ name, initialState=null, handleChange, fila}) => {
     
     const [estado, setEstado] = useState(() => {
-        return Array(7).fill(0);
+        if (initialState === "" | initialState === null) {
+            return Array(7).fill(0)
+        }
+        return Object.values(initialState)
     })
 
-    const [estadoAnterior, setEstadoAnterior] = useState()
+    const [estadoAnterior, setEstadoAnterior] = useState(Array(7).fill(0))
 
     const handleClick = () => {
         if (estado.every((value) => value === 1)) {
@@ -19,12 +22,16 @@ export const TableRow = ({ name }) => {
         setEstadoAnterior(estado)        
         const nuevoEstado = Array(7).fill(1)
         setEstado(nuevoEstado)
+
+        handleChange(fila,nuevoEstado)
     }
 
     const changeState = (index) => {
         const nuevoEstado = [...estado]
         nuevoEstado[index] = (nuevoEstado[index] + 1) % 4
         setEstado(nuevoEstado)
+
+        handleChange(fila,nuevoEstado)
     }
 
     return (
