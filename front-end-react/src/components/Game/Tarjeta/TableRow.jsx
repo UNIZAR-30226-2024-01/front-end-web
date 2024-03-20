@@ -16,6 +16,7 @@ export const TableRow = ({ name, initialState=null, handleChange, fila}) => {
     const handleClick = () => {
         if (estado.every((value) => value === 1)) {
             setEstado(estadoAnterior)
+            handleChange(fila,estadoAnterior)
             return
         }
         

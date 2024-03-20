@@ -1,5 +1,5 @@
 import '../../../../../../front-end-shared/css/Game/Cartas/Carta.css'
-import { GameItems } from "../../GameItems";
+import { GameItems } from "./GameItems";
 
 export function Carta( {player_name, hover=true} ) {
 
