@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
-import { BACKEND_URL } from '../../consts';
+import { BACKEND_URL } from '../consts';
 
 export function Login() {
 
