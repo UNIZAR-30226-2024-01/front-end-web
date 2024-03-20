@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
+import { URI } from '../../consts';
+
 export function Login() {
 
     const [username, setUsername] = useState('');
@@ -14,7 +16,8 @@ export function Login() {
 
 
     const handleLogin = async () => {
-        const response = await fetch('http://localhost:3000/login', {
+        const url = URI + '/login';
+        const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

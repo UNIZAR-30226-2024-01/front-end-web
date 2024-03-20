@@ -1,6 +1,8 @@
 import '../../../../../front-end-shared/css/Home/ProgressBar.css'
 import { useCookies } from 'react-cookie'
 
+import { URL } from '../../consts'
+
 export function ProgressBar({completed, width='550px', height='70px'}) {
 
     const colorPalette = ['red', 'orange', 'yellow', 'green', 'blue']; // Define your color palette here
@@ -30,7 +32,8 @@ export function ProgressBar({completed, width='550px', height='70px'}) {
         level = 100 * 1.2^(xp); where xp is the amount of experience points the user has (obtained from the DB)
     */
     const obtainXP = async () => { 
-        const response = await fetch('http://localhost:3000/obtainXP', {
+        const url = URL + '/obtainXP';
+        const response = await fetch(url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

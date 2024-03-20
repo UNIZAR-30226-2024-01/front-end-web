@@ -3,6 +3,8 @@ import '../../../../front-end-shared/css/Login/CreateUser.css'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 
+import { URI } from '../consts';
+
 export function CreateUser() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -18,7 +20,8 @@ export function CreateUser() {
 
         //alert('Creating account...')
         //Send a POST request
-        fetch('http://localhost:3000/createAccount', {
+        const url = URI + '/createAccount'; 
+        fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
