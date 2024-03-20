@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
-import { URI } from '../../consts';
+import { BACKEND_URL } from '../../consts';
 
 export function Login() {
 
@@ -16,7 +16,7 @@ export function Login() {
 
 
     const handleLogin = async () => {
-        const url = URI + '/login';
+        const url = BACKEND_URL + '/login';
         const response = await fetch(url, {
             method: 'POST',
             headers: {
