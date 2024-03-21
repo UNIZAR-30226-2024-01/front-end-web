@@ -1,11 +1,10 @@
 import { io } from 'socket.io-client';
+import { BACKEND_URL } from '../../../consts';
 
-// "undefined" means the URL will be computed from the `window.location` object
-const URL = process.env.NODE_ENV === 'production' ? undefined : 'http://51.20.246.74:3000';
+const URL = process.env.NODE_ENV === 'production' ? undefined : BACKEND_URL;
 
 export const socket = io(URL, {
     auth: {
-        // username: sessionStorage.getItem('username') ?? 'anonymous'
         offset: obtenerFechaActual()
     },
     autoConnect: false,

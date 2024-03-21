@@ -29,7 +29,10 @@ export function Login() {
         });
         const data = await response.json();
         if (data.success === true) {
+
+            // escoger usar cookies o sessionStorage
             setCookie('user', username, { path: '/' });
+            sessionStorage.setItem('username', username);
 
             navigate('/home');
         } else {

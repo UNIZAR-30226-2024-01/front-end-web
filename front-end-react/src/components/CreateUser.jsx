@@ -9,9 +9,9 @@ export function CreateUser() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-
+    const navigate = useNavigate();
+    
     const HandleCreateAccount = () => {
-        const navigate = useNavigate();
 
         if (password !== confirmPassword) {
             alert('Passwords do not match!');
@@ -34,6 +34,7 @@ export function CreateUser() {
         .then(response => response.json())
         .then(() => {
             alert('Account created!');
+            sessionStorage.setItem('username', username);
             navigate('/home');
         })
         .catch((error) => {
