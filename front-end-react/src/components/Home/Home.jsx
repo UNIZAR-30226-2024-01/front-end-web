@@ -1,5 +1,5 @@
 import { ProgressBar } from "./ProgressBar"
-import { Navbar } from "./Navbar"
+import { NavbarHome } from "./NavbarHome"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import { useCookies } from "react-cookie"
@@ -32,7 +32,7 @@ export function Home() {
 
     return (
         <div className="home-root">
-            <Navbar />
+            <NavbarHome />
             <section className="aux">
                 <div className="home-username">
                     <p>{cookies.user}</p>

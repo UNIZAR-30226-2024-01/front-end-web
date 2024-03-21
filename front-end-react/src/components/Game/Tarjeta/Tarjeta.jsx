@@ -12,7 +12,7 @@ import { Desplegable } from '../Desplegable.jsx'
 export function Tarjeta() {
 
     const [desplegable, setDesplegable] = useState(false)
-    const style = { right: `${desplegable ? '0px' : '-354px' }`} 
+    const style = { right: `${desplegable ? '0px' : '-470px' }`} 
     const max_chars = 4
 
     useEffect(() => {
