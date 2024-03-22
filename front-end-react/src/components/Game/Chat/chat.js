@@ -1,7 +1,7 @@
 import { io } from 'socket.io-client';
 import { BACKEND_URL } from '../../../consts';
 
-const URL = process.env.NODE_ENV === 'production' ? undefined : BACKEND_URL;
+const URL = BACKEND_URL;
 
 export const socket = io(URL, {
     auth: {
