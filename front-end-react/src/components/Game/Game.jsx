@@ -5,12 +5,12 @@ import { Tablero } from "./Tablero/Tablero.jsx";
 import { CartaDesplegable } from "./Cartas/CartaDesplegable.jsx";
 
 export function Game() {
-  const style= {
+  const style = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     height: "100vh",
-  }
+  };
 
   const userStyle = {
     display: "flex",
@@ -21,7 +21,7 @@ export function Game() {
     fontSize: "20px",
     color: "#fff",
     textShadow: "2px 2px 4px #000000",
-  }
+  };
 
   /* Get the users from the database and if there isn't 
     enough players, set the name 'Bot_i' */

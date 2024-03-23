@@ -1,49 +1,48 @@
-import '../../../front-end-shared/css/App.css'
-import { CreateUser } from './components/CreateUser'
-import { Login } from './components/Login'
-import { Home } from './components/Home/Home'
-import { Game } from './components/Game/Game'
-import { Page404 } from './components/Page404'
-import { Routes, Route, /*Link*/ } from 'react-router-dom'
-import { ShowCartas } from './components/Cartas/ShowCartas'
-// import { Carta } from './components/Carta.jsx'
-
-/****** 👇🏼 ROUTES 👇🏼 ****** 
-# Not logged--> create account (username + password) or login
-# Logged: 
-  -no game started
-    -starting game (loading screen waiting for other players)
-    -in-game (new game)
-  -game started
-    -in-game (waiting for other players to join)
-**************************/
+import "../../../front-end-shared/css/App.css";
+import { CreateUser } from "./components/CreateUser";
+import { Login } from "./components/Login";
+import { Home } from "./components/Home/Home";
+import { Game } from "./components/Game/Game";
+import { Page404 } from "./components/Page404";
+// import { Routes, Route /*Link*/ } from "react-router-dom";
+import { ShowCartas } from "./components/Cartas/ShowCartas";
+import { useCookies } from "react-cookie";
+import { Navigate, useRoutes } from "react-router-dom";
 
 function App() {
-  
-  return (
-    <>
-      {/* 
-          If there's something you want to render in every page, put it here 
-          The rest of the routing rendering will be inside 'Routes'
 
-          Use 'Link' to navigate between pages instead of 'a' tags because 'a' tags will refresh the page
-          and 'Link' will only change the URL (fast and smooth navigation between pages)
+    const [cookies] = useCookies(["token"]);
 
-          If you try to navigate to an url but you're not logged in, after logging in it can be used 'useLocation' hook 
-          to navigate to that previous url you were trying to access. 
-      */}
-    
-      <Routes>
-        <Route path='/' element={<Login/>}/>        
-        <Route path='/createuser' element={<CreateUser/>}/>
-        <Route path='/home' element={<Home/>}/>
-        <Route path='/game' element={<Game/>}/>
-        <Route path='/cartas' element={<ShowCartas/>}/>
-        <Route path='*' element={<Page404 />}/> 
-      </Routes> 
-   
-    </>
-  )
+    let element = useRoutes([
+      { path: "/", element: <Login /> },
+      { path: "/createuser", element: <CreateUser /> },
+      {
+        path: "/home",
+        element: cookies.token ? <Home /> : <Navigate to="/" replace />,
+      },
+      {
+        path: "/game",
+        element: cookies.token ? <Game /> : <Navigate to="/" replace />,
+      },
+      {
+        path: "/cartas",
+        element: cookies.token ? <ShowCartas /> : <Navigate to="/" replace />,
+      },
+      { path: "*", element: <Page404 /> },
+    ]);
+
+    return element;
+
+  // return (
+  //   <Routes>
+  //     <Route path="/" element={<Login />} />
+  //     <Route path="/createuser" element={<CreateUser />} />
+  //     <ProtectedRoute path="/home" element={<Home />} />
+  //     <ProtectedRoute path="/game" element={<Game />} />
+  //     <ProtectedRoute path="/cartas" element={<ShowCartas />} />
+  //     <Route path="*" element={<Page404 />} />
+  //   </Routes>
+  // );
 }
 
-export default App
+export default App;
