@@ -76,9 +76,6 @@ export function CreateUser() {
           <Link to="/" className="styled-link">
             Ya tengo cuenta...
           </Link>
-          <Link to="/game" className="styled-link">
-            Jugar como invitado
-          </Link>
         </div>
       </div>
     </>

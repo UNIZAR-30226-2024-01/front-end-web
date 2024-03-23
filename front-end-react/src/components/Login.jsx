@@ -35,6 +35,12 @@ export function Login() {
     }
   };
 
+  //
+  const handleGuestGame = () => {
+    setCookie("token", "valid", { path: "/" });
+    setCookie("username", "anonymous", { path: "/", maxAge: 3600 });
+  };
+
   return (
     <>
       <div className="parent">
@@ -62,7 +68,7 @@ export function Login() {
           <Link to="/createUser" className="login-link">
             No tengo cuenta...
           </Link>
-          <Link to="/game" className="login-link">
+          <Link to="/game" className="login-link" onClick={handleGuestGame}>
             Jugar como invitado
           </Link>
         </div>
