@@ -34,15 +34,15 @@ export function Game() {
       <CartaDesplegable />
       <div style={style}>
         <div style={userStyle}>
-          <p> user1 </p>
-          <p> user2 </p>
-          <p> user3 </p>
+          <h2> user1 </h2>
+          <h2> user2 </h2>
+          <h2> user3 </h2>
         </div>
         <Tablero />
         <div style={userStyle}>
-          <p> user4 </p>
-          <p> user5 </p>
-          <p> user6 </p>
+          <h2> user4 </h2>
+          <h2> user5 </h2>
+          <h2> user6 </h2>
         </div>
       </div>
     </>
