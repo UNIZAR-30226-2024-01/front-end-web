@@ -2,16 +2,15 @@ import { useState } from "react";
 import "../../../../../front-end-shared/css/Home/Settings.css";
 // import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-// import { useCookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 
 import { BACKEND_URL } from "../../consts";
 
 export function Settings() {
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const navigate = useNavigate();
-  // const [cookies, setCookie] = useCookies(["username, token"]);
+  const [cookies, ] = useCookies(["username"]);
 
   const handlePasswordChange = async () => {
     const url = BACKEND_URL + "/changePassword";
@@ -21,7 +20,7 @@ export function Settings() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: username,
+        username: cookies.username,
         oldPassword: password,
         newPassword: newPassword,
       }),
@@ -42,12 +41,6 @@ export function Settings() {
           <div className="container">
             <h1 className="inicia-sesion">Cambia tu contraseña</h1>
             <div className="loginForm">
-              <p className="p-login-account">Nombre de usuario</p>
-              <input
-                type="text"
-                placeholder="username"
-                onChange={(e) => setUsername(e.target.value)}
-              />
               <p className="p-login-account">Contraseña antigua</p>
               <input
                 type="password"
