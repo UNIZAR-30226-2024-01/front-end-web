@@ -16,6 +16,7 @@ export function NavbarHome() {
   const handleLogout = () => {
     // Remove the token cookie
     removeCookie("token", { path: "/" });
+    removeCookie("username", { path: "/" });
 
     // Navigate to the login page
     window.location.href = "/";
