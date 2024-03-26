@@ -28,3 +28,23 @@ function obtenerFechaActual() {
   return `${año}-${mes}-${dia} ${hora}:${minutos}:${segundos}.${milisegundos}${signoZonaHoraria}${horasZonaHoraria}`;
   //"2024-03-14 12:54:56.419369+00"
 }
+
+
+export const onConnect = () => {
+  console.log("Connected to server");
+};
+
+export const onChatResponse = (username, message, serverOffset) => {
+  console.log("Received message:", message);
+  const newMessage = { type: "message", username: username, text: message };
+  console.log("newMessage:", newMessage);
+  socket.auth.offset = serverOffset;
+
+  return newMessage;
+};
+
+export const onChatTurn = (username) =>  {
+  console.log(`Now is ${username}'s turn`);
+
+  
+};

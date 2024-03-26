@@ -5,7 +5,7 @@ import { InputMessage } from "./InputMessage.jsx";
 import { Desplegable } from "../Desplegable.jsx";
 import { useCookies } from "react-cookie";
 
-import { socket } from "./chat.js";
+import { socket, onConnect, onChatResponse, onChatTurn } from "../../socketio.js";
 
 export function Chat() {
   const [cookies] = useCookies(["username", "group"]);
@@ -26,32 +26,26 @@ export function Chat() {
   useEffect(() => {
     socket.auth.username = cookies.username ?? "anonymous";
     socket.auth.group = cookies.group ?? "0";
-    socket.connect();
+    socket.connect(); 
 
-    const onConnect = () => {
-      console.log("Connected to server");
+    const onChatResponseLocal = (username, message, serverOffset) => {
+      const messageReceived = onChatResponse(username, message, serverOffset);
+      setMessages((messages) => [...messages, messageReceived]);
     };
 
-    const onChatResponse = (username, message, serverOffset) => {
-      console.log("Received message:", message);
-      const newMessage = { type: "message", username: username, text: message };
-      console.log("newMessage:", newMessage);
-      socket.auth.offset = serverOffset;
-
-      username == "admin"
-        ? setMessages((prevMessages) => [
-            ...prevMessages,
-            { type: "otro", username: username, text: message },
-          ])
-        : setMessages((prevMessages) => [...prevMessages, newMessage]);
-    };
+    const onChatTurnLocal = (username) => {
+      return onChatTurn(username);
+    }
 
     socket.on("connect", onConnect);
-    socket.on("chat response", onChatResponse);
+    socket.on("chat response", onChatResponseLocal);
+    socket.on("chat turn", onChatTurnLocal);
 
     return () => {
       socket.off("connect", onConnect);
-      socket.off("chat response", onChatResponse);
+      socket.off("chat response", onChatResponseLocal);
+      socket.off("chat turn", onChatTurnLocal);
+
       socket.disconnect();
     };
   }, []);
