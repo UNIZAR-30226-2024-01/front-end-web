@@ -2,25 +2,24 @@ import "../../../../../front-end-shared/css/Home/NavbarHome.css";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 
-
 export function NavbarHome() {
   const [isOpen, setIsOpen] = useState(false);
-  const [,,removeCookie] = useCookies(["token"]);
+  const [, , removeCookie] = useCookies(["token"]);
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
   const handleConfig = () => {
-    alert("Redirigir a pantalla configuración");
-  }
+    window.location.href = "/settings";
+  };
 
   const handleLogout = () => {
     // Remove the token cookie
     removeCookie("token", { path: "/" });
-    
+
     // Navigate to the login page
     window.location.href = "/";
-  }
+  };
 
   return (
     <nav className="navbar-home">

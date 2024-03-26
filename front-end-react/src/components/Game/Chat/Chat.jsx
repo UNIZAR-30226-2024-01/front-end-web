@@ -5,7 +5,12 @@ import { InputMessage } from "./InputMessage.jsx";
 import { Desplegable } from "../Desplegable.jsx";
 import { useCookies } from "react-cookie";
 
-import { socket, onConnect, onChatResponse, onChatTurn } from "../../socketio.js";
+import {
+  socket,
+  onConnect,
+  onChatResponse,
+  onChatTurn,
+} from "../../socketio.js";
 
 export function Chat() {
   const [cookies] = useCookies(["username", "group"]);
@@ -26,7 +31,7 @@ export function Chat() {
   useEffect(() => {
     socket.auth.username = cookies.username ?? "anonymous";
     socket.auth.group = cookies.group ?? "0";
-    socket.connect(); 
+    socket.connect();
 
     const onChatResponseLocal = (username, message, serverOffset) => {
       const messageReceived = onChatResponse(username, message, serverOffset);
@@ -35,7 +40,7 @@ export function Chat() {
 
     const onChatTurnLocal = (username) => {
       return onChatTurn(username);
-    }
+    };
 
     socket.on("connect", onConnect);
     socket.on("chat response", onChatResponseLocal);

@@ -29,7 +29,6 @@ function obtenerFechaActual() {
   //"2024-03-14 12:54:56.419369+00"
 }
 
-
 export const onConnect = () => {
   console.log("Connected to server");
 };
@@ -43,8 +42,6 @@ export const onChatResponse = (username, message, serverOffset) => {
   return newMessage;
 };
 
-export const onChatTurn = (username) =>  {
+export const onChatTurn = (username) => {
   console.log(`Now is ${username}'s turn`);
-
-  
 };
