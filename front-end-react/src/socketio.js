@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-import { BACKEND_URL } from "../../../consts";
+import { BACKEND_URL } from "./consts.js";
 
 const URL = BACKEND_URL;
 

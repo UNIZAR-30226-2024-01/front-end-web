@@ -10,7 +10,7 @@ import {
   onConnect,
   onChatResponse,
   onChatTurn,
-} from "../../socketio.js";
+} from "../../../socketio.js";
 
 export function Chat() {
   const [cookies] = useCookies(["username", "group"]);
