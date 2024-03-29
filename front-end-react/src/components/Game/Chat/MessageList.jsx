@@ -13,7 +13,7 @@ export const MessageList = ({ messages }) => {
     <ul ref={chatRef} className="message-list">
       {messages.map((props, index) =>
         props.type == "message" ? (
-          <Message key={index} username={props.username} text={props.text} />
+          <Message key={index} username={props.username} text={props.text } timeStamp={props.timeStamp} />
         ) : (
           // : <li className="notification" key={index}>{props.text}</li>
           <SpecialMessage key={index} props={props} />

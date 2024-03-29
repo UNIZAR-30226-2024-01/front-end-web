@@ -1,6 +1,6 @@
 import "../../../../../../front-end-shared/css/Game/Chat/message.css";
 
-export function Message({ text, username }) {
+export function Message({ text, username, timeStamp }) {
   return (
     <li className="message">
       <p className="message-user">
@@ -11,6 +11,7 @@ export function Message({ text, username }) {
       ) : (
         <p className="message-text">{text}</p>
       )}
+      <p className = "timeStamp"> {timeStamp} </p>
     </li>
   );
 }
