@@ -23,10 +23,12 @@ function obtenerFechaActual() {
   const milisegundos = ("0" + fecha.getMilliseconds()).slice(-6); // Limitar a tres dígitos de precisión
   const zonaHorariaOffset = fecha.getTimezoneOffset();
   const signoZonaHoraria = zonaHorariaOffset > 0 ? "-" : "+";
-  const horasZonaHoraria = "00";
+  const horasZonaHoraria = (
+    "0" + Math.abs(fecha.getTimezoneOffset() / 60)
+  ).slice(-2);
 
   return `${año}-${mes}-${dia} ${hora}:${minutos}:${segundos}.${milisegundos}${signoZonaHoraria}${horasZonaHoraria}`;
-  //"2024-03-14 12:54:56.419369+00"
+  //"2024-03-14 12:54:56.419369+01"
 }
 
 export const onConnect = () => {
@@ -34,9 +36,13 @@ export const onConnect = () => {
 };
 
 export const onChatResponse = (username, message, serverOffset, timeStamp) => {
-  console.log("Received message:", message);
-  const newMessage = { type: "message", username: username, text: message , time: timeStamp};
-  console.log("newMessage:", newMessage);
+  const newMessage = {
+    type: "message",
+    username: username,
+    text: message,
+    time: timeStamp,
+  };
+  // console.log("newMessage:", newMessage);
   socket.auth.offset = serverOffset;
 
   return newMessage;
