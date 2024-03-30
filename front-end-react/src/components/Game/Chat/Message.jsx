@@ -1,6 +1,6 @@
 import "../../../../../../front-end-shared/css/Game/Chat/message.css";
 
-export function Message({ text, username, timeStamp }) {
+export function Message({ text, username, time }) {
   return (
     <li className="message">
       <p className="message-user">
@@ -10,8 +10,8 @@ export function Message({ text, username, timeStamp }) {
         <img height="150px" src={text} alt="gif" className="gif" />
       ) : (
         <p className="message-text">{text}</p>
-      )}
-      <p className = "timeStamp"> {timeStamp} </p>
+        )}
+      <p className = "timeStamp"> {time} </p>
     </li>
   );
 }

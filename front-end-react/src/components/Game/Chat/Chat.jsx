@@ -33,7 +33,7 @@ export function Chat() {
     socket.auth.group = cookies.group ?? "0";
     socket.connect();
 
-    const onChatResponseLocal = (username, message, serverOffset,timeStamp) => {
+    const onChatResponseLocal = (username, message, serverOffset, timeStamp) => {
       const messageReceived = onChatResponse(username, message, serverOffset, timeStamp);
       setMessages((messages) => [...messages, messageReceived]);
     };
