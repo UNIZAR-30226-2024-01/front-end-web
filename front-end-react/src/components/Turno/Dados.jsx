@@ -1,18 +1,35 @@
-import { useState } from "react";
 import "../../../../../front-end-shared/css/Game/Turno/Dados.css";
+import ReactDice from "react-dice-complete";
+import { useRef } from "react";
 
-export function Dados({ buttonText, onEndRoll }) {
-  const [diceResult, setDiceResult] = useState(12);
+export function Dados({ buttonText, finRoll }) {
+  const reactDice = useRef(null);
 
-  const handleRollDice = () => {
-    setDiceResult(Math.floor(Math.random() * 12) + 1);
-    onEndRoll();
+  const rollDone = (totalValue, values) => {
+    console.log("individual die values array:", values);
+    console.log("total dice value:", totalValue);
+  };
+
+  const rollAll = () => {
+    reactDice.current?.rollAll();
+    console.log("Tirando los dados");
+    finRoll();
   };
 
   return (
     <div className="dados">
-      <h1>{diceResult}</h1>
-      <button onClick={handleRollDice}>{buttonText}</button>
+      <ReactDice
+        defaultRoll={6}
+        numDice={2}
+        ref={reactDice}
+        rollDone={rollDone}
+        rollTime={1}
+        disableIndividual={true}
+        dotColor="#1315a2"
+        faceColor="#fff"
+        dieSize={100}
+      />
+      <button onClick={rollAll}>{buttonText}</button>
     </div>
   );
 }
