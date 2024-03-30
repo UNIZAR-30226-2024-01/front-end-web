@@ -3,6 +3,7 @@ import { NavbarGame } from "./NavbarGame.jsx";
 import { Chat } from "./Chat/Chat.jsx";
 import { Tablero } from "./Tablero/Tablero.jsx";
 import { CartaDesplegable } from "./Cartas/CartaDesplegable.jsx";
+import { Turno } from "../Turno/Turno.jsx";
 
 export function Game() {
   const style = {
@@ -28,6 +29,7 @@ export function Game() {
 
   return (
     <>
+      {/* <Turno /> */}
       <NavbarGame />
       <Tarjeta />
       <Chat />
