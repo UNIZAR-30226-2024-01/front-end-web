@@ -1,4 +1,4 @@
-import "../../../../../front-end-shared/css/Game/Turno/Dados.css";
+import "../../../../../../front-end-shared/css/Game/Turno/Dados.css";
 import ReactDice from "react-dice-complete";
 import { useRef } from "react";
 

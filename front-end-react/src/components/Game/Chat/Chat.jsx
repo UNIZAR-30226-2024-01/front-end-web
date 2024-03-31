@@ -1,5 +1,5 @@
 import "../../../../../../front-end-shared/css/Game/Chat/chat.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { MessageList } from "./MessageList.jsx";
 import { InputMessage } from "./InputMessage.jsx";
 import { Desplegable } from "../Desplegable.jsx";
@@ -11,13 +11,15 @@ import {
   onChatResponse,
   onChatTurn,
 } from "../../../socketio.js";
+import { DesplegablesContext } from "../../../context/desplegables.jsx";
 
 export function Chat() {
   const [cookies] = useCookies(["username", "group"]);
 
   const [messages, setMessages] = useState([]);
-  const [desplegable, setDesplegable] = useState(false);
-  const style = { left: `${desplegable ? "0px" : "-425px"}` };
+  const { chatDesplegado, setChatDesplegado } = useContext(DesplegablesContext);
+
+  const style = { left: `${chatDesplegado ? "0px" : "-425px"}` };
 
   const sendMessage = (message) => {
     console.log("Sending message:", message);
@@ -33,8 +35,18 @@ export function Chat() {
     socket.auth.group = cookies.group ?? "0";
     socket.connect();
 
-    const onChatResponseLocal = (username, message, serverOffset, timeStamp) => {
-      const messageReceived = onChatResponse(username, message, serverOffset, timeStamp);
+    const onChatResponseLocal = (
+      username,
+      message,
+      serverOffset,
+      timeStamp,
+    ) => {
+      const messageReceived = onChatResponse(
+        username,
+        message,
+        serverOffset,
+        timeStamp,
+      );
       setMessages((messages) => [...messages, messageReceived]);
     };
 
@@ -57,7 +69,11 @@ export function Chat() {
 
   return (
     <div className="chat-container" style={style}>
-      <Desplegable left_initial={false} setStyle={setDesplegable} />
+      <Desplegable
+        left_initial={false}
+        desplegado={chatDesplegado}
+        setDesplegado={setChatDesplegado}
+      />
 
       <MessageList messages={messages} />
       <div className="">

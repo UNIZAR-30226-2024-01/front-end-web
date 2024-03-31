@@ -62,7 +62,9 @@ export function Celda({ fil, col, tam = "m" }) {
     <div style={style} className={clase}>
       {
         // infoCell?.isDoor ? <Door dir={infoCell.isDoor}/> : null
-        infoCell?.isDoor ? <Flecha dir={infoCell.isDoor} /> : null
+        infoCell?.isDoor ? (
+          <Flecha dir={infoCell.isDoor} />
+        ) : null /*fil * 24 + col*/
       }
       {infoCell?.isStartingCell ? (
         <svg viewBox="0 0 100 100">

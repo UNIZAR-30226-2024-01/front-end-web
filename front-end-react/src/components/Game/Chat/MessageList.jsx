@@ -26,7 +26,7 @@ export const MessageList = ({ messages }) => {
         ) : (
           // : <li className="notification" key={index}>{props.text}</li>
           <SpecialMessage key={index} props={props} />
-        )
+        ),
       )}
     </ul>
   );

@@ -7,7 +7,7 @@ import "../../../../../front-end-shared/css/Home/Home.css";
 import boardGame from "../../../../../front-end-shared/images/boardGame.png";
 
 export function Home() {
-  const [completed, ] = useState(69);
+  const [completed] = useState(69);
   const [showGameModes, setShowGameModes] = useState(true);
   const navigate = useNavigate();
   const [cookies] = useCookies(["username"]);

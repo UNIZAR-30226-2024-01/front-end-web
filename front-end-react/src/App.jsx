@@ -9,6 +9,7 @@ import { Page404 } from "./components/Page404";
 import { ShowCartas } from "./components/Cartas/ShowCartas";
 import { useCookies } from "react-cookie";
 import { Navigate, useRoutes } from "react-router-dom";
+import { DesplegablesProvider } from "./context/desplegables";
 
 function App() {
   const [cookies] = useCookies(["token"]);
@@ -35,7 +36,7 @@ function App() {
     { path: "*", element: <Page404 /> },
   ]);
 
-  return element;
+  return <DesplegablesProvider>{element}</DesplegablesProvider>;
 
   // return (
   //   <Routes>

@@ -1,4 +1,4 @@
-import "../../../../../front-end-shared/css/Game/Turno/Turno.css";
+import "../../../../../../front-end-shared/css/Game/Turno/Turno.css";
 import { Dados } from "./Dados";
 
 export function Turno() {

@@ -231,16 +231,18 @@
 
 import "../../../../../../front-end-shared/css/Game/Tarjeta/Tarjeta.css";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { TableRow } from "./TableRow.jsx";
 import { TableHead } from "./TableHead.jsx";
 import { TableHeaderCell } from "./TableHeaderCell.jsx";
 import { Desplegable } from "../Desplegable.jsx";
+import { DesplegablesContext } from "../../../context/desplegables.jsx";
 
 export function Tarjeta() {
-  const [desplegable, setDesplegable] = useState(false);
-  const style = { right: `${desplegable ? "0px" : "-470px"}` };
+  const { tarjetaDesplegado, setTarjetaDesplegado } =
+    useContext(DesplegablesContext);
+  const style = { right: `${tarjetaDesplegado ? "0px" : "-470px"}` };
   const max_chars = 4;
 
   useEffect(() => {
@@ -265,7 +267,11 @@ export function Tarjeta() {
 
   return (
     <div className="tarjeta" data-hidden="true" style={style}>
-      <Desplegable left_initial={true} setStyle={setDesplegable} />
+      <Desplegable
+        left_initial={true}
+        desplegado={tarjetaDesplegado}
+        setDesplegado={setTarjetaDesplegado}
+      />
 
       <table className="tabla">
         <thead className="cabecera">

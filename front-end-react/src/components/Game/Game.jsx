@@ -6,11 +6,10 @@ import { Chat } from "./Chat/Chat.jsx";
 import { Tablero } from "./Tablero/Tablero.jsx";
 import { CartaDesplegable } from "./Cartas/CartaDesplegable.jsx";
 import { CharacterSelection } from "./CharacterSelection.jsx";
-// import { Turno } from "../Turno/Turno.jsx";
+import { Turno } from "./Turno/Turno.jsx";
 import { /* useEffect, */ useState } from "react";
 
 export function Game() {
-
   const [characterSelection, setCharacterSelection] = useState(true);
   const [myCharacter, setMyCharacter] = useState(null);
 
@@ -32,7 +31,7 @@ export function Game() {
           <CharacterSelection onSelectCharacter={handleCharacterSelection} />
         </div>
       )}
-      {/* isMyTurn && <Turno /> */}
+      {/* <Turno /> */}
       <NavbarGame />
       <Tarjeta />
       <Chat />
