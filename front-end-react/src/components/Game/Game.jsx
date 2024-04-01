@@ -59,10 +59,6 @@ export function Game() {
       <Chat />
       <CartaDesplegable />
       <MainTablero />
-
-      <button className="button-start-game" onClick={startGame}>
-        START GAME
-      </button>
     </>
   );
 }

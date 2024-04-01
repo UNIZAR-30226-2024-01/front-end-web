@@ -19,7 +19,7 @@ export function Chat() {
   const style = { left: `${chatDesplegado ? "0px" : "-425px"}` };
 
   const sendMessage = (message) => {
-    socket.emit("chat message", message);
+    socket.emit("chat-message", message);
   };
 
   useEffect(() => {
@@ -46,12 +46,12 @@ export function Chat() {
     };
 
     socket.on("connect", onConnect);
-    socket.on("chat response", onChatResponseLocal);
+    socket.on("chat-response", onChatResponseLocal);
     socket.on("chat turn", onChatTurnLocal);
 
     return () => {
       socket.off("connect", onConnect);
-      socket.off("chat response", onChatResponseLocal);
+      socket.off("chat-response", onChatResponseLocal);
       socket.off("chat turn", onChatTurnLocal);
     };
   }, [socket]);
