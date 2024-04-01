@@ -22,6 +22,7 @@ export const MessageList = ({ messages }) => {
             username={props.username}
             text={props.text}
             time={props.time}
+            character={props.character}
           />
         ) : (
           // : <li className="notification" key={index}>{props.text}</li>

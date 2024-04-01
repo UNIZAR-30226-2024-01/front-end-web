@@ -40,12 +40,14 @@ export function Chat() {
       message,
       serverOffset,
       timeStamp,
+      character,
     ) => {
       const messageReceived = onChatResponse(
         username,
         message,
         serverOffset,
         timeStamp,
+        character,
       );
       setMessages((messages) => [...messages, messageReceived]);
     };

@@ -1,11 +1,11 @@
 import "../../../../../../front-end-shared/css/Game/Chat/message.css";
 
-export function Message({ text, username, time }) {
+export function Message({ text, username, time, character}) {
   return (
     <li className="message">
       <section className="userAndTimeStamp">
         <p className="message-user">
-          <strong>{username}</strong> como <em>MrSoper:</em>
+          <strong>{username}</strong> como <em>{character}:</em>
         </p>
         <p className="chat-timeStamp"> {time} </p>
       </section>

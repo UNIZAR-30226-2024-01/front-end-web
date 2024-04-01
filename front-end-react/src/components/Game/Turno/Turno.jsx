@@ -14,17 +14,17 @@ export function Turno() {
   } = useContext(DesplegablesContext);
   const { parteTurno, setParteTurno } = useContext(TurnoContext);
 
-  const EndRoll = () => {
-    console.log("Fin de tirar los dados");
+  // const EndRoll = () => {
+  //   console.log("Fin de tirar los dados");
 
-    const $turnoDados = document.getElementById("turno-dados");
-    const $turnoTablero = document.getElementById("turno-tablero");
-    // const $turnoCartas = document.getElementById("turno-cartas");
+  //   const $turnoDados = document.getElementById("turno-dados");
+  //   const $turnoTablero = document.getElementById("turno-tablero");
+  //   // const $turnoCartas = document.getElementById("turno-cartas");
 
-    $turnoDados.classList.remove("turno-active");
-    $turnoDados.classList.add("turno-inactive");
-    $turnoTablero.classList.add("turno-active");
-  };
+  //   $turnoDados.classList.remove("turno-active");
+  //   $turnoDados.classList.add("turno-inactive");
+  //   $turnoTablero.classList.add("turno-active");
+  // };
 
   // ocultar todos los desplegables al inicio del turno
   useEffect(() => {
@@ -47,7 +47,7 @@ export function Turno() {
       </TurnoParte>
       <TurnoParte turno="informar">
         <div id="turno-dados">
-          <Dados buttonText={"Tirar los dados"} onEndRoll={EndRoll} />
+          <Dados buttonText={"Tirar los dados"} /* onEndRoll={EndRoll} */ />
         </div>
       </TurnoParte>
 

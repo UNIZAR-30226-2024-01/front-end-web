@@ -35,12 +35,13 @@ export const onConnect = () => {
   console.log("Connected to server");
 };
 
-export const onChatResponse = (username, message, serverOffset, timeStamp) => {
+export const onChatResponse = (username, message, serverOffset, timeStamp, character) => {
   const newMessage = {
     type: "message",
     username: username,
     text: message,
     time: timeStamp,
+    character: character,
   };
   // console.log("newMessage:", newMessage);
   socket.auth.offset = serverOffset;
