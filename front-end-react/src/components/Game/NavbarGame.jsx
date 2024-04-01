@@ -50,34 +50,7 @@ export function NavbarGame() {
             Abandonar partida
           </p>
           <p>Test_1</p>
-          <button
-            onClick={() => {
-              setOpcionesDesplegado((prev) => !prev);
-            }}
-          >
-            TOGGLE OPCIONES
-          </button>
-          <button
-            onClick={() => {
-              setChatDesplegado((prev) => !prev);
-            }}
-          >
-            TOGGLE CHAT
-          </button>
-          <button
-            onClick={() => {
-              setCartasDesplegado((prev) => !prev);
-            }}
-          >
-            TOGGLE CARTAS
-          </button>
-          <button
-            onClick={() => {
-              setTarjetaDesplegado((prev) => !prev);
-            }}
-          >
-            TOGGLE TARJETA
-          </button>
+
           <p>¡Suerte @{cookies.username}!</p>
         </div>
       )}

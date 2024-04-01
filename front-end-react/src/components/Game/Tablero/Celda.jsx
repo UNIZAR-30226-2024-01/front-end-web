@@ -16,7 +16,6 @@ function useCellContext(index) {
     }
     const array = Array(24 * 24).fill(false);
     const bfs = cellsClose(index, dice);
-    console.log(bfs.sort((a, b) => a - b));
     bfs.forEach((c) => (array[c] = true));
     setClicked((prev) => !prev);
     setCeldasOptions(JSON.stringify(array));

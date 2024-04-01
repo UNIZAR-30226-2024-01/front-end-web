@@ -13,26 +13,13 @@ import { useCookies } from "react-cookie";
 
 import { SocketContext } from "../../context/socket";
 import { socketio } from "../../socketio";
+import { MainTablero } from "./Tablero/MainTablero.jsx";
 
 export function Game() {
   const [characterSelection, setCharacterSelection] = useState(true);
-  const [myCharacter, setMyCharacter] = useState(null);
   const [cookies] = useCookies(["username", "group"]);
 
   const { socket, setSocket } = useContext(SocketContext);
-
-  const useHandleCharacterSelection = (character) => {
-    setMyCharacter(character);
-    setCharacterSelection(false); // Close the modal
-
-    // Send the character to the backend
-    const { error } = useFetch(
-      "/characterSelected",
-      { username: cookies.username, character: myCharacter },
-      "PUT"
-    );
-    if (error) console.error("Error sending character to the backend:", error);
-  };
 
   useEffect(() => {
     setSocket(socketio);
@@ -48,11 +35,22 @@ export function Game() {
   /* Get the users from the database and if there isn't
     enough players, set the name 'Bot_i' */
 
+  const startGame = () => {
+    console.log("start game");
+    socket.emit("start-game");
+  };
+
+  const handleCharacterSelection = () => {
+    console.log("character selected");
+    setCharacterSelection(false);
+  };
+
   return (
     <>
       {characterSelection && (
         <div className="game-characters-selection">
-          <CharacterSelection onSelectCharacter={useHandleCharacterSelection} />
+          <CharacterSelection onCharacterSelected={handleCharacterSelection} />
+          {/* <CharacterSelection /> */}
         </div>
       )}
       {/* <Turno /> */}
@@ -60,19 +58,11 @@ export function Game() {
       <Tarjeta />
       <Chat />
       <CartaDesplegable />
-      <div className="main-board">
-        <div className="users-info">
-          <h2> user1 </h2>
-          <h2> user2 </h2>
-          <h2> user3 </h2>
-        </div>
-        <Tablero />
-        <div className="users-info">
-          <h2> user4 </h2>
-          <h2> user5 </h2>
-          <h2> user6 </h2>
-        </div>
-      </div>
+      <MainTablero />
+
+      <button className="button-start-game" onClick={startGame}>
+        START GAME
+      </button>
     </>
   );
 }
