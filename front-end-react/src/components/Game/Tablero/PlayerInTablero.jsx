@@ -1,11 +1,9 @@
-import { useState } from "react";
+import { useContext } from "react";
 import "../../../../../../front-end-shared/css/Game/Tablero/PlayerInTablero.css";
-import { useCookies } from "react-cookie";
+import { UserCharContext } from "../../../context/userchar";
 
 export function PlayerInTablero({ index }) {
-  const [cookies] = useCookies();
-  const [characters] = useState(cookies.characters.names);
-  const [usernames] = useState(cookies.characters.characters);
+  const { characters, usernames } = useContext(UserCharContext);
 
   const character = characters[index];
   let username = usernames[index];

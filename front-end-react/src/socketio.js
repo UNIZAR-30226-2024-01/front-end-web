@@ -61,8 +61,9 @@ export const onChatTurn = (username) => {
   console.log(`Now is ${username}'s turn`);
 };
 
-export const onAvailableCharacters = (data, setAvailableCharacters) => {
+export const onAvailableCharacters = (data, setCharacters, setUsernames) => {
   // console.log("Available characters:", data);
-  const { characters } = data;
-  setAvailableCharacters(characters);
+  const { names, available } = data;
+  setCharacters(names);
+  setUsernames(available);
 };

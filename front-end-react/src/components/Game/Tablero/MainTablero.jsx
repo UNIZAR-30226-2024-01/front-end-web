@@ -6,7 +6,6 @@ import { PlayerInTablero } from "./PlayerInTablero";
 
 export function MainTablero() {
   const [cookies] = useCookies();
-  const [characters] = useState(cookies.characters.names);
 
   return (
     <div className="main-board">
