@@ -5,11 +5,11 @@ import { Home } from "./components/Home/Home";
 import { Settings } from "./components/Home/Settings";
 import { Game } from "./components/Game/Game";
 import { Page404 } from "./components/Page404";
-// import { Routes, Route /*Link*/ } from "react-router-dom";
 import { ShowCartas } from "./components/Cartas/ShowCartas";
 import { useCookies } from "react-cookie";
 import { Navigate, useRoutes } from "react-router-dom";
-import { DesplegablesProvider } from "./context/desplegables";
+
+import { Contexts } from "./context/Contexts";
 
 function App() {
   const [cookies] = useCookies(["token"]);
@@ -36,7 +36,7 @@ function App() {
     { path: "*", element: <Page404 /> },
   ]);
 
-  return <DesplegablesProvider>{element}</DesplegablesProvider>;
+  return <Contexts>{element}</Contexts>;
 
   // return (
   //   <Routes>

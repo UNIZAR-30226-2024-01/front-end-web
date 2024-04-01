@@ -1,9 +1,7 @@
 import { createContext, useState } from "react";
 
-// 1. crear el contexto
 export const DesplegablesContext = createContext();
 
-// 2. crear el Provider, para proveer el contexto
 export function DesplegablesProvider({ children }) {
   const [opcionesDesplegado, setOpcionesDesplegado] = useState(false);
   const [chatDesplegado, setChatDesplegado] = useState(false);

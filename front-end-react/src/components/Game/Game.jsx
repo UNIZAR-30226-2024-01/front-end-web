@@ -10,7 +10,7 @@ import { Turno } from "./Turno/Turno.jsx";
 import { /* useEffect, */ useState } from "react";
 
 export function Game() {
-  const [characterSelection, setCharacterSelection] = useState(true);
+  const [characterSelection, setCharacterSelection] = useState(false);
   const [myCharacter, setMyCharacter] = useState(null);
 
   const handleCharacterSelection = (character) => {
@@ -31,7 +31,7 @@ export function Game() {
           <CharacterSelection onSelectCharacter={handleCharacterSelection} />
         </div>
       )}
-      {/* <Turno /> */}
+      <Turno />
       <NavbarGame />
       <Tarjeta />
       <Chat />
