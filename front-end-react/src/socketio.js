@@ -3,8 +3,10 @@ import { BACKEND_URL } from "./consts.js";
 
 const URL = BACKEND_URL;
 
-export const socket = io(URL, {
+export const socketio = io(URL, {
   auth: {
+    username: "anonymous",
+    group: "0",
     offset: obtenerFechaActual(),
   },
   autoConnect: false,
@@ -35,7 +37,13 @@ export const onConnect = () => {
   console.log("Connected to server");
 };
 
-export const onChatResponse = (username, message, serverOffset, timeStamp, character) => {
+export const onChatResponse = (
+  username,
+  message,
+  serverOffset,
+  timeStamp,
+  character
+) => {
   const newMessage = {
     type: "message",
     username: username,
@@ -44,11 +52,17 @@ export const onChatResponse = (username, message, serverOffset, timeStamp, chara
     character: character,
   };
   // console.log("newMessage:", newMessage);
-  socket.auth.offset = serverOffset;
+  socketio.auth.offset = serverOffset;
 
   return newMessage;
 };
 
 export const onChatTurn = (username) => {
   console.log(`Now is ${username}'s turn`);
+};
+
+export const onAvailableCharacters = (data, setAvailableCharacters) => {
+  // console.log("Available characters:", data);
+  const { characters } = data;
+  setAvailableCharacters(characters);
 };

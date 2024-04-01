@@ -3,51 +3,40 @@ import { useState, useEffect, useContext } from "react";
 import { MessageList } from "./MessageList.jsx";
 import { InputMessage } from "./InputMessage.jsx";
 import { Desplegable } from "../Desplegable.jsx";
-import { useCookies } from "react-cookie";
+// import { useCookies } from "react-cookie";
 
-import {
-  socket,
-  onConnect,
-  onChatResponse,
-  onChatTurn,
-} from "../../../socketio.js";
+import { onConnect, onChatResponse, onChatTurn } from "../../../socketio.js";
 import { DesplegablesContext } from "../../../context/desplegables.jsx";
+import { SocketContext } from "../../../context/socket.jsx";
 
 export function Chat() {
-  const [cookies] = useCookies(["username", "group"]);
+  // const [cookies] = useCookies(["username", "group"]);
 
   const [messages, setMessages] = useState([]);
   const { chatDesplegado, setChatDesplegado } = useContext(DesplegablesContext);
+  const { socket } = useContext(SocketContext);
 
   const style = { left: `${chatDesplegado ? "0px" : "-425px"}` };
 
   const sendMessage = (message) => {
-    console.log("Sending message:", message);
-    socket.auth.username = cookies.username ?? "anonymous";
-    socket.auth.group = cookies.group ?? "0";
-
-    console.log("group :", socket.auth.group);
     socket.emit("chat message", message);
   };
 
   useEffect(() => {
-    socket.auth.username = cookies.username ?? "anonymous";
-    socket.auth.group = cookies.group ?? "0";
-    socket.connect();
-
+    if (!socket) return;
     const onChatResponseLocal = (
       username,
       message,
       serverOffset,
       timeStamp,
-      character, //<-- Add the appropriate character here (now empty string)  
+      character //<-- Add the appropriate character here (now empty string)
     ) => {
       const messageReceived = onChatResponse(
         username,
         message,
         serverOffset,
         timeStamp,
-        character,
+        character
       );
       setMessages((messages) => [...messages, messageReceived]);
     };
@@ -64,10 +53,8 @@ export function Chat() {
       socket.off("connect", onConnect);
       socket.off("chat response", onChatResponseLocal);
       socket.off("chat turn", onChatTurnLocal);
-
-      socket.disconnect();
     };
-  }, []);
+  }, [socket]);
 
   return (
     <div className="chat-container" style={style}>

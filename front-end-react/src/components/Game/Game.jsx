@@ -7,15 +7,19 @@ import { Tablero } from "./Tablero/Tablero.jsx";
 import { CartaDesplegable } from "./Cartas/CartaDesplegable.jsx";
 import { CharacterSelection } from "./CharacterSelection.jsx";
 // import { Turno } from "./Turno/Turno.jsx";
-import { /* useEffect, */ useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useFetch } from "../../hooks/useFetch.jsx";
 import { useCookies } from "react-cookie";
+
+import { SocketContext } from "../../context/socket";
+import { socketio } from "../../socketio";
 
 export function Game() {
   const [characterSelection, setCharacterSelection] = useState(true);
   const [myCharacter, setMyCharacter] = useState(null);
-  const [cookies] = useCookies(["username"]);
-  console.log("Cookies:", cookies);
+  const [cookies] = useCookies(["username", "group"]);
+
+  const { socket, setSocket } = useContext(SocketContext);
 
   const useHandleCharacterSelection = (character) => {
     setMyCharacter(character);
@@ -30,9 +34,18 @@ export function Game() {
     if (error) console.error("Error sending character to the backend:", error);
   };
 
-  // 👇🏼 Effect to change 'isMyTurn' --> true when the player's turn comes up so that the Turno component is displayed
+  useEffect(() => {
+    setSocket(socketio);
+  }, []);
 
-  /* Get the users from the database and if there isn't 
+  useEffect(() => {
+    if (!socket) return;
+    socket.auth.username = cookies.username ?? "anonymous";
+    socket.auth.group = cookies.group ?? "0";
+    socket.connect();
+  }, [socket]);
+
+  /* Get the users from the database and if there isn't
     enough players, set the name 'Bot_i' */
 
   return (
