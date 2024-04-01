@@ -40,7 +40,7 @@ export function Chat() {
       message,
       serverOffset,
       timeStamp,
-      character,
+      character, //<-- Add the appropriate character here (now empty string)  
     ) => {
       const messageReceived = onChatResponse(
         username,
