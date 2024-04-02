@@ -1,9 +1,12 @@
 import { useContext } from "react";
 import "../../../../../../front-end-shared/css/Game/Tablero/PlayerInTablero.css";
 import { UserCharContext } from "../../../context/userchar";
+import { GameItems } from "../Cartas/GameItems";
+import { TurnoContext } from "../../../context/turno";
 
 export function PlayerInTablero({ index }) {
   const { characters, usernames } = useContext(UserCharContext);
+  const { turnoOwner } = useContext(TurnoContext);
 
   const character = characters[index];
   let username = usernames[index];
@@ -12,7 +15,7 @@ export function PlayerInTablero({ index }) {
   if (!username) {
     username = "anonymous";
   }
-  const className = `player ${side}`;
+  const className = turnoOwner == character ? `player ${side} turn`  : `player ${side}`;
 
   let style = {};
   switch (character) {
@@ -39,10 +42,15 @@ export function PlayerInTablero({ index }) {
       break;
   }
 
+
+
   return (
-    <div style={style} className={className}>
-      <h1>{username}</h1>
-      <h2>{character}</h2>
+    <div className="main-player-in-tablero">
+      <div style={style} className={className}>
+        <h1>{username}</h1>
+        {character && <GameItems player_name={character.split(" ")[1]} />}
+        {/* <h2>🔍{character}</h2> */}
+      </div>
     </div>
   );
 }
