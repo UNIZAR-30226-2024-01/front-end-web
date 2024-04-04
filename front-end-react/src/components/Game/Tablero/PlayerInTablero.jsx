@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import "../../../../../../front-end-shared/css/Game/Tablero/PlayerInTablero.css";
-import { UserCharContext } from "../../../context/userchar";
+import { GameInfoContext } from "../../../context/gameinfo";
 import { GameItems } from "../Cartas/GameItems";
 import { TurnoContext } from "../../../context/turno";
 
 export function PlayerInTablero({ index }) {
-  const { characters, usernames } = useContext(UserCharContext);
+  const { characters, usernames } = useContext(GameInfoContext);
   const { turnoOwner } = useContext(TurnoContext);
 
   const character = characters[index];

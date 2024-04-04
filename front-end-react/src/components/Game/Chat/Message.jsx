@@ -1,9 +1,9 @@
 import "../../../../../../front-end-shared/css/Game/Chat/message.css";
-import { UserCharContext } from "../../../context/userchar";
+import { GameInfoContext } from "../../../context/gameinfo";
 import { useContext } from "react";
 
 export function Message({ text, username, time}) {
-  const { characters, usernames } = useContext(UserCharContext);
+  const { characters, usernames } = useContext(GameInfoContext);
   const character = characters[usernames.indexOf(username)];
 
   return (

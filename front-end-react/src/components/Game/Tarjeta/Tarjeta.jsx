@@ -238,10 +238,14 @@ import { TableHead } from "./TableHead.jsx";
 import { TableHeaderCell } from "./TableHeaderCell.jsx";
 import { Desplegable } from "../Desplegable.jsx";
 import { DesplegablesContext } from "../../../context/desplegables.jsx";
+import { GameInfoContext } from "../../../context/gameinfo.jsx";
 
 export function Tarjeta() {
-  const { tarjetaDesplegado, setTarjetaDesplegado } =
-    useContext(DesplegablesContext);
+  const { tarjetaDesplegado, setTarjetaDesplegado } = useContext(DesplegablesContext);
+  const { characters, guns, rooms } = useContext(GameInfoContext);
+
+  
+
   const style = { right: `${tarjetaDesplegado ? "0px" : "-470px"}` };
   const max_chars = 4;
 
@@ -262,8 +266,7 @@ export function Tarjeta() {
     sessionStorage.setItem("tarjeta", JSON.stringify(ss));
   };
 
-  const ss =
-    JSON.parse(sessionStorage.getItem("tarjeta")) ?? Array(28).fill("");
+  const ss = JSON.parse(sessionStorage.getItem("tarjeta")) ?? Array(28).fill("");
 
   return (
     <div className="tarjeta" data-hidden="true" style={style}>
@@ -324,37 +327,37 @@ export function Tarjeta() {
         <tbody id="table-body">
           <TableHead title="¿QUIÉN?" />
           <TableRow
-            name="mr SOPER"
+            name={characters[0]}
             initialState={ss[7]}
             handleChange={handleChange}
             fila={7}
           />
           <TableRow
-            name="miss REDES"
+            name={characters[1]}
             initialState={ss[8]}
             handleChange={handleChange}
             fila={8}
           />
           <TableRow
-            name="mr PROG"
+            name={characters[2]}
             initialState={ss[9]}
             handleChange={handleChange}
             fila={9}
           />
           <TableRow
-            name="miss FISICA"
+            name={characters[3]}
             initialState={ss[10]}
             handleChange={handleChange}
             fila={10}
           />
           <TableRow
-            name="mr DISCRETO"
+            name={characters[4]}
             initialState={ss[11]}
             handleChange={handleChange}
             fila={11}
           />
           <TableRow
-            name="miss IA"
+            name={characters[5]}
             initialState={ss[12]}
             handleChange={handleChange}
             fila={12}
@@ -362,37 +365,37 @@ export function Tarjeta() {
 
           <TableHead title="¿CON QUÉ?" />
           <TableRow
-            name="teclado"
+            name={guns[0]}
             initialState={ss[13]}
             handleChange={handleChange}
             fila={13}
           />
           <TableRow
-            name="asfixiar con cable de red"
+            name={guns[1]}
             initialState={ss[14]}
             handleChange={handleChange}
             fila={14}
           />
           <TableRow
-            name="raton envenenado"
+            name={guns[2]}
             initialState={ss[15]}
             handleChange={handleChange}
             fila={15}
           />
           <TableRow
-            name="router afilado"
+            name={guns[3]}
             initialState={ss[16]}
             handleChange={handleChange}
             fila={16}
           />
           <TableRow
-            name="troyano"
+            name={guns[4]}
             initialState={ss[17]}
             handleChange={handleChange}
             fila={17}
           />
           <TableRow
-            name="lanzar cd"
+            name={guns[5]}
             initialState={ss[18]}
             handleChange={handleChange}
             fila={18}
@@ -400,55 +403,55 @@ export function Tarjeta() {
 
           <TableHead title="¿DÓNDE?" />
           <TableRow
-            name="cafeteria"
+            name={rooms[0]}
             initialState={ss[19]}
             handleChange={handleChange}
             fila={19}
           />
           <TableRow
-            name="baños"
+            name={rooms[1]}
             initialState={ss[20]}
             handleChange={handleChange}
             fila={20}
           />
           <TableRow
-            name="recepcion"
+            name={rooms[2]}
             initialState={ss[21]}
             handleChange={handleChange}
             fila={21}
           />
           <TableRow
-            name="escaleras"
+            name={rooms[3]}
             initialState={ss[22]}
             handleChange={handleChange}
             fila={22}
           />
           <TableRow
-            name="bibloteca"
+            name={rooms[4]}
             initialState={ss[23]}
             handleChange={handleChange}
             fila={23}
           />
           <TableRow
-            name="laboratorio"
+            name={rooms[5]}
             initialState={ss[24]}
             handleChange={handleChange}
             fila={24}
           />
           <TableRow
-            name="despacho"
+            name={rooms[6]}
             initialState={ss[25]}
             handleChange={handleChange}
             fila={25}
           />
           <TableRow
-            name="aulas norte"
+            name={rooms[7]}
             initialState={ss[26]}
             handleChange={handleChange}
             fila={26}
           />
           <TableRow
-            name="aulas sur"
+            name={rooms[8]}
             initialState={ss[27]}
             handleChange={handleChange}
             fila={27}

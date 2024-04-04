@@ -1,15 +1,15 @@
 import "../../../../../front-end-shared/css/Game/CharacterSelection.css";
-import { useState, useContext, useEffect } from "react";
+import { /* useState, */ useContext, /* useEffect */ } from "react";
 import { SocketContext } from "../../context/socket";
 import { useCookies } from "react-cookie";
 
-import { UserCharContext } from "../../context/userchar";
+import { GameInfoContext } from "../../context/gameinfo";
 
 export function CharacterSelection({ onCharacterSelected }) {
   // export function CharacterSelection({ onSelectCharacter }) {
   const { socket } = useContext(SocketContext);
-  const { usernames, characters } = useContext(UserCharContext);
-  const [cookies, setCookie] = useCookies(["mycharacter", "characters"]);
+  const { usernames, characters } = useContext(GameInfoContext);
+  const [, setCookie] = useCookies(["mycharacter", "characters"]);
 
   const selectCharacter = (event) => {
     const character = event.target.innerText;

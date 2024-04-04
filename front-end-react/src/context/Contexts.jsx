@@ -2,16 +2,16 @@ import { CeldasProvider } from "./celdas";
 import { DesplegablesProvider } from "./desplegables";
 import { TurnoProvider } from "./turno";
 import { SocketProvider } from "./socket";
-import { UserCharProvider } from "./userchar";
+import { GameInfoProvider } from "./gameinfo";
 
 export function Contexts({ children }) {
   return (
     <SocketProvider>
       <DesplegablesProvider>
         <TurnoProvider>
-          <UserCharProvider>
+          <GameInfoProvider>
             <CeldasProvider>{children}</CeldasProvider>
-          </UserCharProvider>
+          </GameInfoProvider>
         </TurnoProvider>
       </DesplegablesProvider>
     </SocketProvider>
