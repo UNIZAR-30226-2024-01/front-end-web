@@ -9,13 +9,9 @@ import boardGame from "../../../../../front-end-shared/images/boardGame.png";
 export function Home() {
   const [completed] = useState(69);
   const [showGameModes, setShowGameModes] = useState(true);
+  const [multiplayer, setMultiplayer] = useState(false);
   const navigate = useNavigate();
   const [cookies] = useCookies(["username"]);
-
-  // Hide the 'Solitario' and 'Multijugador' buttons and show the 'Partida nueva' and 'Unirse a partida' buttons
-  const handleFirstClick = () => {
-    setShowGameModes(!showGameModes);
-  };
 
   const newGameClick = () => {
     navigate("/game");
@@ -52,10 +48,22 @@ export function Home() {
         <aside className="gameModes">
           {showGameModes ? (
             <>
-              <button className="gamemode-button" onClick={handleFirstClick}>
+              <button
+                className="gamemode-button"
+                onClick={() => {
+                  setMultiplayer(false);
+                  setShowGameModes(!showGameModes);
+                }}
+              >
                 Solitario
               </button>
-              <button className="gamemode-button" onClick={handleFirstClick}>
+              <button
+                className="gamemode-button"
+                onClick={() => {
+                  setMultiplayer(true);
+                  setShowGameModes(!showGameModes);
+                }}
+              >
                 Multijugador
               </button>
             </>
@@ -64,9 +72,11 @@ export function Home() {
               <button className="gamemode-button" onClick={newGameClick}>
                 Nueva partida
               </button>
-              <button className="gamemode-button" onClick={joinGameClick}>
-                Unirse a partida
-              </button>
+              {multiplayer && (
+                <button className="gamemode-button" onClick={joinGameClick}>
+                  Unirse a partida
+                </button>
+              )}
             </>
           )}
         </aside>
