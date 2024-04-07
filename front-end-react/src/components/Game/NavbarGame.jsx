@@ -51,7 +51,9 @@ export function NavbarGame() {
           </p>
           <p>Test_1</p>
 
-          <p>¡Suerte @{cookies.username}!</p>
+          <p onClick={() => {
+            navigate("/settings")
+          }}>¡Suerte @{cookies.username}!</p>
         </div>
       )}
     </nav>
