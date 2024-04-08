@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { BACKEND_URL } from "../consts";
 
-
-export const useFetch = (url, body, method) => {
+export const useFetch = (endpoint, body, method) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -10,7 +9,7 @@ export const useFetch = (url, body, method) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(BACKEND_URL+url, {
+        const response = await fetch(BACKEND_URL + endpoint, {
           method: method,
           headers: {
             "Content-Type": "application/json",
@@ -26,7 +25,7 @@ export const useFetch = (url, body, method) => {
       }
     };
     fetchData();
-  }, [url, body, method]);
+  }, [endpoint, body, method]);
 
   return { data, loading, error };
 };

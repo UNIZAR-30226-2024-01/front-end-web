@@ -7,9 +7,7 @@ import "../../../../../front-end-shared/css/Home/Home.css";
 import boardGame from "../../../../../front-end-shared/images/boardGame.png";
 
 export function Home() {
-  const [completed] = useState(69);
   const [showGameModes, setShowGameModes] = useState(true);
-  const [multiplayer, setMultiplayer] = useState(false);
   const navigate = useNavigate();
   const [cookies] = useCookies(["username"]);
 
@@ -33,7 +31,7 @@ export function Home() {
         <div className="home-username">
           <p>{cookies.username}</p>
         </div>
-        <ProgressBar completed={completed} />
+        <ProgressBar />
       </section>
 
       <section className="home-body">
@@ -51,7 +49,6 @@ export function Home() {
               <button
                 className="gamemode-button"
                 onClick={() => {
-                  setMultiplayer(false);
                   setShowGameModes(!showGameModes);
                 }}
               >
@@ -60,7 +57,6 @@ export function Home() {
               <button
                 className="gamemode-button"
                 onClick={() => {
-                  setMultiplayer(true);
                   setShowGameModes(!showGameModes);
                 }}
               >
@@ -72,11 +68,10 @@ export function Home() {
               <button className="gamemode-button" onClick={newGameClick}>
                 Nueva partida
               </button>
-              {multiplayer && (
-                <button className="gamemode-button" onClick={joinGameClick}>
-                  Unirse a partida
-                </button>
-              )}
+
+              <button className="gamemode-button" onClick={joinGameClick}>
+                Unirse a partida
+              </button>
             </>
           )}
         </aside>
