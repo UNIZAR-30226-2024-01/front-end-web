@@ -1,19 +1,23 @@
 import "../../../../../../front-end-shared/css/Game/Turno/Dados.css";
 import ReactDice from "react-dice-complete";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export function Dados({ buttonText, finRoll }) {
   const reactDice = useRef(null);
+  const [diceState, setDiceState] = useState(false);
 
   const rollDone = (totalValue, values) => {
-    console.log("individual die values array:", values);
-    console.log("total dice value:", totalValue);
+    if (!diceState) {
+      // console.log("falsos dados, no se hace nada");
+      setDiceState(!diceState);
+      return;
+    }
+    finRoll(totalValue);
   };
 
   const rollAll = () => {
     reactDice.current?.rollAll();
     console.log("Tirando los dados");
-    finRoll();
   };
 
   return (

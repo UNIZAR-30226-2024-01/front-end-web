@@ -18,7 +18,7 @@ export function GameInfoProvider({ children }) {
     socket.emit("request-game-info", {});
 
     const onGameInfoLocal = (data) => {
-      console.log("Available characters:", data.names);
+      // console.log("Available characters:", data.names);
       // console.log("Available guns:", data.guns);
       // console.log("Available rooms:", data.rooms);
       onGameInfo(data, setCharacters, setUsernames, setGuns, setRooms);

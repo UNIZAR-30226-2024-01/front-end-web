@@ -4,6 +4,7 @@ import { Tarjeta } from "./Tarjeta/Tarjeta.jsx";
 import { NavbarGame } from "./NavbarGame.jsx";
 import { Chat } from "./Chat/Chat.jsx";
 import { Tablero } from "./Tablero/Tablero.jsx";
+import { Turno } from "./Turno/Turno.jsx";
 import { CartaDesplegable } from "./Cartas/CartaDesplegable.jsx";
 import { CharacterSelection } from "./CharacterSelection.jsx";
 // import { Turno } from "./Turno/Turno.jsx";
@@ -18,6 +19,7 @@ import { MainTablero } from "./Tablero/MainTablero.jsx";
 export function Game() {
   const [characterSelection, setCharacterSelection] = useState(true);
   const [cookies] = useCookies(["username", "group"]);
+  const [iniciada, setIniciada] = useState(false);
 
   const { socket, setSocket } = useContext(SocketContext);
 
@@ -36,6 +38,7 @@ export function Game() {
     enough players, set the name 'Bot_i' */
 
   const startGame = () => {
+    setIniciada(true);
     console.log("start game");
     socket.emit("start-game");
   };
@@ -47,13 +50,18 @@ export function Game() {
 
   return (
     <>
-      {characterSelection && (
+      {/* {characterSelection && (
         <div className="game-characters-selection">
           <CharacterSelection onCharacterSelected={handleCharacterSelection} />
-          {/* <CharacterSelection /> */}
         </div>
+      )} */}
+      {!iniciada && (
+        <button className="start-game-button" onClick={startGame}>
+          Comenzar partida
+        </button>
       )}
-      {/* <Turno /> */}
+      
+      <Turno />
       <NavbarGame />
       <Tarjeta />
       <Chat />
