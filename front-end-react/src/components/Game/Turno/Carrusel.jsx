@@ -1,6 +1,5 @@
 export function Carrusel({ options }) {
   console.log(options);
-
   return (
     <select>
       {options.map((option) => (

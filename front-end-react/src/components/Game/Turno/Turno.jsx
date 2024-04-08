@@ -5,6 +5,7 @@ import { Carrusel } from "./Carrusel";
 import { DesplegablesContext } from "../../../context/desplegables";
 import { TurnoContext } from "../../../context/turno";
 import { GameInfoContext } from "../../../context/gameinfo";
+import { SocketContext } from "../../../context/socket";
 
 export function Turno() {
   const {
@@ -15,6 +16,7 @@ export function Turno() {
   } = useContext(DesplegablesContext);
   const { parteTurno, setParteTurno } = useContext(TurnoContext);
   const { characters, guns, rooms } = useContext(GameInfoContext);
+  const { socket } = useContext(SocketContext);
 
   // ocultar todos los desplegables al inicio del turno
   useEffect(() => {
@@ -24,7 +26,6 @@ export function Turno() {
     setOpcionesDesplegado(false);
     console.log("Turno iniciado");
     setParteTurno("es-tu-turno");
-    // setParteTurno("elegir-pregunta");
   }, []);
 
   useEffect(() => {
@@ -36,6 +37,26 @@ export function Turno() {
       setParteTurno("elegir-casilla");
     }, 2000);
   };
+
+  // useEffect grande para controlar el flujo del turno
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on("turno-owner", (username_owner) => {});
+    socket.on("turno-asks-for", (username_asking, character, gun, room) => {});
+    socket.on(
+      "turno-show-cards",
+      (username_showed, username_shower, character, gun, room) => {}
+    );
+    socket.on("turno-moves-to", (username, position) => {});
+
+    return () => {
+      socket.off("turno-owner");
+      socket.off("turno-asks-for");
+      socket.off("turno-show-cards");
+      socket.off("turno-moves-to");
+    };
+  }, [socket]);
 
   return (
     <div className="turno">
@@ -50,6 +71,8 @@ export function Turno() {
       )}
 
       {parteTurno == "es-tu-turno" && (
+        // Poner temporizador de n segundos mostrando el tiempo del turno
+
         <div>
           <h1 className="tu-turno-texto">Es tu turno</h1>
           <script>
@@ -59,6 +82,7 @@ export function Turno() {
           </script>
         </div>
       )}
+
       {parteTurno == "dados" && (
         <div id="turno-dados">
           <Dados
