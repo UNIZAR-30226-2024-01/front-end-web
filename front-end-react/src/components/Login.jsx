@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React from 'react';
 import "../../../../front-end-shared/css/Login/Login.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +8,7 @@ import { useCookies } from "react-cookie";
 import { BACKEND_URL } from "../consts";
 
 export function Login() {
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -29,7 +31,8 @@ export function Login() {
       // setCookie("token", data.token, { path: "/" }); <-- Implement the token response from the backend
       setCookie("token", "valid", { path: "/" });
       setCookie("username", username, { path: "/" });
-      navigate("/home");
+      //navigate("/home");
+      useNavigate("/home");
     } else {
       alert("Usuario o contraseña incorrectos");
     }

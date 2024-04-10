@@ -1,11 +1,12 @@
 import { useState } from "react";
+import React from 'react';
 import "../../../../front-end-shared/css/Login/CreateUser.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import { BACKEND_URL } from "../consts";
 
-export function CreateUser() {
+function CreateUser() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -81,3 +82,6 @@ export function CreateUser() {
     </>
   );
 }
+
+export default CreateUser;
+

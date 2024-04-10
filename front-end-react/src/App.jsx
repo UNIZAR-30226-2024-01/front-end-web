@@ -15,7 +15,8 @@ function App() {
 
   let element = useRoutes([
     { path: "/", element: <Login /> },
-    { path: "/createuser", element: <CreateUser /> },
+    { path: "/create-user",
+      component: <CreateUser />},
     {
       path: "/home",
       element: cookies.token ? <Home /> : <Navigate to="/" replace />,
