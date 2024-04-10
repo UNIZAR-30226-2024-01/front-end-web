@@ -1,8 +1,6 @@
 import "../../../../../../front-end-shared/css/Game/Chat/input-message.css";
 import { useState } from "react";
 import GifPicker from "gif-picker-react";
-import React from 'react';
-
 
 export const InputMessage = ({ sendMessage }) => {
   const [inputValue, setInputValue] = useState("");
@@ -60,8 +58,6 @@ export const InputMessage = ({ sendMessage }) => {
               value={inputValue}
               onChange={handleInputChange}
               placeholder="escribe aquí..."
-              data-testid="input-message" // Asegúrate de agregar esto
-
             />
             <button className="button-chat" type="submit">
               Enviar
