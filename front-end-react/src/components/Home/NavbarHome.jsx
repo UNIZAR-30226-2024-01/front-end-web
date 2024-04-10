@@ -1,19 +1,16 @@
 import "../../../../../front-end-shared/css/Home/NavbarHome.css";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
 
 export function NavbarHome() {
   const [isOpen, setIsOpen] = useState(false);
   const [, , removeCookie] = useCookies(["token"]);
-  const navigate = useNavigate();
-
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
   const handleConfig = () => {
-    navigate("/settings");
+    window.location.href = "/settings";
   };
 
   const handleLogout = () => {
@@ -22,7 +19,7 @@ export function NavbarHome() {
     removeCookie("username", { path: "/" });
 
     // Navigate to the login page
-    navigate("/");
+    window.location.href = "/";
   };
 
   return (
@@ -46,6 +43,7 @@ export function NavbarHome() {
 
       {isOpen && (
         <div className="menu">
+          <p>Perfil</p>
           <p onClick={handleConfig}>Configuración</p>
           <p onClick={handleLogout}>Cerrar sesión</p>
         </div>

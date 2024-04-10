@@ -1,46 +1,8 @@
-import { useContext, useState } from "react";
 import "../../../../../../front-end-shared/css/Game/Tablero/Celda.css";
 import { infoTablero } from "../../../../../../front-end-shared/infoTablero.js";
-import { CeldasContext } from "../../../context/celdas.jsx";
 import { Door } from "../../Icons.jsx";
 
-import { cellsClose } from "../../../bfs.mjs";
-
-function useCellContext(index) {
-  const handleClickContext = (index, dice) => {
-    if (clicked) {
-      const array = Array(24 * 24).fill(false);
-      setCeldasOptions(JSON.stringify(array));
-      setClicked((prev) => !prev);
-      return;
-    }
-    const array = Array(24 * 24).fill(false);
-    const bfs = cellsClose(index, dice);
-    bfs.forEach((c) => (array[c] = true));
-    setClicked((prev) => !prev);
-    setCeldasOptions(JSON.stringify(array));
-  };
-
-  const [clicked, setClicked] = useState(false);
-  const { celdasOptions, setCeldasOptions } = useContext(CeldasContext);
-  const infoCellContext = JSON.parse(celdasOptions)[index];
-  const infoCell = infoTablero[index];
-  let selected = false;
-  infoCellContext ? (selected = true) : null;
-  if (infoCell.isRoom) {
-    // buscar las puertas de la habitacion
-    const doors = infoTablero.filter(
-      (c) => c.roomName === infoCell.roomName && c.isDoor
-    );
-    // si alguna esta seleccionada, añadir clase
-    if (doors.some((c) => JSON.parse(celdasOptions)[c.idx])) {
-      selected = true;
-    }
-  }
-  return { selected, handleClickContext };
-}
-
-function setSize(tam) {
+export function Celda({ fil, col, tam = "m" }) {
   let style;
   switch (tam) {
     case "s":
@@ -67,11 +29,6 @@ function setSize(tam) {
     default:
       break;
   }
-  return style;
-}
-
-export function Celda({ fil, col, tam = "m" }) {
-  let style = setSize(tam);
 
   const infoCell = infoTablero[fil * 24 + col];
 
@@ -99,18 +56,13 @@ export function Celda({ fil, col, tam = "m" }) {
     }
   }
 
-  const { selected, handleClickContext } = useCellContext(fil * 24 + col);
-
-  selected ? (clase += " selected") : null;
   style.width = style.width + "px";
   style.height = style.height + "px";
-  const handleClick = () => handleClickContext(fil * 24 + col, 2);
-
   return (
-    <div style={style} className={clase} onClick={handleClick}>
+    <div style={style} className={clase}>
       {
+        // infoCell?.isDoor ? <Door dir={infoCell.isDoor}/> : null
         infoCell?.isDoor ? <Flecha dir={infoCell.isDoor} /> : null
-        // infoCell?.isDoor ? <Flecha dir={infoCell.isDoor} /> : fil * 24 + col
       }
       {infoCell?.isStartingCell ? (
         <svg viewBox="0 0 100 100">

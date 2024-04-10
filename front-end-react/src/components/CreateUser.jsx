@@ -3,7 +3,6 @@ import React from 'react';
 import "../../../../front-end-shared/css/Login/CreateUser.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
 
 import { BACKEND_URL } from "../consts";
 
@@ -12,17 +11,17 @@ function CreateUser() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
-  const [, setCookie] = useCookies(["username, token"]);
 
-  const HandleCreateAccount = async () => {
+  const HandleCreateAccount = () => {
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
 
+    //alert('Creating account...')
     //Send a POST request
     const url = BACKEND_URL + "/createAccount";
-    const response = await fetch(url, {
+    fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -31,15 +30,16 @@ function CreateUser() {
         username: username,
         password: password,
       }),
-    });
-    const data = await response.json();
-    if (data.success === true) {
-      setCookie("token", "valid", { path: "/" });
-      setCookie("username", username, { path: "/" });
-      navigate("/home");
-    } else {
-      alert("No se ha podido crear la cuenta. Inténtalo de nuevo.");
-    }
+    })
+      .then((response) => response.json())
+      .then(() => {
+        alert("Account created!");
+        sessionStorage.setItem("username", username);
+        navigate("/home");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (
