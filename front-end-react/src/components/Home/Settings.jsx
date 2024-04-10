@@ -10,7 +10,7 @@ export function Settings() {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const navigate = useNavigate();
-  const [cookies, ] = useCookies(["username"]);
+  const [cookies] = useCookies(["username"]);
 
   const handlePasswordChange = async () => {
     const url = BACKEND_URL + "/changePassword";

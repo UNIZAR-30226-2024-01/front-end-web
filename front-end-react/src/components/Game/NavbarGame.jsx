@@ -1,14 +1,24 @@
-import { useState } from "react";
+// import { useState } from "react";
 import "../../../../../front-end-shared/css/Game/NavbarGame.css";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { DesplegablesContext } from "../../context/desplegables";
 
 export function NavbarGame() {
-  const [isOpen, setIsOpen] = useState(false);
+  const {
+    opcionesDesplegado,
+    setOpcionesDesplegado,
+    setChatDesplegado,
+    setCartasDesplegado,
+    setTarjetaDesplegado,
+  } = useContext(DesplegablesContext);
 
-  const [cookies] = useCookies(["user"]);
+  const [cookies] = useCookies(["username"]);
 
+  const navigate = useNavigate();
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    setOpcionesDesplegado((prev) => !prev);
   };
 
   return (
@@ -30,11 +40,20 @@ export function NavbarGame() {
         </svg>
       </div>
 
-      {isOpen && (
+      {opcionesDesplegado && (
         <div className="menu">
-          <p>Abandonar partida</p>
+          <p
+            onClick={() => {
+              navigate("/home");
+            }}
+          >
+            Abandonar partida
+          </p>
           <p>Test_1</p>
-          <p>¡Suerte {cookies.user}!</p>
+
+          <p onClick={() => {
+            navigate("/settings")
+          }}>¡Suerte @{cookies.username}!</p>
         </div>
       )}
     </nav>

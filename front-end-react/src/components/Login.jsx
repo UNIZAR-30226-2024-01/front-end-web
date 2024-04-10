@@ -12,7 +12,7 @@ export function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const [cookies, setCookie] = useCookies(["username, token"]);
+  const [, setCookie] = useCookies(["username, token"]);
 
   const handleLogin = async () => {
     const url = BACKEND_URL + "/login";

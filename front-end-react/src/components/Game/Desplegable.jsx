@@ -2,17 +2,17 @@ import { useState } from "react";
 import React from 'react';
 
 
-export function Desplegable({ left_initial, setStyle }) {
+export function Desplegable({ left_initial, desplegado, setDesplegado }) {
   const [left, setLeft] = useState(left_initial);
 
   const handleClick = () => {
-    setLeft(!left);
-    setStyle(left == left_initial ? true : false);
+    // setLeft((prev) => !prev);
+    setDesplegado((prev) => !prev);
   };
 
   return (
     <div className="desplegable" onClick={handleClick}>
-      {left ? (
+      {desplegado == !left_initial ? (
         <svg
           className="flecha-desplegable"
           fill="none"
