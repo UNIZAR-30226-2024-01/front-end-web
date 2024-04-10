@@ -1,23 +1,13 @@
 import "../../../../../front-end-shared/css/Home/ProgressBar.css";
 import { useCookies } from "react-cookie";
-
+import { useState, useEffect } from "react";
 import { BACKEND_URL } from "../../consts";
 
-export function ProgressBar({ completed, width = "550px", height = "70px" }) {
+export function ProgressBar({ width = "550px", height = "70px" }) {
   const colorPalette = ["red", "orange", "yellow", "green", "blue"]; // Define your color palette here
 
-  let color;
-  if (completed <= 20) {
-    color = colorPalette[0];
-  } else if (completed <= 40) {
-    color = colorPalette[1];
-  } else if (completed <= 60) {
-    color = colorPalette[2];
-  } else if (completed <= 80) {
-    color = colorPalette[3];
-  } else {
-    color = colorPalette[4];
-  }
+  const [completed, setCompleted] = useState(undefined);
+  const [level, setLevel] = useState(undefined);
 
   const containerStyles = {
     height: height,
@@ -27,28 +17,57 @@ export function ProgressBar({ completed, width = "550px", height = "70px" }) {
   const [cookies] = useCookies(["user"]);
 
   /* 
-        Obtain XP from the DB and calculate the level. Level is calculated by the following formula:
-        level = 100 * 1.2^(xp); where xp is the amount of experience points the user has (obtained from the DB)
+    Obtain XP from the DB and calculate the level. Level is calculated by the following formula:
+    level = floor(sqrt(xp)); where xp is the amount of experience points the user has (obtained from the DB)
+    xp_in_level = (level+1)^2 - xp
     */
   const obtainXP = async () => {
-    const url = BACKEND_URL + "/obtainXP";
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: cookies.user,
-      }),
-    });
+    const url = `${BACKEND_URL}/obtainXP?username=${cookies.username}`;
+    // console.log(url);
+    const response = await fetch(url);
     const data = await response.json();
-    return data.xp;
+    return data.XP;
   };
 
-  const calculateLevel = async () => {
-    const xp = await obtainXP();
-    return Math.floor(100 * Math.pow(1.2, xp));
+  const calculateLevel = (xp) => {
+    return Math.floor(Math.sqrt(xp));
   };
+
+  const calculateXP = (lvl, xp) => {
+    const percentage = Math.trunc((Math.sqrt(xp) - lvl) * 100);
+    setCompleted(percentage);
+  };
+
+  useEffect(() => {
+    obtainXP().then((xp) => {
+      // console.log("recuperated " + xp);
+      const lvl = calculateLevel(xp);
+      setLevel(lvl);
+      calculateXP(lvl, xp);
+    });
+  }, []);
+
+  let color;
+  switch (completed) {
+    case completed < 20:
+      color = colorPalette[0];
+      break;
+    case completed < 40:
+      color = colorPalette[1];
+      break;
+    case completed < 60:
+      color = colorPalette[2];
+      break;
+    case completed < 80:
+      color = colorPalette[3];
+      break;
+    default:
+      color = colorPalette[4];
+  }
+
+  // Set default values
+  !completed ?? setCompleted(0);
+  !level ?? setLevel(0);
 
   return (
     <div className="container-progress" style={containerStyles}>
@@ -59,8 +78,8 @@ export function ProgressBar({ completed, width = "550px", height = "70px" }) {
         />
         <div className="border" />
       </div>
-      <span className="xp-percentage">{`${completed}%`}</span>
-      <span className="xp-level">{`Lvl: 22`}</span>
+      {completed && <span className="xp-percentage">{`${completed}%`}</span>}
+      {level && <span className="xp-level">{`Lvl: ${level}`}</span>}
     </div>
   );
 }

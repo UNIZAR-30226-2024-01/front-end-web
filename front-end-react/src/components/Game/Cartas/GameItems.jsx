@@ -25,10 +25,6 @@ import aulasur from "../../../../../../front-end-shared/images/lugares_imagen/sv
 
 import back from "../../../../../../front-end-shared/images/logo-no-back.svg";
 
-// const itemsPlayers = ['SOPER','FISICA','IA','PROG','REDES','DISCRETO']
-// const itemsObjects = ['CABLE','DISCO','ROUTER','SUSPENSO','TAZA','TECLADO','TROYANO']
-// const itemsPlaces = ['CAFETERIA','BAÑOS','RECEPCION','ESCALERAS','BIBLIOTECA','LABORATORIO','DESPACHO','AULANORTE','AULASUR']
-// const items = [...itemsPlayers, ...itemsObjects, ...itemsPlaces]
 
 export function GameItems({ player_name }) {
   switch (player_name.toUpperCase()) {
