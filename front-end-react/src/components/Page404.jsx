@@ -1,6 +1,7 @@
 import "../../../../front-end-shared/css/Page404.css";
 
 import { useLocation, Link } from "react-router-dom";
+import React from 'react';
 
 export function Page404() {
   const location = useLocation();
