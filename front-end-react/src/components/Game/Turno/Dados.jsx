@@ -1,6 +1,8 @@
 import "../../../../../../front-end-shared/css/Game/Turno/Dados.css";
 import ReactDice from "react-dice-complete";
 import { useRef, useState } from "react";
+import React from 'react';
+
 
 export function Dados({ buttonText, finRoll }) {
   const reactDice = useRef(null);

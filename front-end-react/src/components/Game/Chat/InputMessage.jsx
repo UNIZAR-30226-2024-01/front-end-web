@@ -1,6 +1,8 @@
 import "../../../../../../front-end-shared/css/Game/Chat/input-message.css";
 import { useState } from "react";
 import GifPicker from "gif-picker-react";
+import React from 'react';
+
 
 export const InputMessage = ({ sendMessage }) => {
   const [inputValue, setInputValue] = useState("");

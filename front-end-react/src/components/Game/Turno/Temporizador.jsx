@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import React from 'react';
+
 
 export function Temporizador({ tiempo }) {
   const [segundos, setSegundos] = useState(tiempo);
