@@ -3,6 +3,8 @@ import "../../../../front-end-shared/css/Login/Login.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import React from 'react';
+
 
 import { BACKEND_URL } from "../consts";
 

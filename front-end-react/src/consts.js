@@ -1,4 +1,4 @@
-let BACKEND_URL = "";
+/*let BACKEND_URL = "";
 if (import.meta.env.MODE === "development") {
   console.log("Estás en modo de desarrollo");
   BACKEND_URL = "http://localhost:3000";
@@ -7,8 +7,20 @@ if (import.meta.env.MODE === "development") {
   BACKEND_URL = "http://51.20.246.74:3000";
 }
 
-export { BACKEND_URL };
+export { BACKEND_URL };*/
 
 // // cambiar linea comentada al desplegar en AWS
 // export const BACKEND_URL = 'http://localhost:3000'
 // export const BACKEND_URL = 'http://51.20.246.74:3000'
+
+let BACKEND_URL = "";
+
+if (process.env.NODE_ENV === "development") {
+  console.log("Estás en modo de desarrollo");
+  BACKEND_URL = process.env.REACT_APP_BACKEND_URL_DEVELOPMENT || "http://localhost:3000";
+} else if (process.env.NODE_ENV === "production") {
+  console.log("Estás en modo de producción");
+  BACKEND_URL = process.env.REACT_APP_BACKEND_URL_PRODUCTION || "http://51.20.246.74:3000";
+}
+
+export { BACKEND_URL };

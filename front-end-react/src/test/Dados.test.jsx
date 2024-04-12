@@ -15,7 +15,7 @@ import { Dados } from '../components/Game/Turno/Dados';
 
 
 describe('Dados Component', () => {
-  test('renders correctly', () => {
+  test('Dados renders correctly', () => {
     const { getByText } = render(<Dados buttonText="Roll Dice" />);
     expect(getByText('Roll Dice')).toBeInTheDocument();
   });

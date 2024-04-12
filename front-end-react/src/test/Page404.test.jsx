@@ -12,7 +12,7 @@ import { Page404 } from '../components/Page404';
 import '@testing-library/jest-dom';
 
 describe('Page404 Component', () => {
-  test('renders error message and link', () => {
+  test('Page404 renders correctly', () => {
     const unknownLocation = '/unknown';
 
     //Se renderiza
