@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-
+import React from "react";
 export const TurnoContext = createContext();
 /* 
 espera-resto --> ESPEANDO CONFIRMACIÓN RESTO JUGADORES

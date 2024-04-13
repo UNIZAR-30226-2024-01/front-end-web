@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react'; // Agregamos waitFor para esperar a que se complete el lanzamiento de los dados
+import { render, fireEvent, waitFor } from '@testing-library/react'; 
 import '@testing-library/jest-dom';
 
 import { Dados } from '../components/Game/Turno/Dados';

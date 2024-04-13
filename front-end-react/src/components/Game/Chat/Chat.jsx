@@ -2,6 +2,7 @@ import "../../../../../../front-end-shared/css/Game/Chat/chat.css";
 import { useState, useEffect, useContext } from "react";
 import { MessageList } from "./MessageList.jsx";
 import { InputMessage } from "./InputMessage.jsx";
+import React from "react";
 import { Desplegable } from "../Desplegable.jsx";
 // import { useCookies } from "react-cookie";
 
@@ -57,7 +58,7 @@ export function Chat() {
   }, [socket]);
 
   return (
-    <div className="chat-container" style={style}>
+    <div className="chat-container" style={style} data-testid="chat-container">
       <Desplegable
         left_initial={false}
         desplegado={chatDesplegado}
@@ -65,7 +66,7 @@ export function Chat() {
       />
 
       <MessageList messages={messages} />
-      <div className="">
+      <div className="input-message"  data-testid="input-message">
         <InputMessage sendMessage={sendMessage} />
       </div>
     </div>

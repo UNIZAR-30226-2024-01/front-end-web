@@ -32,7 +32,7 @@ describe('Temporizador', () => {
     });
     expect(screen.getByText('0')).toBeInTheDocument();
     
-    // Espera 1 segundo adicional y verifica que el tiempo se mantenga en 0
+    // Espera 1 segundo más y verifica que el tiempo se mantiene a 0
     await act(async () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
     });

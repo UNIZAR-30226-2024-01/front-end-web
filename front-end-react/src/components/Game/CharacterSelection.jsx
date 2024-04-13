@@ -2,6 +2,8 @@ import "../../../../../front-end-shared/css/Game/CharacterSelection.css";
 import { /* useState, */ useContext, /* useEffect */ } from "react";
 import { SocketContext } from "../../context/socket";
 import { useCookies } from "react-cookie";
+import React from "react";
+
 
 import { GameInfoContext } from "../../context/gameinfo";
 
@@ -14,7 +16,7 @@ export function CharacterSelection({ onCharacterSelected }) {
   const selectCharacter = (event) => {
     const character = event.target.innerText;
     const index = characters.indexOf(character);
-    if (usernames[index] != "") return;
+    if (usernames[index] !== "") return;
 
     // onSelectCharacter(character);
     setCookie("mycharacter", character, { path: "/" });

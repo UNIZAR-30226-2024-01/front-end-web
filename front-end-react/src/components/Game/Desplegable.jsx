@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React from "react";
 
 export function Desplegable({ left_initial, desplegado, setDesplegado }) {
   const [left, setLeft] = useState(left_initial);

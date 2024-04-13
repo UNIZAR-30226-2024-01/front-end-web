@@ -239,6 +239,7 @@ import { TableHeaderCell } from "./TableHeaderCell.jsx";
 import { Desplegable } from "../Desplegable.jsx";
 import { DesplegablesContext } from "../../../context/desplegables.jsx";
 import { GameInfoContext } from "../../../context/gameinfo.jsx";
+import React from "react";
 
 export function Tarjeta() {
   const { tarjetaDesplegado, setTarjetaDesplegado } = useContext(DesplegablesContext);
@@ -326,7 +327,7 @@ export function Tarjeta() {
         </thead>
         <tbody id="table-body">
           <TableHead title="¿QUIÉN?" />
-          <TableRow
+          <TableRow id="MrSoper"
             name={characters[0]}
             initialState={ss[7]}
             handleChange={handleChange}
