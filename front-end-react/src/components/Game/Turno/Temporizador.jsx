@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import "../../../../../../front-end-shared/css/Game/Turno/Temporizador.css";
 
 export function Temporizador({ tiempo }) {
   const [segundos, setSegundos] = useState(tiempo);
@@ -15,5 +16,5 @@ export function Temporizador({ tiempo }) {
     return () => clearInterval(interval);
   }, [segundos]);
 
-  return <div>{segundos}</div>;
+  return <div className="timer-in-your-turn">Tiempo restante: {segundos}</div>;
 }

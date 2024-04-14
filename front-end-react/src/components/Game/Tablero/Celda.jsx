@@ -22,11 +22,11 @@ function useCellContext(index) {
   };
 
   const [clicked, setClicked] = useState(false);
-  const { celdasOptions, setCeldasOptions } = useContext(CeldasContext);
-  const infoCellContext = JSON.parse(celdasOptions)[index];
-  const infoCell = infoTablero[index];
+  const { celdasOptions, setCeldasOptions } = useContext(CeldasContext); // recuperar el estado de las celdas 
+  const infoCellContext = JSON.parse(celdasOptions)[index]; // obtener el estado almacenado de la celda seleccionada
+  const infoCell = infoTablero[index]; // obtener la información de la celda seleccionada
   let selected = false;
-  infoCellContext ? (selected = true) : null;
+  infoCellContext ? (selected = true) : null; // si la celda estaba a true, marcarla como seleccionada
   if (infoCell.isRoom) {
     // buscar las puertas de la habitacion
     const doors = infoTablero.filter(
@@ -37,7 +37,7 @@ function useCellContext(index) {
       selected = true;
     }
   }
-  return { selected, handleClickContext };
+  return { selected, handleClickContext }; // devolver la información de la celda (si está seleccionada y la función para seleccionarla)
 }
 
 function setSize(tam) {
@@ -72,19 +72,25 @@ function setSize(tam) {
 
 export function Celda({ fil, col, tam = "m" }) {
   let style = setSize(tam);
+  let index = fil * 24 + col; // índice de la celda en el tablero
 
-  const infoCell = infoTablero[fil * 24 + col];
+  // información de los atributos de la celda que se está mirando
+  const infoCell = infoTablero[index];
 
   let clase = "";
+  // Añadido de estilización dependiendo qué tipo de celda sea
   if (infoCell?.isRoom) {
+    // Habitación
     clase = "room room-" + infoCell.roomName;
     style.width = style.width + 2;
     style.height = style.height + 2;
   } else if (!infoCell?.isWalkable) {
+    // No se puede posicionarse en ella
     clase = "invalid";
     style.width = style.width + 2;
     style.height = style.height + 2;
   } else {
+    // Celda normal
     clase =
       "celda " +
       (fil % 2 === 0
@@ -95,22 +101,24 @@ export function Celda({ fil, col, tam = "m" }) {
           ? "light"
           : "dark");
     if (infoCell?.isStartingCell) {
+      // Casilla de inicio
       clase += " start start-" + infoCell.isStartingCell;
     }
   }
 
-  const { selected, handleClickContext } = useCellContext(fil * 24 + col);
+  // recuperar la información de la celda (si está seleccionada y la función para seleccionarla)
+  const { selected, handleClickContext } = useCellContext(index);
 
-  selected ? (clase += " selected") : null;
+  selected ? (clase += " selected") : null; // si la celda está seleccionada, añadir clase correspondiente
   style.width = style.width + "px";
   style.height = style.height + "px";
-  const handleClick = () => handleClickContext(fil * 24 + col, 2);
+  const handleClick = () => handleClickContext(index, 2);
 
   return (
     <div style={style} className={clase} onClick={handleClick}>
       {
         infoCell?.isDoor ? <Flecha dir={infoCell.isDoor} /> : null
-        // infoCell?.isDoor ? <Flecha dir={infoCell.isDoor} /> : fil * 24 + col
+        // infoCell?.isDoor ? <Flecha dir={infoCell.isDoor} /> : index
       }
       {infoCell?.isStartingCell ? (
         <svg viewBox="0 0 100 100">

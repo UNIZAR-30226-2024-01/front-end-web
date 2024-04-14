@@ -55,11 +55,11 @@ export function Game() {
           <CharacterSelection onCharacterSelected={handleCharacterSelection} />
         </div>
       )} */}
-      {!iniciada && (
+      {/* {!iniciada && (
         <button className="start-game-button" onClick={startGame}>
           Comenzar partida
         </button>
-      )}
+      )} */}
       
       <Turno />
       <NavbarGame />

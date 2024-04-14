@@ -1,11 +1,13 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import "../../../../../../front-end-shared/css/Game/Turno/Turno.css";
+import "../../../../../../front-end-shared/css/Game/Turno/Temporizador.css";
 import { Dados } from "./Dados";
 import { Carrusel } from "./Carrusel";
 import { DesplegablesContext } from "../../../context/desplegables";
 import { TurnoContext } from "../../../context/turno";
 import { GameInfoContext } from "../../../context/gameinfo";
 import { SocketContext } from "../../../context/socket";
+import { Temporizador } from "./Temporizador";
 
 export function Turno() {
   const {
@@ -32,7 +34,13 @@ export function Turno() {
     console.log("Nueva parte del turno: " + parteTurno);
   }, [parteTurno]);
 
-  const handleDiceRoll = () => {
+  const [dice, setDice] = useState(0);
+
+  const handleDiceRoll = (totalValue) => {
+    setDice(totalValue); // Establecer el valor obtenido entre los dos dados
+
+    console.log("Dados lanzados, valor: " + totalValue);
+
     setTimeout(() => {
       setParteTurno("elegir-casilla");
     }, 2000);
@@ -71,8 +79,6 @@ export function Turno() {
       )}
 
       {parteTurno == "es-tu-turno" && (
-        // Poner temporizador de n segundos mostrando el tiempo del turno
-
         <div>
           <h1 className="tu-turno-texto">Es tu turno</h1>
           <script>
@@ -83,23 +89,29 @@ export function Turno() {
         </div>
       )}
 
+      {(parteTurno == "dados" || parteTurno == "elegir-casilla" || parteTurno == "elegir-pregunta") && (
+        <Temporizador tiempo="30"></Temporizador>
+      )}
+
       {parteTurno == "dados" && (
         <div id="turno-dados">
           <Dados
             buttonText={"Tirar los dados"}
             finRoll={handleDiceRoll} /* onEndRoll={EndRoll} */
           />
+          {dice != 0 && <h1>Has sacado un {dice}</h1>}
         </div>
       )}
 
       {parteTurno == "elegir-casilla" && (
         <div id="turno-tablero">
-          <h1>Elige una casilla</h1>
-          <script>
+          <h1>¡Elige una casilla!</h1>
+          {/* Poner un onClick para que se cambie a "elegir-pregunta" cuando se seleccione una casilla */}
+          {/* <script>
             {setTimeout(() => {
               setParteTurno("elegir-pregunta");
             }, 2000)}
-          </script>
+          </script> */}
         </div>
       )}
 

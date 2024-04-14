@@ -3,6 +3,8 @@ import "../../../../../../front-end-shared/css/Game/Tablero/Tablero.css";
 import { Celda } from "./Celda.jsx";
 import { Text } from "./Text.jsx";
 import { useState, useEffect } from "react";
+import { TurnoContext } from "../../../context/turno.jsx";
+import { useContext } from "react";
 
 export function Tablero() {
   const [size, setSize] = useState("m");
@@ -25,8 +27,12 @@ export function Tablero() {
 
   const [rooms] = useState(10);
 
+  const { parteTurno } = useContext(TurnoContext);
+  const style = `tablero-body ${parteTurno === "elegir-casilla" ? "being-chosen" : ""}`;
+
+
   return (
-    <div className="tablero-body">
+    <div className={style}>
       <div className="tablero">
         {tablero.map((fila, i) => (
           <div className="fila" key={i}>
