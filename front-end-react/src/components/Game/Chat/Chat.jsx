@@ -63,6 +63,8 @@ export function Chat() {
         left_initial={false}
         desplegado={chatDesplegado}
         setDesplegado={setChatDesplegado}
+        data-testid="desplegable-container"
+
       />
 
       <MessageList messages={messages} />

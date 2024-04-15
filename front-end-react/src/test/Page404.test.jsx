@@ -15,7 +15,6 @@ describe('Page404 Component', () => {
   test('Page404 renders correctly', () => {
     const unknownLocation = '/unknown';
 
-    //Se renderiza
     render(
       //Para simular una ruta desconocida
       <MemoryRouter initialEntries={[unknownLocation]}>
@@ -23,7 +22,6 @@ describe('Page404 Component', () => {
       </MemoryRouter>
     );
 
-    //Se comprueba que se renderice el mensaje de error, el link y el código de error
     const errorMessage = screen.getByText(`No se encontro ${unknownLocation}`);
     const linkElement = screen.getByText('Volver');
     const errorCode = screen.getByText('404');

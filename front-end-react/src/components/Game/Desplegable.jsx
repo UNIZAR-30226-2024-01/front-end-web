@@ -10,7 +10,7 @@ export function Desplegable({ left_initial, desplegado, setDesplegado }) {
   };
 
   return (
-    <div className="desplegable" onClick={handleClick}>
+    <div className="desplegable" onClick={handleClick} data-testid="desplegable-container"  >
       {desplegado == !left_initial ? (
         <svg
           className="flecha-desplegable"

@@ -3,6 +3,8 @@ import "../../../../../../front-end-shared/css/Game/Tablero/Celda.css";
 import { infoTablero } from "../../../../../../front-end-shared/infoTablero.js";
 import { CeldasContext } from "../../../context/celdas.jsx";
 import { Door } from "../../Icons.jsx";
+import React from 'react';
+
 
 import { cellsClose } from "../../../bfs.mjs";
 
@@ -107,7 +109,8 @@ export function Celda({ fil, col, tam = "m" }) {
   const handleClick = () => handleClickContext(fil * 24 + col, 2);
 
   return (
-    <div style={style} className={clase} onClick={handleClick}>
+    <div style={style} className={clase} onClick={handleClick} data-testid={`celda-${fil}-${col}`}
+    >
       {
         infoCell?.isDoor ? <Flecha dir={infoCell.isDoor} /> : null
         // infoCell?.isDoor ? <Flecha dir={infoCell.isDoor} /> : fil * 24 + col

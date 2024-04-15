@@ -1,4 +1,5 @@
 import "../../../../../../front-end-shared/css/Game/Chat/special-message.css";
+import React from "react";
 
 export function SpecialMessage({ props }) {
   const who = "MrSoper";

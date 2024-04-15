@@ -19,6 +19,5 @@ test('NavbarHome renders correctly', () => {
     </Router>
   );
 
-  // Verifica si el componente NavbarHome se renderiza correctamente
   expect(container.querySelector('.navbar-home')).toBeInTheDocument();
 });

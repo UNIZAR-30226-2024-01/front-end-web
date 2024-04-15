@@ -27,7 +27,7 @@ import back from "../../../../../../front-end-shared/images/logo-no-back.svg";
 
 
 export function GameItems({ player_name }) {
-  switch (player_name.toUpperCase()) {
+  switch (player_name/*.toUpperCase()*/) {
     case "SOPER":
       return <img src={MrSoper} alt="Imagen del logo del personaje Mr Soper" />;
     case "FISICA":

@@ -1,5 +1,6 @@
 import "../../../../../../front-end-shared/css/Game/Cartas/Carta.css";
 import { GameItems } from "./GameItems";
+import React from "react";
 
 export function Carta({ player_name, hover = true }) {
   let styleImage;
