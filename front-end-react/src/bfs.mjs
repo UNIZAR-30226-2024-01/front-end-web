@@ -37,8 +37,20 @@ function checkNeighbours(index, vecinos) {
   } else {
     for (let i = 0; i < 4; i++) {
       if (checkIndex(index + vecinos[i], index)) {
-        checked.push(index + vecinos[i]);
-      }
+        if (infoTablero[index + vecinos[i]]["isDoor"] !== false) {
+          if (infoTablero[index + vecinos[i]]["isDoor"] === "u") {
+            checked.push(index + vecinos[0]);
+          } else if (infoTablero[index + vecinos[i]]["isDoor"] === "l") {
+            checked.push(index + vecinos[1]);
+          } else if (infoTablero[index + vecinos[i]]["isDoor"] === "d") {
+            checked.push(index + vecinos[2]);
+          } else if (infoTablero[index + vecinos[i]]["isDoor"] === "r") {
+            checked.push(index + vecinos[3]);
+          }
+        }else{
+          checked.push(index + vecinos[i]);
+        }
+      }      
     }
   }
   return checked;
