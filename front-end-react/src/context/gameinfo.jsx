@@ -11,6 +11,7 @@ export function GameInfoProvider({ children }) {
   const [usernames, setUsernames] = useState([]);
   const [guns, setGuns] = useState([]);
   const [rooms, setRooms] = useState([]);
+  const [cards, setCards] = useState(["SOPER", "CABLE", "ESCALERAS"]); // <-- falta dar valor correcto
 
   useEffect(() => {
     if (!socket) return;
@@ -42,6 +43,8 @@ export function GameInfoProvider({ children }) {
         setGuns,
         rooms,
         setRooms,
+        cards,
+        setCards,
       }}
     >
       {children}

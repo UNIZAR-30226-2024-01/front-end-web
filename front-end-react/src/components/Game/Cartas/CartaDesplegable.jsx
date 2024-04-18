@@ -3,11 +3,14 @@ import { useContext, useState } from "react";
 import { Desplegable } from "../Desplegable";
 import { Carta } from "./Carta";
 import { DesplegablesContext } from "../../../context/desplegables";
+import { GameInfoContext } from "../../../context/gameinfo";
 
 export function CartaDesplegable() {
   // const [desplegable, setDesplegable] = useState(false);
   const { cartasDesplegado, setCartasDesplegado } =
     useContext(DesplegablesContext);
+
+  const { cards } = useContext(GameInfoContext);
 
   const style = { bottom: `${cartasDesplegado ? "0px" : "-335px"}` };
 
@@ -20,9 +23,12 @@ export function CartaDesplegable() {
       />
 
       <div className="cartadesplegable-cart-container">
+        {cards.map((card) => (
+          <Carta key={card} player_name={card} hover={false} />
+        ))}
+        {/* <Carta player_name={getRandomObject()} hover={false} />
         <Carta player_name={getRandomObject()} hover={false} />
-        <Carta player_name={getRandomObject()} hover={false} />
-        <Carta player_name={getRandomObject()} hover={false} />
+        <Carta player_name={getRandomObject()} hover={false} /> */}
 
         {/* <Carta player_name='soper' hover={false}/>
                 <Carta player_name='fisica' hover={false}/>

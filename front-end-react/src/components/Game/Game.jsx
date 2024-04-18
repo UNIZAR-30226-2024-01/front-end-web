@@ -7,6 +7,7 @@ import { Tablero } from "./Tablero/Tablero.jsx";
 import { Turno } from "./Turno/Turno.jsx";
 import { CartaDesplegable } from "./Cartas/CartaDesplegable.jsx";
 import { CharacterSelection } from "./CharacterSelection.jsx";
+import { CartaShower } from "./Cartas/CartaShower.jsx";
 // import { Turno } from "./Turno/Turno.jsx";
 import { useEffect, useState, useContext } from "react";
 import { useFetch } from "../../hooks/useFetch.jsx";
@@ -55,13 +56,16 @@ export function Game() {
           <CharacterSelection onCharacterSelected={handleCharacterSelection} />
         </div>
       )} */}
-      {/* {!iniciada && (
+      {!iniciada && (
         <button className="start-game-button" onClick={startGame}>
           Comenzar partida
         </button>
-      )} */}
-      
-      <Turno />
+      )}
+
+      {/* <Turno /> */}
+
+      <CartaShower />
+
       <NavbarGame />
       <Tarjeta />
       <Chat />

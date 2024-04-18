@@ -1,7 +1,7 @@
-import { useState } from "react";
+// import { useState } from "react";
 
 export function Desplegable({ left_initial, desplegado, setDesplegado }) {
-  const [left, setLeft] = useState(left_initial);
+  // const [left, setLeft] = useState(left_initial);
 
   const handleClick = () => {
     // setLeft((prev) => !prev);
