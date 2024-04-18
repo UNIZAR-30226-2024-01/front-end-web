@@ -26,22 +26,29 @@ export function ProgressBar({ width = "550px", height = "70px" }) {
     // console.log(url);
     const response = await fetch(url);
     const data = await response.json();
+    console.log(data.XP); // 621
     return data.XP;
   };
 
   const calculateLevel = (xp) => {
-    return Math.floor(Math.sqrt(xp));
+    // xp = 700;
+    // console.log(Math.floor(Math.sqrt(xp))); // 24
+    // console.log(Math.floor(Math.pow(xp, 0.4))); // 13
+    return Math.floor(Math.pow(xp, 0.4)) /* Math.floor(Math.sqrt(xp)) */;
   };
 
   const calculateXP = (lvl, xp) => {
-    const percentage = Math.trunc((Math.sqrt(xp) - lvl) * 100);
+    // console.log((Math.trunc((Math.pow(xp, 0.4) - lvl) * 100))); // 9
+    // console.log(Math.trunc((Math.sqrt(xp) - lvl) * 100) ); // 91
+    // const percentage = Math.trunc((Math.sqrt(xp) - lvl) * 100);
+    const percentage = Math.trunc((Math.pow(xp, 0.4) - lvl) * 100);
     setCompleted(percentage);
   };
 
   useEffect(() => {
     obtainXP().then((xp) => {
-      // console.log("recuperated " + xp);
       const lvl = calculateLevel(xp);
+      console.log(lvl); 
       setLevel(lvl);
       calculateXP(lvl, xp);
     });
