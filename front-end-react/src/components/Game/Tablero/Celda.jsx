@@ -3,6 +3,7 @@ import "../../../../../../front-end-shared/css/Game/Tablero/Celda.css";
 import { infoTablero } from "../../../../../../front-end-shared/infoTablero.js";
 import { CeldasContext } from "../../../context/celdas.jsx";
 import { Door } from "../../Icons.jsx";
+import { GameItems } from "../Cartas/GameItems.jsx";
 
 import { cellsClose } from "../../../bfs.mjs";
 
@@ -22,7 +23,7 @@ function useCellContext(index) {
   };
 
   const [clicked, setClicked] = useState(false);
-  const { celdasOptions, setCeldasOptions } = useContext(CeldasContext); // recuperar el estado de las celdas 
+  const { celdasOptions, setCeldasOptions } = useContext(CeldasContext); // recuperar el estado de las celdas
   const infoCellContext = JSON.parse(celdasOptions)[index]; // obtener el estado almacenado de la celda seleccionada
   const infoCell = infoTablero[index]; // obtener la información de la celda seleccionada
   let selected = false;
@@ -70,12 +71,33 @@ function setSize(tam) {
   return style;
 }
 
+function player2color(player) {
+  switch (player) {
+    case "mr SOPER":
+      return "#80b37e";
+    case "miss REDES":
+      return "#fcfd7f";
+    case "mr PROG":
+      return "#7fd2e7";
+    case "miss FISICA":
+      return "#fdfdfd";
+    case "mr DISCRETO":
+      return "#dea9fb";
+    case "miss IA":
+      return "#fc7e7e";
+    default:
+      return "black";
+  }
+}
+
 export function Celda({ fil, col, tam = "m" }) {
   let style = setSize(tam);
   let index = fil * 24 + col; // índice de la celda en el tablero
 
   // información de los atributos de la celda que se está mirando
   const infoCell = infoTablero[index];
+  const isFilled =
+    !infoCell?.isRoom && infoCell?.isWalkable && infoCell?.token != "";
 
   let clase = "";
   // Añadido de estilización dependiendo qué tipo de celda sea
@@ -100,9 +122,10 @@ export function Celda({ fil, col, tam = "m" }) {
         : col % 2 === 0
           ? "light"
           : "dark");
-    if (infoCell?.isStartingCell) {
+    if (isFilled) {
       // Casilla de inicio
-      clase += " start start-" + infoCell.isStartingCell;
+      clase += " filled";
+      style.fill = player2color(infoCell.token);
     }
   }
 
@@ -114,15 +137,28 @@ export function Celda({ fil, col, tam = "m" }) {
   style.height = style.height + "px";
   const handleClick = () => handleClickContext(index, 2);
 
+  // console.log(infoCell.split(" ")[1].charAt(0).toUpperCase());
+
   return (
     <div style={style} className={clase} onClick={handleClick}>
       {
         infoCell?.isDoor ? <Flecha dir={infoCell.isDoor} /> : null
         // infoCell?.isDoor ? <Flecha dir={infoCell.isDoor} /> : index
       }
-      {infoCell?.isStartingCell ? (
+      {isFilled ? (
         <svg viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="50" />{" "}
+          <circle cx="50" cy="50" r="45" />
+          <text
+            x="50"
+            y="75"
+            textAnchor="middle"
+            fill="black"
+            fontWeight="1000"
+            fontSize="75"
+            fontFamily="Hoefler Text" //podria llegar a hacer el papel
+          >
+            {infoCell.token.split(" ")[1].charAt(0).toUpperCase()}
+          </text>
         </svg>
       ) : null}
     </div>

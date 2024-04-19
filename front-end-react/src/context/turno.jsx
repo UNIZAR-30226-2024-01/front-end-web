@@ -13,6 +13,7 @@ elegir-pregunta -> ELEGIR PREGUNTA
 export function TurnoProvider({ children }) {
   const [turnoOwner, setTurnoOwner] = useState("mr SOPER");
   const [parteTurno, setParteTurno] = useState("espera-resto");
+  const [dados, setDados] = useState();
   const { socket } = useContext(SocketContext);
 
   // useEffect grande para controlar el flujo del turno
@@ -25,8 +26,8 @@ export function TurnoProvider({ children }) {
       "turno-show-cards",
       (username_showed, username_shower, character, gun, room) => {}
     );
-    socket.on("turno-moves-to", (username, position) => { });
-    
+    socket.on("turno-moves-to", (username, position) => {});
+
     // socket.on("fin-turno", () => {
     //   setParteTurno("espera-resto");
     // });
@@ -51,6 +52,8 @@ export function TurnoProvider({ children }) {
         setTurnoOwner,
         parteTurno,
         setParteTurno,
+        dados,
+        setDados,
       }}
     >
       {children}

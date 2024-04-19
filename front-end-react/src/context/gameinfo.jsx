@@ -12,6 +12,7 @@ export function GameInfoProvider({ children }) {
   const [guns, setGuns] = useState([]);
   const [rooms, setRooms] = useState([]);
   const [cards, setCards] = useState(["SOPER", "CABLE", "ESCALERAS"]); // <-- falta dar valor correcto
+  const [positions, setPositions] = useState([120, 432, 561, 16, 191, 566]);
 
   useEffect(() => {
     if (!socket) return;
@@ -26,6 +27,15 @@ export function GameInfoProvider({ children }) {
     };
 
     socket.on("game-info", onGameInfoLocal);
+    socket.on("hola", (data) => {
+      socket.emit("hola-respuesta", "Hola desde el cliente");
+      console.log("Hola", data);
+
+      setTimeout(() => {
+        socket.emit("hola-respuesta", "Hola de nuevo desde el cliente");
+        console.log("reenviando hola");
+      }, 5000);
+    });
 
     return () => {
       socket.off("game-info", onGameInfoLocal);

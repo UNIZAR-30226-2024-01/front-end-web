@@ -1,10 +1,13 @@
 import "../../../../../../front-end-shared/css/Game/Turno/Dados.css";
 import ReactDice from "react-dice-complete";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
+import { TurnoContext } from "../../../context/turno";
 
 export function Dados({ buttonText, finRoll }) {
   const reactDice = useRef(null);
   const [diceState, setDiceState] = useState(false);
+
+  const { setDados } = useContext(TurnoContext)
 
   const rollDone = (totalValue, values) => {
     if (!diceState) {
@@ -12,6 +15,7 @@ export function Dados({ buttonText, finRoll }) {
       setDiceState(!diceState);
       return;
     }
+    setDados(totalValue);
     finRoll(totalValue);
   };
 

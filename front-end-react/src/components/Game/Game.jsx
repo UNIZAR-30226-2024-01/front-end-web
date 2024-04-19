@@ -35,7 +35,7 @@ export function Game() {
     socket.connect();
   }, [socket]);
 
-  /* Get the users from the database and if there isn't
+  /* Get the users from the database and if there isn't 
     enough players, set the name 'Bot_i' */
 
   const startGame = () => {
@@ -51,11 +51,11 @@ export function Game() {
 
   return (
     <>
-      {/* {characterSelection && (
+      {characterSelection && (
         <div className="game-characters-selection">
           <CharacterSelection onCharacterSelected={handleCharacterSelection} />
         </div>
-      )} */}
+      )}
       {!iniciada && (
         <button className="start-game-button" onClick={startGame}>
           Comenzar partida
@@ -64,7 +64,7 @@ export function Game() {
 
       {/* <Turno /> */}
 
-      <CartaShower />
+      {/* <CartaShower /> */}
 
       <NavbarGame />
       <Tarjeta />
