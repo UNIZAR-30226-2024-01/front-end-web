@@ -3,7 +3,7 @@ import { Carta } from "./Carta";
 
 export function CartaShower() {
   const text = "javi.sin enseño una carta a rold";
-  const cartas = ["SOPER", "IA"];
+  const cartas = ["SOPER"/* , "IA" */];
   return (
     <div className="carta-shower">
       <h1>{text}</h1>
