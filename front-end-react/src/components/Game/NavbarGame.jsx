@@ -1,20 +1,15 @@
 // import { useState } from "react";
-import "../../../../../front-end-shared/css/Game/NavbarGame.css";
-import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { DesplegablesContext } from "../../context/desplegables";
+import '../../../../../front-end-shared/css/Game/NavbarGame.css';
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { DesplegablesContext } from '../../context/desplegables';
 
 export function NavbarGame() {
-  const {
-    opcionesDesplegado,
-    setOpcionesDesplegado,
-    setChatDesplegado,
-    setCartasDesplegado,
-    setTarjetaDesplegado,
-  } = useContext(DesplegablesContext);
+  const { opcionesDesplegado, setOpcionesDesplegado, setChatDesplegado, setCartasDesplegado, setTarjetaDesplegado } =
+    useContext(DesplegablesContext);
 
-  const [cookies] = useCookies(["username"]);
+  const [cookies] = useCookies(['username']);
 
   const navigate = useNavigate();
   const toggleMenu = () => {
@@ -32,11 +27,7 @@ export function NavbarGame() {
           stroke="currentColor"
           className="w-6 h-6"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-          />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
         </svg>
       </div>
 
@@ -44,16 +35,20 @@ export function NavbarGame() {
         <div className="menu">
           <p
             onClick={() => {
-              navigate("/home");
+              navigate('/home');
             }}
           >
             Abandonar partida
           </p>
           <p>Test_1</p>
 
-          <p onClick={() => {
-            navigate("/settings")
-          }}>¡Suerte @{cookies.username}!</p>
+          <p
+            onClick={() => {
+              navigate('/settings');
+            }}
+          >
+            ¡Suerte @{cookies.username}!
+          </p>
         </div>
       )}
     </nav>

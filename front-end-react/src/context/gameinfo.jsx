@@ -1,7 +1,7 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { SocketContext } from "./socket";
+import { createContext, useContext, useEffect, useState } from 'react';
+import { SocketContext } from './socket';
 
-import { onGameInfo } from "../socketio";
+import { onGameInfo } from '../socketio';
 
 export const GameInfoContext = createContext();
 
@@ -12,15 +12,14 @@ export function GameInfoProvider({ children }) {
   const [guns, setGuns] = useState([]);
   const [rooms, setRooms] = useState([]);
   const [cards, setCards] = useState([]);
-  
 
   useEffect(() => {
     if (!socket) return;
 
-    socket.emit("request-game-info", {});
+    socket.emit('request-game-info', {});
 
     const onCards = (data) => {
-      console.log("Cards:", data);
+      console.log('Cards:', data);
       setCards(data);
     };
 
@@ -31,12 +30,12 @@ export function GameInfoProvider({ children }) {
       onGameInfo(data, setCharacters, setUsernames, setGuns, setRooms);
     };
 
-    socket.on("cards", onCards);
-    socket.on("game-info", onGameInfoLocal);
+    socket.on('cards', onCards);
+    socket.on('game-info', onGameInfoLocal);
 
     return () => {
-      socket.off("game-info", onGameInfoLocal);
-      socket.off("cards", onCards);
+      socket.off('game-info', onGameInfoLocal);
+      socket.off('cards', onCards);
     };
   }, [socket]);
 

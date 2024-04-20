@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { BACKEND_URL } from "../consts";
+import { useState, useEffect } from 'react';
+import { BACKEND_URL } from '../consts';
 
 export const useFetch = (endpoint, body, method) => {
   const [data, setData] = useState(null);
@@ -12,7 +12,7 @@ export const useFetch = (endpoint, body, method) => {
         const response = await fetch(BACKEND_URL + endpoint, {
           method: method,
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(body),
         });

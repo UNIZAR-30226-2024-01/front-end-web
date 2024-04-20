@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 export const TableCell = ({ idx, state, setEstado }) => {
-  const texts = ["", "❌", "✔", "❔"];
-  const colors = ["#ffffff", "#995555", "#559955", "#555599"];
+  const texts = ['', '❌', '✔', '❔'];
+  const colors = ['#ffffff', '#995555', '#559955', '#555599'];
 
   const [text, setText] = useState(texts[state]);
 

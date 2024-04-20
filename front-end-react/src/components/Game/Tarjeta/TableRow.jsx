@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-import { TableCell } from "./TableCell";
-import { useEffect, useState } from "react";
+import { TableCell } from './TableCell';
+import { useEffect, useState } from 'react';
 
 export const TableRow = ({ name, initialState = null, handleChange, fila }) => {
   const [estado, setEstado] = useState(() => {
-    if ((initialState === "") | (initialState === null)) {
+    if ((initialState === '') | (initialState === null)) {
       return Array(7).fill(0);
     }
     return Object.values(initialState);
@@ -40,14 +40,7 @@ export const TableRow = ({ name, initialState = null, handleChange, fila }) => {
         {name}
       </td>
       {estado.map((value, index) => {
-        return (
-          <TableCell
-            key={index}
-            state={value}
-            idx={index}
-            setEstado={changeState}
-          />
-        );
+        return <TableCell key={index} state={value} idx={index} setEstado={changeState} />;
       })}
     </tr>
   );

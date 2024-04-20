@@ -1,6 +1,6 @@
-import "../../../../front-end-shared/css/Page404.css";
+import '../../../../front-end-shared/css/Page404.css';
 
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link } from 'react-router-dom';
 
 export function Page404() {
   const location = useLocation();

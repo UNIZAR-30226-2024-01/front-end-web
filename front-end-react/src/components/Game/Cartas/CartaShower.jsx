@@ -1,9 +1,9 @@
-import "../../../../../../front-end-shared/css/Game/Cartas/CartaShower.css";
-import { Carta } from "./Carta";
+import '../../../../../../front-end-shared/css/Game/Cartas/CartaShower.css';
+import { Carta } from './Carta';
 
 export function CartaShower() {
-  const text = "javi.sin enseño una carta a rold";
-  const cartas = ["SOPER"/* , "IA" */];
+  const text = 'javi.sin enseño una carta a rold'; // recuperar dinámicamente
+  const cartas = ['SOPER' /* , "IA" */]; // recuperar de tus cartas
   return (
     <div className="carta-shower">
       <h1>{text}</h1>

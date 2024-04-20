@@ -1,22 +1,22 @@
-import { ProgressBar } from "./ProgressBar";
-import { NavbarHome } from "./NavbarHome";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { useCookies } from "react-cookie";
-import "../../../../../front-end-shared/css/Home/Home.css";
-import boardGame from "../../../../../front-end-shared/images/boardGame.png";
+import { ProgressBar } from './ProgressBar';
+import { NavbarHome } from './NavbarHome';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useCookies } from 'react-cookie';
+import '../../../../../front-end-shared/css/Home/Home.css';
+import boardGame from '../../../../../front-end-shared/images/boardGame.png';
 
 export function Home() {
   const [showGameModes, setShowGameModes] = useState(true);
   const navigate = useNavigate();
-  const [cookies] = useCookies(["username"]);
+  const [cookies] = useCookies(['username']);
 
   const newGameClick = () => {
-    navigate("/game");
+    navigate('/game');
   };
 
   const joinGameClick = () => {
-    const gameId = window.prompt("Please enter the game ID:");
+    const gameId = window.prompt('Please enter the game ID:');
     if (gameId) {
       navigate(`/game/${gameId}`);
     }

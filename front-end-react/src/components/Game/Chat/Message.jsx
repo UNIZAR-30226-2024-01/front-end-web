@@ -1,6 +1,6 @@
-import "../../../../../../front-end-shared/css/Game/Chat/message.css";
-import { GameInfoContext } from "../../../context/gameinfo";
-import { useContext } from "react";
+import '../../../../../../front-end-shared/css/Game/Chat/message.css';
+import { GameInfoContext } from '../../../context/gameinfo';
+import { useContext } from 'react';
 
 export function Message({ text, username, time }) {
   const { characters, usernames } = useContext(GameInfoContext);
@@ -15,7 +15,7 @@ export function Message({ text, username, time }) {
         </p>
         <p className="chat-timeStamp"> {time} </p>
       </section>
-      {text.startsWith("https://media.tenor.com") ? (
+      {text.startsWith('https://media.tenor.com') ? (
         <img height="150px" src={text} alt="gif" className="gif" />
       ) : (
         <p className="message-text">{text}</p>

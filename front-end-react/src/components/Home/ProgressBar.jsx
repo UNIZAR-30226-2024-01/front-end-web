@@ -1,10 +1,10 @@
-import "../../../../../front-end-shared/css/Home/ProgressBar.css";
-import { useCookies } from "react-cookie";
-import { useState, useEffect } from "react";
-import { BACKEND_URL } from "../../consts";
+import '../../../../../front-end-shared/css/Home/ProgressBar.css';
+import { useCookies } from 'react-cookie';
+import { useState, useEffect } from 'react';
+import { BACKEND_URL } from '../../consts';
 
-export function ProgressBar({ width = "550px", height = "70px" }) {
-  const colorPalette = ["red", "orange", "yellow", "green", "blue"]; // Define your color palette here
+export function ProgressBar({ width = '550px', height = '70px' }) {
+  const colorPalette = ['red', 'orange', 'yellow', 'green', 'blue']; // Define your color palette here
 
   const [completed, setCompleted] = useState(undefined);
   const [level, setLevel] = useState(undefined);
@@ -14,7 +14,7 @@ export function ProgressBar({ width = "550px", height = "70px" }) {
     width: width,
   };
 
-  const [cookies] = useCookies(["user"]);
+  const [cookies] = useCookies(['user']);
 
   /* 
     Obtain XP from the DB and calculate the level. Level is calculated by the following formula:
@@ -48,7 +48,7 @@ export function ProgressBar({ width = "550px", height = "70px" }) {
   useEffect(() => {
     obtainXP().then((xp) => {
       const lvl = calculateLevel(xp);
-      console.log(lvl); 
+      console.log(lvl);
       setLevel(lvl);
       calculateXP(lvl, xp);
     });
@@ -78,11 +78,8 @@ export function ProgressBar({ width = "550px", height = "70px" }) {
 
   return (
     <div className="container-progress" style={containerStyles}>
-      <div className="container-styles" style={{ backgroundColor: "#e0e0de" }}>
-        <div
-          className="filler-styles"
-          style={{ width: `${completed}%`, backgroundColor: color }}
-        />
+      <div className="container-styles" style={{ backgroundColor: '#e0e0de' }}>
+        <div className="filler-styles" style={{ width: `${completed}%`, backgroundColor: color }} />
         <div className="border" />
       </div>
       {completed && <span className="xp-percentage">{`${completed}%`}</span>}

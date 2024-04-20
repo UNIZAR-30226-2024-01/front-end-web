@@ -1,11 +1,11 @@
-import "../../../../../front-end-shared/css/Home/NavbarHome.css";
-import { useState } from "react";
-import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
+import '../../../../../front-end-shared/css/Home/NavbarHome.css';
+import { useState } from 'react';
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
 export function NavbarHome() {
   const [isOpen, setIsOpen] = useState(false);
-  const [, , removeCookie] = useCookies(["token"]);
+  const [, , removeCookie] = useCookies(['token']);
   const navigate = useNavigate();
 
   const toggleMenu = () => {
@@ -13,16 +13,16 @@ export function NavbarHome() {
   };
 
   const handleConfig = () => {
-    navigate("/settings");
+    navigate('/settings');
   };
 
   const handleLogout = () => {
     // Remove the token cookie
-    removeCookie("token", { path: "/" });
-    removeCookie("username", { path: "/" });
+    removeCookie('token', { path: '/' });
+    removeCookie('username', { path: '/' });
 
     // Navigate to the login page
-    navigate("/");
+    navigate('/');
   };
 
   return (
@@ -36,11 +36,7 @@ export function NavbarHome() {
           stroke="currentColor"
           className="w-6 h-6"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-          />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
         </svg>
       </div>
 

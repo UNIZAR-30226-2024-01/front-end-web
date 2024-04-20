@@ -1,5 +1,5 @@
 export function Door({ dir }) {
-  const className = "door " + dir;
+  const className = 'door ' + dir;
   return (
     <div className={className}>
       <svg

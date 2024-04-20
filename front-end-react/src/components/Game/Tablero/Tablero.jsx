@@ -1,20 +1,24 @@
-import "../../../../../../front-end-shared/css/Game/Tablero/Tablero.css";
+import '../../../../../../front-end-shared/css/Game/Tablero/Tablero.css';
 
-import { Celda } from "./Celda.jsx";
-import { Text } from "./Text.jsx";
-import { useState, useEffect, useContext } from "react";
-import { TurnoContext } from "../../../context/turno.jsx";
-import { useCookies } from "react-cookie";
-import { CeldasContext } from "../../../context/celdas.jsx";
+import { Celda } from './Celda.jsx';
+import { Text } from './Text.jsx';
+import { useState, useEffect, useContext } from 'react';
+import { TurnoContext } from '../../../context/turno.jsx';
+import { useCookies } from 'react-cookie';
+import { CeldasContext } from '../../../context/celdas.jsx';
+import { GameInfoContext } from '../../../context/gameinfo.jsx';
+
+import { useGameLogicTurnoMovesTo } from '../../../logic/GameLogic.jsx';
 
 export function Tablero() {
-  const [size] = useState("m");
+  const [size] = useState('m');
   const [filas] = useState(24);
   const [columnas] = useState(24);
   const [tablero, setTablero] = useState([]);
-  const [cookies] = useCookies(["username"]);
+  const [cookies] = useCookies(['username']);
 
-  const { playerPositions, setPlayerPositions } = useContext(CeldasContext);
+  const { setCeldasOptions, setPlayerPositions } = useContext(CeldasContext);
+  const { usernames } = useContext(GameInfoContext);
 
   useEffect(() => {
     const newTablero = [];
@@ -23,7 +27,7 @@ export function Tablero() {
       for (let j = 0; j < columnas; j++) {
         // Initialize each cell with default properties
         // You can modify this to set up your rooms and players
-        fila.push({ isRoom: false, roomName: "", hasPlayer: false });
+        fila.push({ isRoom: false, roomName: '', hasPlayer: false });
       }
       newTablero.push(fila);
     }
@@ -33,20 +37,19 @@ export function Tablero() {
   const [rooms] = useState(10);
 
   const { turnoOwner, parteTurno } = useContext(TurnoContext);
-  const style = `tablero-body ${parteTurno === "elegir-casilla" ? "being-chosen" : ""}`;
+  const style = `tablero-body ${parteTurno === 'elegir-casilla' ? 'being-chosen' : ''}`;
 
   const handleClickOnCell = (idx) => {
-    if (turnoOwner == turnoOwner && parteTurno === "elegir-casilla") {
-      // if (turnoOwner == cookies.username && parteTurno === "elegir-casilla") {
-      const player_idx = 0;
-      // const player_idx = playerPositions.indexOf(idx);
+    if (turnoOwner == turnoOwner && parteTurno === 'elegir-casilla') {
+      const player_idx = usernames.indexOf(cookies.username);
 
-      console.log("Cell clicked", idx);
+      useGameLogicTurnoMovesTo(cookies.username, idx);
+
+      setCeldasOptions(Array(24 * 24).fill(false));
       setPlayerPositions((prev) => {
-        const newPrev = [...prev];
-        newPrev[player_idx] = idx;
-        console.log("newPrev", newPrev);
-        return newPrev;
+        const newPlayerPosition = [...prev];
+        newPlayerPosition[player_idx] = idx;
+        return newPlayerPosition;
       });
     }
   };
@@ -57,14 +60,7 @@ export function Tablero() {
         {tablero.map((fila, i) => (
           <div className="fila" key={i}>
             {fila.map((celda, j) => (
-              <Celda
-                key={j}
-                fil={i}
-                col={j}
-                tam={size}
-                selected={true}
-                handleClickOnCell={handleClickOnCell}
-              />
+              <Celda key={j} fil={i} col={j} tam={size} selected={true} handleClickOnCell={handleClickOnCell} />
             ))}
           </div>
         ))}

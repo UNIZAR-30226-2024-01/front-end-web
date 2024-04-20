@@ -1,7 +1,7 @@
-import "../../../../../../front-end-shared/css/Game/Chat/message-list.css";
-import { useEffect, useRef } from "react";
-import { SpecialMessage } from "./SpecialMessage";
-import { Message } from "./Message";
+import '../../../../../../front-end-shared/css/Game/Chat/message-list.css';
+import { useEffect, useRef } from 'react';
+import { SpecialMessage } from './SpecialMessage';
+import { Message } from './Message';
 
 export const MessageList = ({ messages }) => {
   const chatRef = useRef(null);
@@ -10,13 +10,13 @@ export const MessageList = ({ messages }) => {
   }, [messages]);
 
   const style = {
-    height: "100%",
+    height: '100%',
   };
 
   return (
     <ul ref={chatRef} style={style} className="message-list">
       {messages.map((props, index) =>
-        props.type == "message" ? (
+        props.type == 'message' ? (
           <Message
             key={index}
             username={props.username}
@@ -27,7 +27,7 @@ export const MessageList = ({ messages }) => {
         ) : (
           // : <li className="notification" key={index}>{props.text}</li>
           <SpecialMessage key={index} props={props} />
-        ),
+        )
       )}
     </ul>
   );

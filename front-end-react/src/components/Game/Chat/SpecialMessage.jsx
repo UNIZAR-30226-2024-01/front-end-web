@@ -1,9 +1,9 @@
-import "../../../../../../front-end-shared/css/Game/Chat/special-message.css";
+import '../../../../../../front-end-shared/css/Game/Chat/special-message.css';
 
 export function SpecialMessage({ props }) {
-  const who = "MrSoper";
-  const what = "cable de red";
-  const where = "cafeteria";
+  const who = 'MrSoper';
+  const what = 'cable de red';
+  const where = 'cafeteria';
   return (
     <li className="notification">
       <div>

@@ -1,8 +1,8 @@
-import "../../../../../../front-end-shared/css/Game/Tablero/MainTablero.css";
-import { useCookies } from "react-cookie";
-import { Tablero } from "./Tablero";
-import { useState } from "react";
-import { PlayerInTablero } from "./PlayerInTablero";
+import '../../../../../../front-end-shared/css/Game/Tablero/MainTablero.css';
+import { useCookies } from 'react-cookie';
+import { Tablero } from './Tablero';
+import { useState } from 'react';
+import { PlayerInTablero } from './PlayerInTablero';
 
 export function MainTablero() {
   const [cookies] = useCookies();

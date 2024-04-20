@@ -1,17 +1,16 @@
-import { useState, useEffect, useContext } from "react";
-import "../../../../../../front-end-shared/css/Game/Turno/Temporizador.css";
-import { TurnoContext } from "../../../context/turno";
+import { useState, useEffect, useContext } from 'react';
+import '../../../../../../front-end-shared/css/Game/Turno/Temporizador.css';
+import { TurnoContext } from '../../../context/turno';
 
-export function Temporizador({ tiempo }) {
+export function Temporizador({ tiempo, temporizadorDone }) {
   const [segundos, setSegundos] = useState(tiempo);
-  const { setParteTurno } = useContext(TurnoContext);
 
   useEffect(() => {
     const interval = setInterval(() => {
       if (segundos > 0) {
         setSegundos((prev) => prev - 1);
       } else {
-        setParteTurno("fin-turno"); // terminar turno si se acaba el tiempo
+        temporizadorDone();
         clearInterval(interval);
       }
     }, 1000);

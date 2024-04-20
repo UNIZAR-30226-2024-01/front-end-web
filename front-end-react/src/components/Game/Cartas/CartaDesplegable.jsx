@@ -1,26 +1,21 @@
-import "../../../../../../front-end-shared/css/Game/Cartas/CartaDesplegable.css";
-import { useContext, useState } from "react";
-import { Desplegable } from "../Desplegable";
-import { Carta } from "./Carta";
-import { DesplegablesContext } from "../../../context/desplegables";
-import { GameInfoContext } from "../../../context/gameinfo";
+import '../../../../../../front-end-shared/css/Game/Cartas/CartaDesplegable.css';
+import { useContext, useState } from 'react';
+import { Desplegable } from '../Desplegable';
+import { Carta } from './Carta';
+import { DesplegablesContext } from '../../../context/desplegables';
+import { GameInfoContext } from '../../../context/gameinfo';
 
 export function CartaDesplegable() {
   // const [desplegable, setDesplegable] = useState(false);
-  const { cartasDesplegado, setCartasDesplegado } =
-    useContext(DesplegablesContext);
+  const { cartasDesplegado, setCartasDesplegado } = useContext(DesplegablesContext);
 
   const { cards } = useContext(GameInfoContext);
 
-  const style = { bottom: `${cartasDesplegado ? "0px" : "-335px"}` };
+  const style = { bottom: `${cartasDesplegado ? '0px' : '-335px'}` };
 
   return (
     <div className="cartadesplegable-body" style={style}>
-      <Desplegable
-        left_initial={true}
-        desplegado={cartasDesplegado}
-        setDesplegado={setCartasDesplegado}
-      />
+      <Desplegable left_initial={true} desplegado={cartasDesplegado} setDesplegado={setCartasDesplegado} />
 
       <div className="cartadesplegable-cart-container">
         {cards.map((card) => (
@@ -59,26 +54,18 @@ export function CartaDesplegable() {
 }
 
 function getRandomObject() {
-  const itemsPlayers = ["SOPER", "FISICA", "IA", "PROG", "REDES", "DISCRETO"];
-  const itemsObjects = [
-    "CABLE",
-    "DISCO",
-    "ROUTER",
-    "SUSPENSO",
-    "TAZA",
-    "TECLADO",
-    "TROYANO",
-  ];
+  const itemsPlayers = ['SOPER', 'FISICA', 'IA', 'PROG', 'REDES', 'DISCRETO'];
+  const itemsObjects = ['CABLE', 'DISCO', 'ROUTER', 'SUSPENSO', 'TAZA', 'TECLADO', 'TROYANO'];
   const itemsPlaces = [
-    "CAFETERIA",
-    "BAÑOS",
-    "RECEPCION",
-    "ESCALERAS",
-    "BIBLIOTECA",
-    "LABORATORIO",
-    "DESPACHO",
-    "AULANORTE",
-    "AULASUR",
+    'CAFETERIA',
+    'BAÑOS',
+    'RECEPCION',
+    'ESCALERAS',
+    'BIBLIOTECA',
+    'LABORATORIO',
+    'DESPACHO',
+    'AULANORTE',
+    'AULASUR',
   ];
   const items = [...itemsPlayers, ...itemsObjects, ...itemsPlaces];
   return items[Math.floor(Math.random() * items.length)];

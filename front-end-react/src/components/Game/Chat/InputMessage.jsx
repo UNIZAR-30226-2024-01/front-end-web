@@ -1,9 +1,9 @@
-import "../../../../../../front-end-shared/css/Game/Chat/input-message.css";
-import { useState } from "react";
-import GifPicker from "gif-picker-react";
+import '../../../../../../front-end-shared/css/Game/Chat/input-message.css';
+import { useState } from 'react';
+import GifPicker from 'gif-picker-react';
 
 export const InputMessage = ({ sendMessage }) => {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
   const [showGifPicker, setShowGifPicker] = useState(false);
 
   const handleInputChange = (e) => {
@@ -12,9 +12,9 @@ export const InputMessage = ({ sendMessage }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (inputValue.trim() !== "") {
+    if (inputValue.trim() !== '') {
       sendMessage(inputValue);
-      setInputValue("");
+      setInputValue('');
       // scroll to bottom of chat
     }
   };
@@ -32,24 +32,16 @@ export const InputMessage = ({ sendMessage }) => {
             <GifPicker
               height="350px"
               width="398px"
-              tenorApiKey={"AIzaSyBd-ORku2q-cF9g-rO5UUukLFRMUCAAmCs"}
+              tenorApiKey={'AIzaSyBd-ORku2q-cF9g-rO5UUukLFRMUCAAmCs'}
               onGifClick={(i) => gifClick(i.url)}
             />
-            <button
-              className="button-chat close-gif "
-              type="button"
-              onClick={() => setShowGifPicker(false)}
-            >
+            <button className="button-chat close-gif " type="button" onClick={() => setShowGifPicker(false)}>
               Cerrar
             </button>
           </div>
         ) : (
           <>
-            <button
-              className="button-chat open-gif"
-              type="button"
-              onClick={() => setShowGifPicker(true)}
-            >
+            <button className="button-chat open-gif" type="button" onClick={() => setShowGifPicker(true)}>
               GIFs
             </button>
             <input

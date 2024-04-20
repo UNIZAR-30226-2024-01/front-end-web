@@ -1,23 +1,23 @@
-import { useState } from "react";
-import "../../../../../front-end-shared/css/Home/Settings.css";
+import { useState } from 'react';
+import '../../../../../front-end-shared/css/Home/Settings.css';
 // import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
-import { BACKEND_URL } from "../../consts";
+import { BACKEND_URL } from '../../consts';
 
 export function Settings() {
-  const [password, setPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+  const [password, setPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
   const navigate = useNavigate();
-  const [cookies] = useCookies(["username"]);
+  const [cookies] = useCookies(['username']);
 
   const handlePasswordChange = async () => {
-    const url = BACKEND_URL + "/changePassword";
+    const url = BACKEND_URL + '/changePassword';
     const response = await fetch(url, {
-      method: "PUT",
+      method: 'PUT',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         username: cookies.username,
@@ -30,7 +30,7 @@ export function Settings() {
     if (data.success === true) {
       navigate(-1);
     } else {
-      alert("Usuario o contraseña incorrectos");
+      alert('Usuario o contraseña incorrectos');
     }
   };
 
@@ -42,17 +42,9 @@ export function Settings() {
             <h1 className="inicia-sesion">Cambia tu contraseña</h1>
             <div className="loginForm">
               <p className="p-login-account">Contraseña antigua</p>
-              <input
-                type="password"
-                placeholder="old password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <input type="password" placeholder="old password" onChange={(e) => setPassword(e.target.value)} />
               <p className="p-login-account">Nueva contraseña</p>
-              <input
-                type="password"
-                placeholder="new password"
-                onChange={(e) => setNewPassword(e.target.value)}
-              />
+              <input type="password" placeholder="new password" onChange={(e) => setNewPassword(e.target.value)} />
             </div>
             <button className="login-button" onClick={handlePasswordChange}>
               Aceptar

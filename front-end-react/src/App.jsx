@@ -1,39 +1,39 @@
-import "../../../front-end-shared/css/App.css";
-import { CreateUser } from "./components/CreateUser";
-import { Login } from "./components/Login";
-import { Home } from "./components/Home/Home";
-import { Settings } from "./components/Home/Settings";
-import { Game } from "./components/Game/Game";
-import { Page404 } from "./components/Page404";
-import { ShowCartas } from "./components/Cartas/ShowCartas";
-import { useCookies } from "react-cookie";
-import { Navigate, useRoutes } from "react-router-dom";
+import '../../../front-end-shared/css/App.css';
+import { CreateUser } from './components/CreateUser';
+import { Login } from './components/Login';
+import { Home } from './components/Home/Home';
+import { Settings } from './components/Home/Settings';
+import { Game } from './components/Game/Game';
+import { Page404 } from './components/Page404';
+import { ShowCartas } from './components/Cartas/ShowCartas';
+import { useCookies } from 'react-cookie';
+import { Navigate, useRoutes } from 'react-router-dom';
 
-import { Contexts } from "./context/Contexts";
+import { Contexts } from './context/Contexts';
 
 function App() {
-  const [cookies] = useCookies(["token"]);
+  const [cookies] = useCookies(['token']);
 
   let element = useRoutes([
-    { path: "/", element: <Login /> },
-    { path: "/createuser", element: <CreateUser /> },
+    { path: '/', element: <Login /> },
+    { path: '/createuser', element: <CreateUser /> },
     {
-      path: "/home",
+      path: '/home',
       element: cookies.token ? <Home /> : <Navigate to="/" replace />,
     },
     {
-      path: "settings",
+      path: 'settings',
       element: cookies.token ? <Settings /> : <Navigate to="/" replace />,
     },
     {
-      path: "/game",
+      path: '/game',
       element: cookies.token ? <Game /> : <Navigate to="/" replace />,
     },
     {
-      path: "/cartas",
+      path: '/cartas',
       element: cookies.token ? <ShowCartas /> : <Navigate to="/" replace />,
     },
-    { path: "*", element: <Page404 /> },
+    { path: '*', element: <Page404 /> },
   ]);
 
   return <Contexts>{element}</Contexts>;

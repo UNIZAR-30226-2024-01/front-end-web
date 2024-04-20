@@ -1,8 +1,8 @@
-import { useContext } from "react";
-import "../../../../../../front-end-shared/css/Game/Tablero/PlayerInTablero.css";
-import { GameInfoContext } from "../../../context/gameinfo";
-import { GameItems } from "../Cartas/GameItems";
-import { TurnoContext } from "../../../context/turno";
+import { useContext } from 'react';
+import '../../../../../../front-end-shared/css/Game/Tablero/PlayerInTablero.css';
+import { GameInfoContext } from '../../../context/gameinfo';
+import { GameItems } from '../Cartas/GameItems';
+import { TurnoContext } from '../../../context/turno';
 
 export function PlayerInTablero({ index }) {
   const { characters, usernames } = useContext(GameInfoContext);
@@ -10,36 +10,35 @@ export function PlayerInTablero({ index }) {
 
   const character = characters[index];
   let username = usernames[index];
-  const side = index < 3 ? "left" : "right";
+  const side = index < 3 ? 'left' : 'right';
 
   if (!username) {
-    username = "anonymous";
+    username = 'anonymous';
   }
-  const className =
-    turnoOwner == character ? `player ${side} turn` : `player ${side}`;
+  const className = turnoOwner == character ? `player ${side} turn` : `player ${side}`;
 
   let style = {};
   switch (character) {
-    case "mr SOPER":
-      style = { color: "#80b37e" };
+    case 'mr SOPER':
+      style = { color: '#80b37e' };
       break;
-    case "miss REDES":
-      style = { color: "#fcfd7f" };
+    case 'miss REDES':
+      style = { color: '#fcfd7f' };
       break;
-    case "mr PROG":
-      style = { color: "#7fd2e7" };
+    case 'mr PROG':
+      style = { color: '#7fd2e7' };
       break;
-    case "miss FISICA":
-      style = { color: "#fdfdfd" };
+    case 'miss FISICA':
+      style = { color: '#fdfdfd' };
       break;
-    case "mr DISCRETO":
-      style = { color: "#dea9fb" };
+    case 'mr DISCRETO':
+      style = { color: '#dea9fb' };
       break;
-    case "miss IA":
-      style = { color: "#fc7e7e" };
+    case 'miss IA':
+      style = { color: '#fc7e7e' };
       break;
     default:
-      style = { color: "#000" };
+      style = { color: '#000' };
       break;
   }
 

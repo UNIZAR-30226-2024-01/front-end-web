@@ -1,13 +1,14 @@
-import { useContext, useEffect, useState } from "react";
-import "../../../../../../front-end-shared/css/Game/Tablero/Celda.css";
-import { infoTablero } from "../../../../../../front-end-shared/infoTablero.js";
-import { CeldasContext } from "../../../context/celdas.jsx";
-import { Door } from "../../Icons.jsx";
+import { useContext, useEffect, useState } from 'react';
+import '../../../../../../front-end-shared/css/Game/Tablero/Celda.css';
+import { infoTablero } from '../../../../../../front-end-shared/infoTablero.js';
+import { CeldasContext } from '../../../context/celdas.jsx';
+import { Door } from '../../Icons.jsx';
 
-import { cellsClose } from "../../../bfs.mjs";
-import { TurnoContext } from "../../../context/turno.jsx";
-import { Game } from "../Game.jsx";
-import { GameInfoContext } from "../../../context/gameinfo.jsx";
+import { cellsClose } from '../../../bfs.mjs';
+import { TurnoContext } from '../../../context/turno.jsx';
+import { Game } from '../Game.jsx';
+import { GameInfoContext } from '../../../context/gameinfo.jsx';
+import { casillasPorHabitacion } from '../../../../../../front-end-shared/infoTablero.js';
 
 // function useCellContext(index) {
 //   const handleClickContext = (index, dice) => {
@@ -46,21 +47,21 @@ import { GameInfoContext } from "../../../context/gameinfo.jsx";
 function setSize(tam) {
   let style;
   switch (tam) {
-    case "s":
+    case 's':
       style = {
         width: 22,
         height: 22,
       };
       break;
 
-    case "m":
+    case 'm':
       style = {
         width: 26,
         height: 26,
       };
       break;
 
-    case "l":
+    case 'l':
       style = {
         width: 30,
         height: 30,
@@ -75,29 +76,30 @@ function setSize(tam) {
 
 function player2color(player) {
   switch (player) {
-    case "mr SOPER":
-      return "#80b37e";
-    case "miss REDES":
-      return "#fcfd7f";
-    case "mr PROG":
-      return "#7fd2e7";
-    case "miss FISICA":
-      return "#fdfdfd";
-    case "mr DISCRETO":
-      return "#dea9fb";
-    case "miss IA":
-      return "#fc7e7e";
+    case 'mr SOPER':
+      return '#80b37e';
+    case 'miss REDES':
+      return '#fcfd7f';
+    case 'mr PROG':
+      return '#7fd2e7';
+    case 'miss FISICA':
+      return '#fdfdfd';
+    case 'mr DISCRETO':
+      return '#dea9fb';
+    case 'miss IA':
+      return '#fc7e7e';
     default:
-      return "black";
+      return 'black';
   }
 }
 
-export function Celda({ fil, col, selected, tam = "m", handleClickOnCell }) {
+export function Celda({ fil, col, tam = 'm', handleClickOnCell }) {
   let style = setSize(tam);
   let index = fil * 24 + col; // índice de la celda en el tablero
 
   const { playerPositions, celdasOptions } = useContext(CeldasContext);
   const { characters } = useContext(GameInfoContext);
+  const { setParteTurno } = useContext(TurnoContext);
 
   // información de los atributos de la celda que se está mirando
   const infoCell = infoTablero[index];
@@ -105,38 +107,31 @@ export function Celda({ fil, col, selected, tam = "m", handleClickOnCell }) {
     // !infoCell?.isRoom && infoCell?.isWalkable && infoCell?.token != "";
     playerPositions.includes(index);
 
+  const currentIdx = playerPositions.indexOf(index);
+  // console.log("CurrentIdx celda: " + currentIdx);
+
   // console.log("Celda " + index + " " + isFilled);
 
-  let clase = "";
+  let clase = '';
   // Añadido de estilización dependiendo qué tipo de celda sea
   if (infoCell?.isRoom) {
     // Habitación
-    clase = "room room-" + infoCell.roomName;
+    clase = 'room room-' + infoCell.roomName;
     style.width = style.width + 2;
     style.height = style.height + 2;
   } else if (!infoCell?.isWalkable) {
     // No se puede posicionarse en ella
-    clase = "invalid";
+    clase = 'invalid';
     style.width = style.width + 2;
     style.height = style.height + 2;
   } else {
     // Celda normal
-    clase =
-      "celda " +
-      (fil % 2 === 0
-        ? col % 2 === 0
-          ? "dark"
-          : "light"
-        : col % 2 === 0
-          ? "light"
-          : "dark");
-    if (isFilled) {
-      // Casilla de inicio
-      clase += " filled";
-      style.fill = player2color(
-        /* infoCell.token */ characters[playerPositions.indexOf(index)]
-      );
-    }
+    clase = 'celda ' + (fil % 2 === 0 ? (col % 2 === 0 ? 'dark' : 'light') : col % 2 === 0 ? 'light' : 'dark');
+  }
+  if (isFilled) {
+    // Casilla de inicio
+    clase += ' filled';
+    style.fill = player2color(/* infoCell.token */ characters[currentIdx]);
   }
 
   // useEffect(() => {
@@ -146,21 +141,42 @@ export function Celda({ fil, col, selected, tam = "m", handleClickOnCell }) {
   // recuperar la información de la celda (si está seleccionada y la función para seleccionarla)
   // const { selected, handleClickContext } = useCellContext(index);
   // selected ? (clase += " selected") : null; // si la celda está seleccionada, añadir clase correspondiente
-  clase += celdasOptions[index] ? " selected" : ""; // si la celda está seleccionada, añadir clase correspondiente
+  clase += celdasOptions[index] ? ' selected' : ''; // si la celda está seleccionada, añadir clase correspondiente
   // console.log("Celda " + index + " " + celdasOptions[index]);
 
-  style.width = style.width + "px";
-  style.height = style.height + "px";
+  style.width = style.width + 'px';
+  style.height = style.height + 'px';
 
   // const { dados } = useContext(TurnoContext);
-  const handleClick = () => handleClickOnCell(index);
+  const handleClick = () => {
+    if (!celdasOptions[index]) return; // Si la casilla no es alcanzable, no se procesa el
 
-  // console.log(infoCell.split(" ")[1].charAt(0).toUpperCase());
-  let cellDisplay = "";
+    if (infoCell.isDoor || infoCell.isRoom) {
+      // ir a una casilla random libre de la habitación, de las mostradas en casillasPorHabitacion (que esté libre)
+      let { cells } = casillasPorHabitacion[infoCell.roomName - 1];
+      cells = cells.filter((c) => !playerPositions.includes(c));
+      // cells.remove((c) => playerPositions.includes(c)); // eliminar las casillas ya ocupadas
+      const randomCell = cells[Math.floor(Math.random() * cells.length)];
+      handleClickOnCell(randomCell);
+      setTimeout(() => {
+        setParteTurno('elegir-pregunta');
+      }, 2000);
+      return;
+    }
+
+    if (playerPositions.includes(index)) return; // Si la casilla ya está ocupada, no se procesa el click
+
+    handleClickOnCell(index);
+    setTimeout(() => {
+      setParteTurno('espera-resto');
+    }, 2000);
+  };
+
+  let cellDisplay = '';
   if (isFilled) {
     const player_idx = playerPositions.indexOf(index);
     if (!characters[player_idx]) return;
-    cellDisplay = characters[player_idx].split(" ")[1].charAt(0).toUpperCase();
+    cellDisplay = characters[player_idx].split(' ')[1].charAt(0).toUpperCase();
   }
 
   return (
@@ -191,24 +207,14 @@ export function Celda({ fil, col, selected, tam = "m", handleClickOnCell }) {
 
 function Flecha({ dir }) {
   let style = {};
-  if (dir == "u") style = { rotate: "270deg" };
-  else if (dir == "d") style = { rotate: "90deg" };
-  else if (dir == "l") style = { rotate: "180deg" };
-  else if (dir == "r") style = { rotate: "0deg" };
+  if (dir == 'u') style = { rotate: '270deg' };
+  else if (dir == 'd') style = { rotate: '90deg' };
+  else if (dir == 'l') style = { rotate: '180deg' };
+  else if (dir == 'r') style = { rotate: '0deg' };
   else return dir;
   return (
-    <svg
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      style={style}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-      />
+    <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" style={style}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
     </svg>
   );
 }

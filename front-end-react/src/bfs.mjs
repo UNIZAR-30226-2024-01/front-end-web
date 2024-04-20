@@ -1,4 +1,4 @@
-import { infoTablero } from "../../../front-end-shared/infoTablero";
+import { infoTablero } from '../../../front-end-shared/infoTablero';
 
 // Comprobación de que una casilla es válida
 function checkIndex(indexVecino, index) {
@@ -12,9 +12,8 @@ function checkIndex(indexVecino, index) {
     return false;
   }
   if (
-    !infoTablero[indexVecino]["isWalkable"] ||
-    (infoTablero[indexVecino]["roomName"] !== "" &&
-      !infoTablero[indexVecino]["isDoor"])
+    !infoTablero[indexVecino]['isWalkable'] ||
+    (infoTablero[indexVecino]['roomName'] !== '' && !infoTablero[indexVecino]['isDoor'])
   ) {
     return false;
   }
@@ -24,33 +23,33 @@ function checkIndex(indexVecino, index) {
 // Comprobación de qué casillas vecinas son válidas
 function checkNeighbours(index, vecinos) {
   const checked = [];
-  if (infoTablero[index]["isDoor"] !== false) {
-    if (infoTablero[index]["isDoor"] === "d") {
+  if (infoTablero[index]['isDoor'] !== false) {
+    if (infoTablero[index]['isDoor'] === 'd') {
       checked.push(index + vecinos[0]);
-    } else if (infoTablero[index]["isDoor"] === "r") {
+    } else if (infoTablero[index]['isDoor'] === 'r') {
       checked.push(index + vecinos[1]);
-    } else if (infoTablero[index]["isDoor"] === "u") {
+    } else if (infoTablero[index]['isDoor'] === 'u') {
       checked.push(index + vecinos[2]);
-    } else if (infoTablero[index]["isDoor"] === "l") {
+    } else if (infoTablero[index]['isDoor'] === 'l') {
       checked.push(index + vecinos[3]);
     }
   } else {
     for (let i = 0; i < 4; i++) {
       if (checkIndex(index + vecinos[i], index)) {
-        if (infoTablero[index + vecinos[i]]["isDoor"] !== false) {
-          if (infoTablero[index + vecinos[i]]["isDoor"] === "u") {
+        if (infoTablero[index + vecinos[i]]['isDoor'] !== false) {
+          if (infoTablero[index + vecinos[i]]['isDoor'] === 'u') {
             checked.push(index + vecinos[0]);
-          } else if (infoTablero[index + vecinos[i]]["isDoor"] === "l") {
+          } else if (infoTablero[index + vecinos[i]]['isDoor'] === 'l') {
             checked.push(index + vecinos[1]);
-          } else if (infoTablero[index + vecinos[i]]["isDoor"] === "d") {
+          } else if (infoTablero[index + vecinos[i]]['isDoor'] === 'd') {
             checked.push(index + vecinos[2]);
-          } else if (infoTablero[index + vecinos[i]]["isDoor"] === "r") {
+          } else if (infoTablero[index + vecinos[i]]['isDoor'] === 'r') {
             checked.push(index + vecinos[3]);
           }
-        }else{
+        } else {
           checked.push(index + vecinos[i]);
         }
-      }      
+      }
     }
   }
   return checked;
@@ -59,21 +58,15 @@ function checkNeighbours(index, vecinos) {
 function bfs(casilla, dados, vecinos) {
   const visited = [];
   let frontera;
-  if (infoTablero[casilla]["roomName"] !== "") {
+  if (infoTablero[casilla]['roomName'] !== '') {
     // estamos en una habitacion y podemos salir por varias puertas y hay pasadizos
     frontera = infoTablero
-      .filter(
-        (c) =>
-          infoTablero[casilla]["roomName"] === c["roomName"] &&
-          c["isDoor"] !== false
-      )
-      .map((c) => c["idx"]);
+      .filter((c) => infoTablero[casilla]['roomName'] === c['roomName'] && c['isDoor'] !== false)
+      .map((c) => c['idx']);
     const paths = infoTablero.filter(
-      (c) =>
-        infoTablero[casilla]["roomName"] === c["roomName"] &&
-        c["isPath"] !== false
+      (c) => infoTablero[casilla]['roomName'] === c['roomName'] && c['isPath'] !== false
     );
-    paths.forEach((c) => visited.push(parseInt(c["isPath"])));
+    paths.forEach((c) => visited.push(parseInt(c['isPath'])));
   } else {
     frontera = [casilla];
   }

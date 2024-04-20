@@ -1,30 +1,30 @@
-import { useState } from "react";
-import "../../../../front-end-shared/css/Login/CreateUser.css";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import { useState } from 'react';
+import '../../../../front-end-shared/css/Login/CreateUser.css';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
-import { BACKEND_URL } from "../consts";
+import { BACKEND_URL } from '../consts';
 
 export function CreateUser() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
-  const [, setCookie] = useCookies(["username, token"]);
+  const [, setCookie] = useCookies(['username, token']);
 
   const HandleCreateAccount = async () => {
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      alert('Passwords do not match!');
       return;
     }
 
     //Send a POST request
-    const url = BACKEND_URL + "/createAccount";
+    const url = BACKEND_URL + '/createAccount';
     const response = await fetch(url, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         username: username,
@@ -33,11 +33,11 @@ export function CreateUser() {
     });
     const data = await response.json();
     if (data.success === true) {
-      setCookie("token", "valid", { path: "/" });
-      setCookie("username", username, { path: "/" });
-      navigate("/home");
+      setCookie('token', 'valid', { path: '/' });
+      setCookie('username', username, { path: '/' });
+      navigate('/home');
     } else {
-      alert("No se ha podido crear la cuenta. Inténtalo de nuevo.");
+      alert('No se ha podido crear la cuenta. Inténtalo de nuevo.');
     }
   };
 
@@ -49,17 +49,9 @@ export function CreateUser() {
             <h1 className="create-account">Crear una cuenta</h1>
             <div className="loginForm">
               <p className="p-login">Nombre de usuario</p>
-              <input
-                type="text"
-                placeholder="username"
-                onChange={(e) => setUsername(e.target.value)}
-              />
+              <input type="text" placeholder="username" onChange={(e) => setUsername(e.target.value)} />
               <p className="p-login">Contraseña</p>
-              <input
-                type="password"
-                placeholder="password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <input type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
               <p className="p-login">Repite la contraseña</p>
               <input
                 type="password"

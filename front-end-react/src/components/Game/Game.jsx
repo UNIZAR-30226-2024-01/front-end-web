@@ -1,26 +1,26 @@
-import "../../../../../front-end-shared/css/Game/Game.css";
+import '../../../../../front-end-shared/css/Game/Game.css';
 
-import { Tarjeta } from "./Tarjeta/Tarjeta.jsx";
-import { NavbarGame } from "./NavbarGame.jsx";
-import { Chat } from "./Chat/Chat.jsx";
-import { Tablero } from "./Tablero/Tablero.jsx";
-import { Turno } from "./Turno/Turno.jsx";
-import { CartaDesplegable } from "./Cartas/CartaDesplegable.jsx";
-import { CharacterSelection } from "./CharacterSelection.jsx";
-import { CartaShower } from "./Cartas/CartaShower.jsx";
+import { Tarjeta } from './Tarjeta/Tarjeta.jsx';
+import { NavbarGame } from './NavbarGame.jsx';
+import { Chat } from './Chat/Chat.jsx';
+import { Turno } from './Turno/Turno.jsx';
+import { CartaDesplegable } from './Cartas/CartaDesplegable.jsx';
+import { CharacterSelection } from './CharacterSelection.jsx';
+import { CartaShower } from './Cartas/CartaShower.jsx';
 // import { Turno } from "./Turno/Turno.jsx";
-import { useEffect, useState, useContext } from "react";
-import { useFetch } from "../../hooks/useFetch.jsx";
-import { useCookies } from "react-cookie";
+import { useEffect, useState, useContext } from 'react';
+// import { useFetch } from "../../hooks/useFetch.jsx";
+import { useCookies } from 'react-cookie';
 
-import { SocketContext } from "../../context/socket";
-import { socketio } from "../../socketio";
-import { MainTablero } from "./Tablero/MainTablero.jsx";
-import { GameInfoContext } from "../../context/gameinfo.jsx";
-import { TurnoContext } from "../../context/turno.jsx";
+import { SocketContext } from '../../context/socket';
+import { socketio } from '../../socketio';
+import { MainTablero } from './Tablero/MainTablero.jsx';
+import { GameInfoContext } from '../../context/gameinfo.jsx';
+import { TurnoContext } from '../../context/turno.jsx';
+import { GameLogic } from '../../logic/GameLogic.jsx';
 
 export function Game() {
-  const [cookies] = useCookies(["username", "group"]);
+  const [cookies] = useCookies(['username', 'group']);
   const { turnoOwner, setTurnoOwner } = useContext(TurnoContext);
   const { usernames } = useContext(GameInfoContext);
   const haveISelected = usernames.includes(cookies.username);
@@ -29,14 +29,16 @@ export function Game() {
 
   const { socket, setSocket } = useContext(SocketContext);
 
+  const showCards = false;
+
   useEffect(() => {
     setSocket(socketio);
   }, []);
 
   useEffect(() => {
     if (!socket) return;
-    socket.auth.username = cookies.username ?? "anonymous";
-    socket.auth.group = cookies.group ?? "0";
+    socket.auth.username = cookies.username ?? 'anonymous';
+    socket.auth.group = cookies.group ?? '0';
     socket.connect();
   }, [socket]);
 
@@ -45,12 +47,12 @@ export function Game() {
 
   const startGame = () => {
     setIniciada(true);
-    console.log("start game");
-    socket.emit("start-game");
+    console.log('start game');
+    socket.emit('start-game');
   };
 
   const handleCharacterSelection = () => {
-    console.log("character selected");
+    console.log('character selected');
     setCharacterSelection(false);
   };
 
@@ -75,9 +77,10 @@ export function Game() {
         Set turnoOwner a mi nombre
       </button>
 
+      <GameLogic />
       {turnoOwner === cookies.username && <Turno />}
 
-      {/* <CartaShower /> */}
+      {showCards && <CartaShower />}
 
       <NavbarGame />
       <Tarjeta />

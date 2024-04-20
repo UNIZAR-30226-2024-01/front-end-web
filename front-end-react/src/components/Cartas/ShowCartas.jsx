@@ -1,5 +1,5 @@
-import { Carta } from "../Game/Cartas/Carta";
-import "./ShowCartas.css";
+import { Carta } from '../Game/Cartas/Carta';
+import './ShowCartas.css';
 
 export function ShowCartas() {
   return (
