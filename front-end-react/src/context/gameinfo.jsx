@@ -19,13 +19,22 @@ export function GameInfoProvider({ children }) {
 
     socket.emit("request-game-info", {});
 
+    const onCards = (data) => {
+      // console.log("Available characters:", data.names);
+      // console.log("Available guns:", data.guns);
+      // console.log("Available rooms:", data.rooms);
+      console.log("Cards:", data);
+    };
+
+    
     const onGameInfoLocal = (data) => {
       // console.log("Available characters:", data.names);
       // console.log("Available guns:", data.guns);
       // console.log("Available rooms:", data.rooms);
       onGameInfo(data, setCharacters, setUsernames, setGuns, setRooms);
     };
-
+    
+    socket.on("cards", onCards);
     socket.on("game-info", onGameInfoLocal);
     socket.on("hola", (data) => {
       socket.emit("hola-respuesta", "Hola desde el cliente");
