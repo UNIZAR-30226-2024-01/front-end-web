@@ -1,45 +1,47 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "../../../../../../front-end-shared/css/Game/Tablero/Celda.css";
 import { infoTablero } from "../../../../../../front-end-shared/infoTablero.js";
 import { CeldasContext } from "../../../context/celdas.jsx";
 import { Door } from "../../Icons.jsx";
-import { GameItems } from "../Cartas/GameItems.jsx";
 
 import { cellsClose } from "../../../bfs.mjs";
+import { TurnoContext } from "../../../context/turno.jsx";
+import { Game } from "../Game.jsx";
+import { GameInfoContext } from "../../../context/gameinfo.jsx";
 
-function useCellContext(index) {
-  const handleClickContext = (index, dice) => {
-    if (clicked) {
-      const array = Array(24 * 24).fill(false);
-      setCeldasOptions(JSON.stringify(array));
-      setClicked((prev) => !prev);
-      return;
-    }
-    const array = Array(24 * 24).fill(false);
-    const bfs = cellsClose(index, dice);
-    bfs.forEach((c) => (array[c] = true));
-    setClicked((prev) => !prev);
-    setCeldasOptions(JSON.stringify(array));
-  };
+// function useCellContext(index) {
+//   const handleClickContext = (index, dice) => {
+//     if (clicked) {
+//       const array = Array(24 * 24).fill(false);
+//       setCeldasOptions(JSON.stringify(array));
+//       setClicked((prev) => !prev);
+//       return;
+//     }
+//     const array = Array(24 * 24).fill(false);
+//     const bfs = cellsClose(index, dice);
+//     bfs.forEach((c) => (array[c] = true));
+//     setClicked((prev) => !prev);
+//     setCeldasOptions(JSON.stringify(array));
+//   };
 
-  const [clicked, setClicked] = useState(false);
-  const { celdasOptions, setCeldasOptions } = useContext(CeldasContext); // recuperar el estado de las celdas
-  const infoCellContext = JSON.parse(celdasOptions)[index]; // obtener el estado almacenado de la celda seleccionada
-  const infoCell = infoTablero[index]; // obtener la información de la celda seleccionada
-  let selected = false;
-  infoCellContext ? (selected = true) : null; // si la celda estaba a true, marcarla como seleccionada
-  if (infoCell.isRoom) {
-    // buscar las puertas de la habitacion
-    const doors = infoTablero.filter(
-      (c) => c.roomName === infoCell.roomName && c.isDoor
-    );
-    // si alguna esta seleccionada, añadir clase
-    if (doors.some((c) => JSON.parse(celdasOptions)[c.idx])) {
-      selected = true;
-    }
-  }
-  return { selected, handleClickContext }; // devolver la información de la celda (si está seleccionada y la función para seleccionarla)
-}
+//   const [clicked, setClicked] = useState(false);
+//   const { celdasOptions, setCeldasOptions } = useContext(CeldasContext); // recuperar el estado de las celdas
+//   const infoCellContext = JSON.parse(celdasOptions)[index]; // obtener el estado almacenado de la celda seleccionada
+//   const infoCell = infoTablero[index]; // obtener la información de la celda seleccionada
+//   let selected = false;
+//   infoCellContext ? (selected = true) : null; // si la celda estaba a true, marcarla como seleccionada
+//   if (infoCell.isRoom) {
+//     // buscar las puertas de la habitacion
+//     const doors = infoTablero.filter(
+//       (c) => c.roomName === infoCell.roomName && c.isDoor
+//     );
+//     // si alguna esta seleccionada, añadir clase
+//     if (doors.some((c) => JSON.parse(celdasOptions)[c.idx])) {
+//       selected = true;
+//     }
+//   }
+//   return { selected, handleClickContext }; // devolver la información de la celda (si está seleccionada y la función para seleccionarla)
+// }
 
 function setSize(tam) {
   let style;
@@ -90,14 +92,20 @@ function player2color(player) {
   }
 }
 
-export function Celda({ fil, col, tam = "m" }) {
+export function Celda({ fil, col, selected, tam = "m", handleClickOnCell }) {
   let style = setSize(tam);
   let index = fil * 24 + col; // índice de la celda en el tablero
+
+  const { playerPositions, celdasOptions } = useContext(CeldasContext);
+  const { characters } = useContext(GameInfoContext);
 
   // información de los atributos de la celda que se está mirando
   const infoCell = infoTablero[index];
   const isFilled =
-    !infoCell?.isRoom && infoCell?.isWalkable && infoCell?.token != "";
+    // !infoCell?.isRoom && infoCell?.isWalkable && infoCell?.token != "";
+    playerPositions.includes(index);
+
+  // console.log("Celda " + index + " " + isFilled);
 
   let clase = "";
   // Añadido de estilización dependiendo qué tipo de celda sea
@@ -125,19 +133,35 @@ export function Celda({ fil, col, tam = "m" }) {
     if (isFilled) {
       // Casilla de inicio
       clase += " filled";
-      style.fill = player2color(infoCell.token);
+      style.fill = player2color(
+        /* infoCell.token */ characters[playerPositions.indexOf(index)]
+      );
     }
   }
 
-  // recuperar la información de la celda (si está seleccionada y la función para seleccionarla)
-  const { selected, handleClickContext } = useCellContext(index);
+  // useEffect(() => {
+  //   console.log("Celda actualizada a " + playerPositions);
+  // }, [playerPositions, characters]);
 
-  selected ? (clase += " selected") : null; // si la celda está seleccionada, añadir clase correspondiente
+  // recuperar la información de la celda (si está seleccionada y la función para seleccionarla)
+  // const { selected, handleClickContext } = useCellContext(index);
+  // selected ? (clase += " selected") : null; // si la celda está seleccionada, añadir clase correspondiente
+  clase += celdasOptions[index] ? " selected" : ""; // si la celda está seleccionada, añadir clase correspondiente
+  // console.log("Celda " + index + " " + celdasOptions[index]);
+
   style.width = style.width + "px";
   style.height = style.height + "px";
-  const handleClick = () => handleClickContext(index, 2);
+
+  // const { dados } = useContext(TurnoContext);
+  const handleClick = () => handleClickOnCell(index);
 
   // console.log(infoCell.split(" ")[1].charAt(0).toUpperCase());
+  let cellDisplay = "";
+  if (isFilled) {
+    const player_idx = playerPositions.indexOf(index);
+    if (!characters[player_idx]) return;
+    cellDisplay = characters[player_idx].split(" ")[1].charAt(0).toUpperCase();
+  }
 
   return (
     <div style={style} className={clase} onClick={handleClick}>
@@ -157,7 +181,7 @@ export function Celda({ fil, col, tam = "m" }) {
             fontSize="75"
             fontFamily="Hoefler Text" //podria llegar a hacer el papel
           >
-            {infoCell.token.split(" ")[1].charAt(0).toUpperCase()}
+            {cellDisplay}
           </text>
         </svg>
       ) : null}

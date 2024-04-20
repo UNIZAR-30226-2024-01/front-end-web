@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect, useContext } from "react";
+import { CeldasContext } from "./celdas";
 import { SocketContext } from "./socket";
 
 export const TurnoContext = createContext();
@@ -13,7 +14,7 @@ elegir-pregunta -> ELEGIR PREGUNTA
 export function TurnoProvider({ children }) {
   const [turnoOwner, setTurnoOwner] = useState("mr SOPER");
   const [parteTurno, setParteTurno] = useState("espera-resto");
-  const [dados, setDados] = useState();
+  const [dados, setDados] = useState(5);
   const { socket } = useContext(SocketContext);
 
   // useEffect grande para controlar el flujo del turno
@@ -41,9 +42,10 @@ export function TurnoProvider({ children }) {
   }, [socket]);
 
   useEffect(() => {
-    console.log("TURNO OWNER", turnoOwner);
-    console.log("PARTE TURNO", parteTurno);
+    // console.log("TURNO OWNER", turnoOwner);
+    // console.log("PARTE TURNO", parteTurno);
   }, [turnoOwner, parteTurno]);
+
 
   return (
     <TurnoContext.Provider

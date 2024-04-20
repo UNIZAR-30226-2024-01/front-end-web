@@ -15,7 +15,8 @@ export function PlayerInTablero({ index }) {
   if (!username) {
     username = "anonymous";
   }
-  const className = turnoOwner == character ? `player ${side} turn`  : `player ${side}`;
+  const className =
+    turnoOwner == character ? `player ${side} turn` : `player ${side}`;
 
   let style = {};
   switch (character) {
@@ -42,13 +43,11 @@ export function PlayerInTablero({ index }) {
       break;
   }
 
-
-
   return (
     <div className="main-player-in-tablero">
       <div style={style} className={className}>
         <h1>{username}</h1>
-        {character && <GameItems player_name={character.split(" ")[1]} />}
+        {character && <GameItems player_name={character} />}
         {/* <h2>🔍{character}</h2> */}
       </div>
     </div>

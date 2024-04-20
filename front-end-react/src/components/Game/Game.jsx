@@ -16,10 +16,15 @@ import { useCookies } from "react-cookie";
 import { SocketContext } from "../../context/socket";
 import { socketio } from "../../socketio";
 import { MainTablero } from "./Tablero/MainTablero.jsx";
+import { GameInfoContext } from "../../context/gameinfo.jsx";
+import { TurnoContext } from "../../context/turno.jsx";
 
 export function Game() {
-  const [characterSelection, setCharacterSelection] = useState(true);
   const [cookies] = useCookies(["username", "group"]);
+  const { turnoOwner, setTurnoOwner } = useContext(TurnoContext);
+  const { usernames } = useContext(GameInfoContext);
+  const haveISelected = usernames.includes(cookies.username);
+  const [characterSelection, setCharacterSelection] = useState(!haveISelected);
   const [iniciada, setIniciada] = useState(false);
 
   const { socket, setSocket } = useContext(SocketContext);
@@ -62,7 +67,15 @@ export function Game() {
         </button>
       )}
 
-      {/* <Turno /> */}
+      <button
+        onClick={() => {
+          setTurnoOwner(cookies.username);
+        }}
+      >
+        Set turnoOwner a mi nombre
+      </button>
+
+      {turnoOwner === cookies.username && <Turno />}
 
       {/* <CartaShower /> */}
 

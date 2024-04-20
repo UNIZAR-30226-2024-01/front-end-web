@@ -7,7 +7,7 @@ export function Dados({ buttonText, finRoll }) {
   const reactDice = useRef(null);
   const [diceState, setDiceState] = useState(false);
 
-  const { setDados } = useContext(TurnoContext)
+  const { setDados } = useContext(TurnoContext);
 
   const rollDone = (totalValue, values) => {
     if (!diceState) {

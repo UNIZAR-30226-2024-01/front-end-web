@@ -25,36 +25,35 @@ import aulasur from "../../../../../../front-end-shared/images/lugares_imagen/sv
 
 import back from "../../../../../../front-end-shared/images/logo-no-back.svg";
 
-
 export function GameItems({ player_name }) {
   switch (player_name.toUpperCase()) {
-    case "SOPER":
+    case "MR SOPER":
       return <img src={MrSoper} alt="Imagen del logo del personaje Mr Soper" />;
-    case "FISICA":
+    case "MISS FISICA":
       return (
         <img src={MsFisica} alt="Imagen del logo del personaje Miss Fisica" />
       );
-    case "IA":
+    case "MISS IA":
       return <img src={MsIa} alt="Imagen del logo del personaje Miss IA" />;
-    case "PROG":
+    case "MR PROG":
       return <img src={MrProg} alt="Imagen del logo del personaje Mr Prog" />;
-    case "REDES":
+    case "MISS REDES":
       return (
         <img src={MsRedes} alt="Imagen del logo del personaje Miss Redes" />
       );
-    case "DISCRETO":
+    case "MR DISCRETO":
       return (
         <img src={MrDiscreto} alt="Imagen del logo del personaje Mr Discreto" />
       );
-    case "CABLE":
+    case "CABLE DE RED":
       return <img src={cable} alt="Imagen del logo del objeto cable" />;
-    case "DISCO":
+    case "CD":
       return <img src={disco} alt="Imagen del logo del objeto disco" />;
-    case "ROUTER":
+    case "ROUTER AFILADO":
       return <img src={router} alt="Imagen del logo del objeto router" />;
     case "SUSPENSO":
       return <img src={suspenso} alt="Imagen del logo del objeto suspenso" />;
-    case "TAZA":
+    case "CAFE ENVENENADO":
       return <img src={taza} alt="Imagen del logo del objeto taza" />;
     case "TECLADO":
       return <img src={teclado} alt="Imagen del logo del objeto teclado" />;
@@ -78,9 +77,9 @@ export function GameItems({ player_name }) {
       );
     case "DESPACHO":
       return <img src={despacho} alt="Imagen del logo del lugar despacho" />;
-    case "AULANORTE":
+    case "AULAS NORTE":
       return <img src={aulanorte} alt="Imagen del logo del lugar aulanorte" />;
-    case "AULASUR":
+    case "AULAS SUR":
       return <img src={aulasur} alt="Imagen del logo del lugar aulasur" />;
 
     case "BACK":

@@ -70,7 +70,6 @@ export const onGameInfo = (
 ) => {
   // console.log("Available characters:", data);
   const { names, guns, rooms, available } = data;
-  console.log("data", data);
   setCharacters(names);
   setUsernames(available);
   setGuns(guns);
