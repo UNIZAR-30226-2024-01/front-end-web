@@ -131,7 +131,7 @@ export function Celda({ fil, col, tam = 'm', handleClickOnCell }) {
   if (isFilled) {
     // Casilla de inicio
     clase += ' filled';
-    style.fill = player2color(/* infoCell.token */ characters[currentIdx]);
+    style.fill = player2color(characters[currentIdx]);
   }
 
   // useEffect(() => {

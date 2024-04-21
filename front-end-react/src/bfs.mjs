@@ -102,5 +102,9 @@ function bfs(casilla, dados, vecinos) {
 export const cellsClose = (casilla, dados) => {
   const n_cols = 24;
   const vecinos = [n_cols, 1, -n_cols, -1];
-  return bfs(casilla, dados, vecinos);
+  let list = bfs(casilla, dados, vecinos);
+  // verificar qué habitación es la casilla actual, y quitar de list las casillas que tengan isDoor a true
+  const roomName = infoTablero[casilla]['roomName'];
+  list = list.filter((c) => infoTablero[c]['roomName'] !== roomName || infoTablero[c]['isDoor'] === false);
+  return list;
 };
