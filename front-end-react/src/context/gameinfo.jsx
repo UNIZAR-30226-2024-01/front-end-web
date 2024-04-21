@@ -12,6 +12,7 @@ export function GameInfoProvider({ children }) {
   const [guns, setGuns] = useState([]);
   const [rooms, setRooms] = useState([]);
   const [cards, setCards] = useState([]);
+  const [started, setStarted] = useState(false);
 
   useEffect(() => {
     if (!socket) return;
@@ -30,12 +31,19 @@ export function GameInfoProvider({ children }) {
       onGameInfo(data, setCharacters, setUsernames, setGuns, setRooms);
     };
 
+    const onStartGame = (data) => {
+      setStarted(true);
+      onGameInfo(data, setCharacters, setUsernames, setGuns, setRooms);
+    };
+
     socket.on('cards', onCards);
     socket.on('game-info', onGameInfoLocal);
+    socket.on('start-game', onStartGame);
 
     return () => {
       socket.off('game-info', onGameInfoLocal);
       socket.off('cards', onCards);
+      socket.off('start-game', onStartGame);
     };
   }, [socket]);
 
@@ -52,6 +60,8 @@ export function GameInfoProvider({ children }) {
         setRooms,
         cards,
         setCards,
+        started,
+        setStarted,
       }}
     >
       {children}

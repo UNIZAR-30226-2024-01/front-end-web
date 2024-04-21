@@ -7,22 +7,25 @@ import { DesplegablesContext } from '../../../context/desplegables';
 import { TurnoContext } from '../../../context/turno';
 import { GameInfoContext } from '../../../context/gameinfo';
 import { Temporizador } from './Temporizador';
+import { gameLogicTurnoAsksFor, gameLogicTurnoMovesTo } from '../../../logic/GameLogic';
+import { SocketContext } from '../../../context/socket';
+import { useCookies } from 'react-cookie';
+import { CeldasContext } from '../../../context/celdas';
 
 export function Turno() {
-  const { setChatDesplegado, setTarjetaDesplegado, setCartasDesplegado, setOpcionesDesplegado } =
-    useContext(DesplegablesContext);
   const { dados, parteTurno, setParteTurno, setTurnoOwner } = useContext(TurnoContext);
-  const { characters, guns, rooms } = useContext(GameInfoContext);
-  // const { socket } = useContext(SocketContext);
+  const { characters, guns, rooms, usernames } = useContext(GameInfoContext);
+  const { socket } = useContext(SocketContext);
+  const { playerPositions } = useContext(CeldasContext);
+
+  const [cookies] = useCookies(['username']);
 
   // ocultar todos los desplegables al inicio del turno
   useEffect(() => {
-    setChatDesplegado(false);
-    setTarjetaDesplegado(false);
-    setCartasDesplegado(false);
-    setOpcionesDesplegado(false);
-    console.log('Turno iniciado');
-    setParteTurno('es-tu-turno');
+    // setChatDesplegado(false);
+    // setTarjetaDesplegado(false);
+    // setCartasDesplegado(false);
+    // setOpcionesDesplegado(false);
   }, []);
 
   useEffect(() => {
@@ -33,8 +36,17 @@ export function Turno() {
     }
   }, [parteTurno]);
 
-  const finTurno = () => {
+  const finTemporizador = () => {
     setParteTurno('espera-resto');
+  };
+
+  const finTurnoPregunta = () => {
+    setParteTurno('espera-resto');
+    const character = 'mr SOPER';
+    const gun = 'teclado';
+    const room = 'cafeteria';
+    const username_asking = cookies.username;
+    gameLogicTurnoAsksFor(socket, username_asking, character, gun, room);
   };
 
   return (
@@ -61,7 +73,7 @@ export function Turno() {
       )}
 
       {(parteTurno == 'dados' || parteTurno == 'elegir-casilla' || parteTurno == 'elegir-pregunta') && (
-        <Temporizador tiempo={30} temporizadorDone={finTurno} />
+        <Temporizador tiempo={30} temporizadorDone={finTemporizador} />
       )}
 
       {parteTurno == 'dados' && (
@@ -99,7 +111,7 @@ export function Turno() {
             </div>
           </div>
 
-          <button onClick={finTurno}>Realizar sospecha🧐</button>
+          <button onClick={finTurnoPregunta}>Realizar sospecha🧐</button>
         </div>
       )}
     </div>

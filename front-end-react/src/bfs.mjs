@@ -106,5 +106,7 @@ export const cellsClose = (casilla, dados) => {
   // verificar qué habitación es la casilla actual, y quitar de list las casillas que tengan isDoor a true
   const roomName = infoTablero[casilla]['roomName'];
   list = list.filter((c) => infoTablero[c]['roomName'] !== roomName || infoTablero[c]['isDoor'] === false);
+  list.push(casilla);
+
   return list;
 };

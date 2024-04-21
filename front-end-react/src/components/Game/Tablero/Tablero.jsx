@@ -7,7 +7,7 @@ import { TurnoContext } from '../../../context/turno.jsx';
 import { useCookies } from 'react-cookie';
 import { CeldasContext } from '../../../context/celdas.jsx';
 import { GameInfoContext } from '../../../context/gameinfo.jsx';
-import { GameLogicTurnoMovesTo } from '../../../logic/GameLogic.jsx';
+import { gameLogicTurnoMovesTo } from '../../../logic/GameLogic.jsx';
 import { SocketContext } from '../../../context/socket.jsx';
 
 // import { useGameLogicTurnoMovesTo } from '../../../logic/GameLogic.jsx';
@@ -43,7 +43,7 @@ export function Tablero() {
   const { turnoOwner, parteTurno } = useContext(TurnoContext);
   const style = `tablero-body ${parteTurno === 'elegir-casilla' ? 'being-chosen' : ''}`;
 
-  const handleClickOnCell = (idx) => {
+  const handleClickOnCell = (idx, fin) => {
     if (turnoOwner == turnoOwner && parteTurno === 'elegir-casilla') {
       // const player_idx = usernames.indexOf(cookies.username);
 
@@ -55,7 +55,7 @@ export function Tablero() {
       //   newPlayerPosition[player_idx] = idx;
       //   return newPlayerPosition;
       // });
-      GameLogicTurnoMovesTo(socket, cookies.username, idx);
+      gameLogicTurnoMovesTo(socket, cookies.username, idx, fin);
     }
   };
 

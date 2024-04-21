@@ -22,10 +22,9 @@ import { GameLogic } from '../../logic/GameLogic.jsx';
 export function Game() {
   const [cookies] = useCookies(['username', 'group']);
   const { turnoOwner, setTurnoOwner } = useContext(TurnoContext);
-  const { usernames } = useContext(GameInfoContext);
+  const { usernames, started, setStarted } = useContext(GameInfoContext);
   const haveISelected = usernames.includes(cookies.username);
   const [characterSelection, setCharacterSelection] = useState(!haveISelected);
-  const [iniciada, setIniciada] = useState(false);
 
   const { socket, setSocket } = useContext(SocketContext);
 
@@ -46,7 +45,7 @@ export function Game() {
     enough players, set the name 'Bot_i' */
 
   const startGame = () => {
-    setIniciada(true);
+    setStarted(true);
     console.log('start game');
     socket.emit('start-game');
   };
@@ -63,19 +62,19 @@ export function Game() {
           <CharacterSelection onCharacterSelected={handleCharacterSelection} />
         </div>
       )}
-      {!iniciada && (
+      {!started && (
         <button className="start-game-button" onClick={startGame}>
           Comenzar partida
         </button>
       )}
 
-      <button
+      {/* <button
         onClick={() => {
           setTurnoOwner(cookies.username);
         }}
       >
         Set turnoOwner a mi nombre
-      </button>
+      </button> */}
 
       <GameLogic />
       {turnoOwner === cookies.username && <Turno />}

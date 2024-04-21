@@ -9,6 +9,9 @@ import { TurnoContext } from '../../../context/turno.jsx';
 import { Game } from '../Game.jsx';
 import { GameInfoContext } from '../../../context/gameinfo.jsx';
 import { casillasPorHabitacion } from '../../../../../../front-end-shared/infoTablero.js';
+import { SocketContext } from '../../../context/socket.jsx';
+import { useCookies } from 'react-cookie';
+import { gameLogicTurnoMovesTo } from '../../../logic/GameLogic.jsx';
 
 // function useCellContext(index) {
 //   const handleClickContext = (index, dice) => {
@@ -157,7 +160,7 @@ export function Celda({ fil, col, tam = 'm', handleClickOnCell }) {
       cells = cells.filter((c) => !playerPositions.includes(c));
       // cells.remove((c) => playerPositions.includes(c)); // eliminar las casillas ya ocupadas
       const randomCell = cells[Math.floor(Math.random() * cells.length)];
-      handleClickOnCell(randomCell);
+      handleClickOnCell(randomCell, false);
       setTimeout(() => {
         setParteTurno('elegir-pregunta');
       }, 2000);
@@ -166,7 +169,7 @@ export function Celda({ fil, col, tam = 'm', handleClickOnCell }) {
 
     if (playerPositions.includes(index)) return; // Si la casilla ya está ocupada, no se procesa el click
 
-    handleClickOnCell(index);
+    handleClickOnCell(index, true);
     setTimeout(() => {
       setParteTurno('espera-resto');
     }, 2000);

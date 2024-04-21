@@ -62,10 +62,10 @@ export const onGameInfo = (data, setCharacters, setUsernames, setGuns, setRooms)
   setRooms(rooms);
 };
 
-export function onTurnoOwner(username, setTurnoOwner) {
-  console.log(`Now is ${username}'s turn`);
-  setTurnoOwner(username);
-}
+// export function onTurnoOwner(username, setTurnoOwner) {
+//   console.log(`Now is ${username}'s turn`);
+//   setTurnoOwner(username);
+// }
 
 export function onTurnoAsksFor(username_asking, character, gun, room, my_cards) {
   console.log(`${username_asking} is asking for ${character}, ${gun}, ${room}`);

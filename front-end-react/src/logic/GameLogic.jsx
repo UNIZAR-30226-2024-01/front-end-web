@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { useEffect, useContext } from 'react';
 import { SocketContext } from '../context/socket';
 import { TurnoContext } from '../context/turno';
@@ -10,17 +11,23 @@ const useSocket = () => {
   return socket;
 };
 
-export function GameLogicTurnoMovesTo(socket, username, position) {
-  socket.emit('turno-moves-to', username, position);
+export function gameLogicTurnoMovesTo(socket, username, position, fin) {
+  console.log('GameLogicTurnoMovesTo', username, position, fin);
+  socket.emit('turno-moves-to', username, position, fin);
+}
+
+export function gameLogicTurnoAsksFor(socket, username_asking, character, gun, room) {
+  console.log('GameLogicTurnoAsksFor', username_asking, character, gun, room);
+  socket.emit('turno-asks-for', username_asking, character, gun, room);
 }
 
 // Llamadas WS gestionando los != eventos de la partida
 export function GameLogic() {
-  const verbose = false;
+  const verbose = true;
   const socket = useSocket();
-  const { setTurnoOwner } = useContext(TurnoContext);
-  const { usernames, setPlayerPositions } = useContext(CeldasContext);
-  const { cards } = useContext(GameInfoContext);
+  const { setTurnoOwner, setParteTurno } = useContext(TurnoContext);
+  const { setPlayerPositions } = useContext(CeldasContext);
+  const { cards, usernames } = useContext(GameInfoContext);
   const { setSelectCardsToShow } = useContext(ShowCardsContext);
 
   useEffect(() => {
@@ -30,6 +37,7 @@ export function GameLogic() {
     const onTurnoOwner = (username) => {
       if (verbose) console.log('onTurnoOwner', username);
       setTurnoOwner(username);
+      setParteTurno('es-tu-turno');
     };
 
     // turno-moves-to
@@ -62,11 +70,17 @@ export function GameLogic() {
       // muestra las cartas que ha enseñado el jugador
     };
 
+    // turno-asks-for
+    const onTurnoAsksFor = (username_asking, character, gun, room) => {
+      if (verbose) console.log('onTurnoAsksFor', username_asking, character, gun, room);
+      // mustra un modal enseñando que pregunta ha hecho el jugador
+    };
+
     socket.on('turno-moves-to', onTurnoMovesTo);
     socket.on('turno-owner', onTurnoOwner);
-
     socket.on('turno-select-to-show', onTurnoSelectToShow);
     socket.on('turno-show-cards', onTurnoShowCards);
+    socket.on('turno-asks-for', onTurnoAsksFor);
 
     return () => {
       socket.off('turno-owner', onTurnoOwner);

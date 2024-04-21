@@ -8,7 +8,7 @@ import { infoTablero } from '../../../../front-end-shared/infoTablero';
 export const CeldasContext = createContext();
 
 export function CeldasProvider({ children }) {
-  const { dados, setDados } = useContext(TurnoContext);
+  const { dados } = useContext(TurnoContext);
   const { usernames } = useContext(GameInfoContext);
   const [cookies] = useCookies(['username']);
   // Indica cuales están seleccionadas
@@ -30,8 +30,9 @@ export function CeldasProvider({ children }) {
     const bfs = cellsClose(pp, dados);
 
     setCeldasOptions((prev) => {
-      const newPrev = [...prev];
+      let newPrev = [...prev];
       bfs.forEach((c) => (newPrev[c] = true));
+      playerPositions.forEach((c) => (newPrev[c] = false));
 
       const bfs_doors = bfs.filter((c) => infoTablero[c].isDoor);
       const bfs_rooms = bfs_doors.map((c) => infoTablero[c].roomName);
