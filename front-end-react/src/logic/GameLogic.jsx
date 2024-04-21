@@ -10,8 +10,7 @@ const useSocket = () => {
   return socket;
 };
 
-export function useGameLogicTurnoMovesTo(username, position) {
-  const { socket } = useContext(SocketContext);
+export function GameLogicTurnoMovesTo(socket, username, position) {
   socket.emit('turno-moves-to', username, position);
 }
 

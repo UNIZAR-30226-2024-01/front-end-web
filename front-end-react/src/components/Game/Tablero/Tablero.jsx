@@ -7,6 +7,8 @@ import { TurnoContext } from '../../../context/turno.jsx';
 import { useCookies } from 'react-cookie';
 import { CeldasContext } from '../../../context/celdas.jsx';
 import { GameInfoContext } from '../../../context/gameinfo.jsx';
+import { GameLogicTurnoMovesTo } from '../../../logic/GameLogic.jsx';
+import { SocketContext } from '../../../context/socket.jsx';
 
 // import { useGameLogicTurnoMovesTo } from '../../../logic/GameLogic.jsx';
 
@@ -19,6 +21,8 @@ export function Tablero() {
 
   const { setCeldasOptions, setPlayerPositions } = useContext(CeldasContext);
   const { usernames } = useContext(GameInfoContext);
+
+  const { socket } = useContext(SocketContext);
 
   useEffect(() => {
     const newTablero = [];
@@ -41,16 +45,17 @@ export function Tablero() {
 
   const handleClickOnCell = (idx) => {
     if (turnoOwner == turnoOwner && parteTurno === 'elegir-casilla') {
-      const player_idx = usernames.indexOf(cookies.username);
+      // const player_idx = usernames.indexOf(cookies.username);
 
       // gameLogicTurnoMovesTo(cookies.username, idx);
 
       setCeldasOptions(Array(24 * 24).fill(false));
-      setPlayerPositions((prev) => {
-        const newPlayerPosition = [...prev];
-        newPlayerPosition[player_idx] = idx;
-        return newPlayerPosition;
-      });
+      // setPlayerPositions((prev) => {
+      //   const newPlayerPosition = [...prev];
+      //   newPlayerPosition[player_idx] = idx;
+      //   return newPlayerPosition;
+      // });
+      GameLogicTurnoMovesTo(socket, cookies.username, idx);
     }
   };
 
