@@ -11,7 +11,7 @@ const useSocket = () => {
 };
 
 export function useGameLogicTurnoMovesTo(username, position) {
-  const socket = useSocket();
+  const { socket } = useContext(SocketContext);
   socket.emit('turno-moves-to', username, position);
 }
 
@@ -19,7 +19,7 @@ export function useGameLogicTurnoMovesTo(username, position) {
 export function GameLogic() {
   const verbose = false;
   const socket = useSocket();
-  const [, setTurnoOwner] = useContext(TurnoContext);
+  const { setTurnoOwner } = useContext(TurnoContext);
   const { usernames, setPlayerPositions } = useContext(CeldasContext);
   const { cards } = useContext(GameInfoContext);
   const { setSelectCardsToShow } = useContext(ShowCardsContext);

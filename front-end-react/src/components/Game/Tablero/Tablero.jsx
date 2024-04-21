@@ -8,7 +8,7 @@ import { useCookies } from 'react-cookie';
 import { CeldasContext } from '../../../context/celdas.jsx';
 import { GameInfoContext } from '../../../context/gameinfo.jsx';
 
-import { useGameLogicTurnoMovesTo } from '../../../logic/GameLogic.jsx';
+// import { useGameLogicTurnoMovesTo } from '../../../logic/GameLogic.jsx';
 
 export function Tablero() {
   const [size] = useState('m');
@@ -43,7 +43,7 @@ export function Tablero() {
     if (turnoOwner == turnoOwner && parteTurno === 'elegir-casilla') {
       const player_idx = usernames.indexOf(cookies.username);
 
-      useGameLogicTurnoMovesTo(cookies.username, idx);
+      // gameLogicTurnoMovesTo(cookies.username, idx);
 
       setCeldasOptions(Array(24 * 24).fill(false));
       setPlayerPositions((prev) => {

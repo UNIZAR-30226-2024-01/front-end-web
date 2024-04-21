@@ -3,18 +3,18 @@ import { DesplegablesProvider } from './desplegables';
 import { TurnoProvider } from './turno';
 import { SocketProvider } from './socket';
 import { GameInfoProvider } from './gameinfo';
-import { ShowCardsContext } from './showcards';
+import { ShowCardsProvider } from './showcards';
 
 export function Contexts({ children }) {
   return (
     <SocketProvider>
       <DesplegablesProvider>
         <TurnoProvider>
-          <ShowCardsContext>
+          <ShowCardsProvider>
             <GameInfoProvider>
               <CeldasProvider>{children}</CeldasProvider>
             </GameInfoProvider>
-          </ShowCardsContext>
+          </ShowCardsProvider>
         </TurnoProvider>
       </DesplegablesProvider>
     </SocketProvider>
