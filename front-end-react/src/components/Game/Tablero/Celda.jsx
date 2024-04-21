@@ -185,6 +185,7 @@ export function Celda({ fil, col, tam = 'm', handleClickOnCell }) {
         infoCell?.isDoor ? <Flecha dir={infoCell.isDoor} /> : null
         // infoCell?.isDoor ? <Flecha dir={infoCell.isDoor} /> : index
       }
+      {infoCell?.isPath ? <TrapDoor idx={index} /> : null}
       {isFilled ? (
         <svg viewBox="0 0 100 100">
           <circle cx="50" cy="50" r="45" />
@@ -215,6 +216,28 @@ function Flecha({ dir }) {
   return (
     <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" style={style}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+    </svg>
+  );
+}
+
+function TrapDoor({ idx }) {
+  let style = {};
+  if (idx == 0) style = { rotate: '315deg' };
+  else if (idx == 23) style = { rotate: '90deg' };
+  else if (idx == 552) style = { rotate: '180deg' };
+  else if (idx == 575) style = { rotate: '0deg' };
+  else return idx;
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="w-6 h-6"
+      style={style}
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="m15 15-6 6m0 0-6-6m6 6V9a6 6 0 0 1 12 0v3" />
     </svg>
   );
 }

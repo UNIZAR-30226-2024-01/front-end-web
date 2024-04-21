@@ -3,6 +3,7 @@ import { TurnoContext } from './turno';
 import { cellsClose } from '../bfs.mjs';
 import { useCookies } from 'react-cookie';
 import { GameInfoContext } from './gameinfo';
+import { infoTablero } from '../../../../front-end-shared/infoTablero';
 
 export const CeldasContext = createContext();
 
@@ -31,6 +32,12 @@ export function CeldasProvider({ children }) {
     setCeldasOptions((prev) => {
       const newPrev = [...prev];
       bfs.forEach((c) => (newPrev[c] = true));
+
+      const bfs_doors = bfs.filter((c) => infoTablero[c].isDoor);
+      const bfs_rooms = bfs_doors.map((c) => infoTablero[c].roomName);
+      const bfs_rooms_cells = infoTablero.filter((c) => bfs_rooms.includes(c.roomName)).map((c) => c.idx);
+      bfs_rooms_cells.forEach((c) => (newPrev[c] = true));
+
       return newPrev;
     });
   }, [dados]);
