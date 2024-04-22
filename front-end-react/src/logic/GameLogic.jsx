@@ -28,7 +28,7 @@ export function GameLogic() {
   const { setTurnoOwner, setParteTurno } = useContext(TurnoContext);
   const { setPlayerPositions } = useContext(CeldasContext);
   const { cards, usernames } = useContext(GameInfoContext);
-  const { setSelectCardsToShow } = useContext(ShowCardsContext);
+  const { showQuestion, showCardElection, setSelectCardsToShow, showCardShowed } = useContext(ShowCardsContext);
 
   useEffect(() => {
     if (!socket) return;
@@ -41,8 +41,8 @@ export function GameLogic() {
     };
 
     // turno-moves-to
-    const onTurnoMovesTo = (username, position) => {
-      if (verbose) console.log('onTurnoMovesTo', username, position);
+    const onTurnoMovesToResponse = (username, position) => {
+      if (verbose) console.log('onTurnoMovesToResponse', username, position);
       const player_idx = usernames.indexOf(username);
       setPlayerPositions((prev) => {
         const newPlayerPositions = [...prev];
@@ -65,28 +65,43 @@ export function GameLogic() {
     };
 
     // turno-show-cards
-    const onTurnoShowCards = (username_showed, username_shower, character, gun, room) => {
-      if (verbose) console.log('onTurnoShowCards', username_showed, username_shower, character, gun, room);
-      // muestra las cartas que ha enseñado el jugador
+    const onTurnoShowCards = (username_showed, username_shower, card) => {
+      if (verbose) console.log('onTurnoShowCards', username_showed, username_shower, card);
+      // muestra la carta que ha enseñado el jugador
+      // si te enseña a ti: muestra la carta
+      // si te enseña a otro: muestra el dorso de la carta
+
+      const i_am_showed = username_showed === socket.auth.username;
+      let card_to_show = i_am_showed ? [card] : ['back'];
+      if (!card_to_show) card_to_show = [];
+
+      console.log('card_to_show', card_to_show);
+
+      showCardShowed(username_showed, username_shower, card_to_show);
     };
 
     // turno-asks-for
-    const onTurnoAsksFor = (username_asking, character, gun, room) => {
-      if (verbose) console.log('onTurnoAsksFor', username_asking, character, gun, room);
+    const onTurnoAsksForResponse = (username_asking, character, gun, room) => {
+      if (verbose) console.log('onTurnoAsksForResponse', username_asking, character, gun, room);
       // mustra un modal enseñando que pregunta ha hecho el jugador
+      // const text = `${username_asking} ha preguntado: ¿ha sido ${character} con ${gun} en ${room}?`;
+      const cards = [character, gun, room];
+      console.log('Cards GameLogic', cards);
+      showQuestion(username_asking, cards);
     };
 
-    socket.on('turno-moves-to', onTurnoMovesTo);
     socket.on('turno-owner', onTurnoOwner);
-    socket.on('turno-select-to-show', onTurnoSelectToShow);
+    socket.on('turno-moves-to-response', onTurnoMovesToResponse);
     socket.on('turno-show-cards', onTurnoShowCards);
-    socket.on('turno-asks-for', onTurnoAsksFor);
+    socket.on('turno-select-to-show', onTurnoSelectToShow);
+    socket.on('turno-asks-for-response', onTurnoAsksForResponse);
 
     return () => {
       socket.off('turno-owner', onTurnoOwner);
-      socket.off('turno-moves-to', onTurnoMovesTo);
-      socket.off('turno-select-to-show', onTurnoSelectToShow);
+      socket.off('turno-moves-to-response', onTurnoMovesToResponse);
       socket.off('turno-show-cards', onTurnoShowCards);
+      socket.off('turno-select-to-show', onTurnoSelectToShow);
+      socket.off('turno-asks-for-response', onTurnoAsksForResponse);
     };
   }),
     [socket];

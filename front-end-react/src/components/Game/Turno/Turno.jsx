@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import '../../../../../../front-end-shared/css/Game/Turno/Turno.css';
 import '../../../../../../front-end-shared/css/Game/Turno/Temporizador.css';
 import { Dados } from './Dados';
@@ -17,6 +17,10 @@ export function Turno() {
   const { characters, guns, rooms, usernames } = useContext(GameInfoContext);
   const { socket } = useContext(SocketContext);
   const { playerPositions } = useContext(CeldasContext);
+
+  const [characterSelected, setCharacterSelected] = useState('mr SOPER');
+  const [gunSelected, setGunSelected] = useState('teclado');
+  const [roomSelected, setRoomSelected] = useState('cafeteria');
 
   const [cookies] = useCookies(['username']);
 
@@ -42,11 +46,25 @@ export function Turno() {
 
   const finTurnoPregunta = () => {
     setParteTurno('espera-resto');
-    const character = 'mr SOPER';
-    const gun = 'teclado';
-    const room = 'cafeteria';
     const username_asking = cookies.username;
-    gameLogicTurnoAsksFor(socket, username_asking, character, gun, room);
+    gameLogicTurnoAsksFor(socket, username_asking, characterSelected, gunSelected, roomSelected);
+  };
+
+  const onChange = (value, type) => {
+    switch (type) {
+      case 'who':
+        setCharacterSelected(value);
+        break;
+      case 'what':
+        setGunSelected(value);
+        break;
+      case 'where':
+        setRoomSelected(value);
+        break;
+      default:
+        console.log('Error en el tipo de carta');
+        break;
+    }
   };
 
   return (
@@ -97,17 +115,18 @@ export function Turno() {
               <h2>¿Quién lo hizo?</h2>
               <p>Elige un sospechoso</p>
               {/* <Carta /> */}
-              <Carrusel options={characters} />
+              <Carrusel options={characters} onChange={onChange} type={'who'} />
             </div>
             <div className="carta-arma">
               <h2>¿Con qué lo hizo?</h2>
               <p>Elige un arma</p>
-              <Carrusel options={guns} />
+              <Carrusel options={guns} onChange={onChange} type={'what'} />
             </div>
+            {/* Cambiar, no dejar seleccionar WHERE y fijarlo a donde estás */}
             <div className="carta-donde">
               <h2>¿Dónde lo hizo?</h2>
               <p>Elige una habitación</p>
-              <Carrusel options={rooms} />
+              <Carrusel options={rooms} onChange={onChange} type={'where'} />
             </div>
           </div>
 

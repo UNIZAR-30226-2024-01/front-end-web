@@ -28,8 +28,6 @@ export function Game() {
 
   const { socket, setSocket } = useContext(SocketContext);
 
-  const showCards = false;
-
   useEffect(() => {
     setSocket(socketio);
   }, []);
@@ -79,8 +77,7 @@ export function Game() {
       <GameLogic />
       {turnoOwner === cookies.username && <Turno />}
 
-      {showCards && <CartaShower />}
-
+      <CartaShower />
       <NavbarGame />
       <Tarjeta />
       <Chat />

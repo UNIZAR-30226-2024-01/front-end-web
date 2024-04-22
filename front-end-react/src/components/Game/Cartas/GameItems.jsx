@@ -73,7 +73,8 @@ export function GameItems({ player_name }) {
       return <img src={aulasur} alt="Imagen del logo del lugar aulasur" />;
 
     case 'BACK':
-    default:
       return <img src={back} alt="Imagen del logo la app" />;
+    default:
+      return null;
   }
 }

@@ -1,6 +1,10 @@
-export function Carrusel({ options }) {
+export function Carrusel({ options, onChange, type }) {
   return (
-    <select>
+    <select
+      onChange={(e) => {
+        onChange(e.target.value, type);
+      }}
+    >
       {options.map((option) => (
         <option key={options.indexOf(option)} value={option}>
           {option}
