@@ -1,5 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { useEffect, useContext } from 'react';
+import { useCookies } from 'react-cookie';
 import { SocketContext } from '../context/socket';
 import { TurnoContext } from '../context/turno';
 import { CeldasContext } from '../context/celdas';
@@ -24,6 +25,7 @@ export function gameLogicTurnoAsksFor(socket, username_asking, character, gun, r
 // Llamadas WS gestionando los != eventos de la partida
 export function GameLogic() {
   const verbose = true;
+  const [cookies] = useCookies(['username']);
   const socket = useSocket();
   const { setTurnoOwner, setParteTurno } = useContext(TurnoContext);
   const { setPlayerPositions } = useContext(CeldasContext);
@@ -52,32 +54,32 @@ export function GameLogic() {
     };
 
     // turno-select-to-show
-    const onTurnoSelectToShow = (username_showed, username_shower, character, gun, room) => {
-      if (verbose) console.log('onTurnoSelectToShow', username_showed, username_shower, character, gun, room);
+    const onTurnoSelectToShow = (username_asking, username_shower, character, gun, room) => {
+      if (verbose) console.log('onTurnoSelectToShow', username_asking, username_shower, character, gun, room);
       // hace que se renderice un modal para elegir la carta a enseñar al que ha preguntado
-      const cards_to_show = cards.filter((card) => card === character || card === gun || card === room);
-      setSelectCardsToShow({
-        username_showed,
-        username_shower,
-        cards,
-        cards_to_show,
-      });
+
+      const onClick = (card) => {
+        console.log('card selected', card);
+        socket.emit('turno-card-selected', username_asking, cookies.username, card);
+      };
+      /*username_asking, my_cards, cards_asked, onClickedCard*/
+      // example--> showCardElection('mat', ['MISS IA', 'SUSPENSO', 'CAFETERIA'], ['MISS IA', 'SUSPENSO', 'baños'], onClick);
+      showCardElection(username_asking, cards, [character, gun, room], onClick);
     };
 
     // turno-show-cards
-    const onTurnoShowCards = (username_showed, username_shower, card) => {
-      if (verbose) console.log('onTurnoShowCards', username_showed, username_shower, card);
+    const onTurnoShowCards = (username_asking, username_shower, card, character_asked, gun_asked, room_asked) => {
+      if (verbose) console.log('onTurnoShowCards', username_asking, username_shower, card);
       // muestra la carta que ha enseñado el jugador
       // si te enseña a ti: muestra la carta
       // si te enseña a otro: muestra el dorso de la carta
 
-      const i_am_showed = username_showed === socket.auth.username;
-      let card_to_show = i_am_showed ? [card] : ['back'];
-      if (!card_to_show) card_to_show = [];
+      const i_am_asking = username_asking === socket.auth.username;
+      let card_to_show = i_am_asking || card[0] == '' ? [card] : ['back'];
 
       console.log('card_to_show', card_to_show);
 
-      showCardShowed(username_showed, username_shower, card_to_show);
+      showCardShowed(username_asking, username_shower, card_to_show, [character_asked, gun_asked, room_asked]);
     };
 
     // turno-asks-for

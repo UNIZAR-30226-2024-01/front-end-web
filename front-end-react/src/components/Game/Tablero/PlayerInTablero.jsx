@@ -15,7 +15,8 @@ export function PlayerInTablero({ index }) {
   if (!username) {
     username = 'bot';
   }
-  const className = turnoOwner == character ? `player ${side} turn` : `player ${side}`;
+
+  const className = turnoOwner === username ? `player ${side} turn` : `player ${side}`;
 
   let style = {};
   switch (character) {

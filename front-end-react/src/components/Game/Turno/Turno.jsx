@@ -47,6 +47,7 @@ export function Turno() {
   const finTurnoPregunta = () => {
     setParteTurno('espera-resto');
     const username_asking = cookies.username;
+    // 📩
     gameLogicTurnoAsksFor(socket, username_asking, characterSelected, gunSelected, roomSelected);
   };
 
@@ -91,7 +92,7 @@ export function Turno() {
       )}
 
       {(parteTurno == 'dados' || parteTurno == 'elegir-casilla' || parteTurno == 'elegir-pregunta') && (
-        <Temporizador tiempo={30} temporizadorDone={finTemporizador} />
+        <Temporizador tiempo={45} temporizadorDone={finTemporizador} />
       )}
 
       {parteTurno == 'dados' && (
@@ -114,7 +115,6 @@ export function Turno() {
             <div className="carta-quien">
               <h2>¿Quién lo hizo?</h2>
               <p>Elige un sospechoso</p>
-              {/* <Carta /> */}
               <Carrusel options={characters} onChange={onChange} type={'who'} />
             </div>
             <div className="carta-arma">

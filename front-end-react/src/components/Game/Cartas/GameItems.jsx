@@ -74,6 +74,7 @@ export function GameItems({ player_name }) {
 
     case 'BACK':
       return <img src={back} alt="Imagen del logo la app" />;
+      
     default:
       return null;
   }

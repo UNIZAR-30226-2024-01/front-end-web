@@ -18,6 +18,7 @@ import { MainTablero } from './Tablero/MainTablero.jsx';
 import { GameInfoContext } from '../../context/gameinfo.jsx';
 import { TurnoContext } from '../../context/turno.jsx';
 import { GameLogic } from '../../logic/GameLogic.jsx';
+import { ShowCardsContext } from '../../context/showcards.jsx';
 
 export function Game() {
   const [cookies] = useCookies(['username', 'group']);
@@ -52,6 +53,17 @@ export function Game() {
     console.log('character selected');
     setCharacterSelection(false);
   };
+
+  // const { showQuestion, showCardShowed, showCardElection } = useContext(ShowCardsContext);
+  // useEffect(() => {
+  //   // showQuestion('Mr Soper', ['MISS IA', 'SUSPENSO', 'CAFETERIA']);
+  //   // showCardShowed('rold', 'mat', ['MISS IA'], ['MISS IA', 'SUSPENSO', 'CAFETERIA']);
+  //   const onClick = (card) => {
+  //     console.log('card selected', card);
+
+  //   };
+  //   showCardElection('mat', ['MISS IA', 'SUSPENSO', 'CAFETERIA'], ['MISS IA', 'SUSPENSO', 'baños'], onClick);
+  // }, []);
 
   return (
     <>
