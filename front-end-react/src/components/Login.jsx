@@ -43,6 +43,11 @@ export function Login() {
 
   return (
     <>
+      {/* 🎃 BORRAR 🎃 */}
+      {/* <div className="aviso-login">
+        <h1>se han eliminado todas las cuentas</h1>
+        <h2>cree su cuenta de nuevo</h2>
+      </div> */}
       <div className="login-body">
         <div className="login-container">
           <h1 className="inicia-sesion">Inicia sesión</h1>
@@ -64,6 +69,9 @@ export function Login() {
             Jugar como invitado
           </Link>
         </div>
+        <a href="https://github.com/UNIZAR-30226-2024-01" className='logo-to-github'>
+          <img src="/public/logo-no-back.png" alt="logo de la app" />
+        </a>
       </div>
     </>
   );

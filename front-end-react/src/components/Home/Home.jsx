@@ -67,7 +67,7 @@ export function Home() {
             Solitario
           </button>
           <button
-            className={`gamemode-button ${gameMode === 'multiplayer' ? 'active' : ''}`}
+            className={`gamemode-button ${gameMode === 'multiplayer' ? 'active' : ''} add-buttons-space`}
             onClick={showGameModesMultiplayer}
           >
             Multijugador

@@ -74,6 +74,9 @@ export function CreateUser() {
             Ya tengo cuenta...
           </Link>
         </div>
+        <a href="https://github.com/UNIZAR-30226-2024-01" className="logo-to-github">
+          <img src="/public/logo-no-back.png" alt="logo de la app" />
+        </a>
       </div>
     </>
   );
