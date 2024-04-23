@@ -14,6 +14,11 @@ export function CreateUser() {
   const [, setCookie] = useCookies(['username, token']);
 
   const HandleCreateAccount = async () => {
+    if (username.startsWith(' ') || username.endsWith(' ') || username === '' || username.startsWith('bot')) {
+      alert('Invalid username');
+      return;
+    }
+
     if (password !== confirmPassword) {
       alert('Passwords do not match!');
       return;
@@ -43,8 +48,8 @@ export function CreateUser() {
 
   return (
     <>
-      <div className="parent">
-        <div className="container">
+      <div className="craete-user-body">
+        <div className="create-user-container">
           <div>
             <h1 className="create-account">Crear una cuenta</h1>
             <div className="loginForm">

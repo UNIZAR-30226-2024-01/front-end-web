@@ -43,8 +43,8 @@ export function Login() {
 
   return (
     <>
-      <div className="parent">
-        <div className="container">
+      <div className="login-body">
+        <div className="login-container">
           <h1 className="inicia-sesion">Inicia sesión</h1>
           <div className="loginForm">
             <p className="p-login-account">Nombre de usuario</p>

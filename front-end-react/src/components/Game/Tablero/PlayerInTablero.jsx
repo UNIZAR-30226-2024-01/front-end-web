@@ -13,7 +13,7 @@ export function PlayerInTablero({ index }) {
   const side = index < 3 ? 'left' : 'right';
 
   if (!username) {
-    username = 'bot';
+    username = '...';
   }
 
   const className = turnoOwner === username ? `player ${side} turn` : `player ${side}`;

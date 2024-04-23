@@ -38,7 +38,7 @@ export function Settings() {
     <>
       <div className="settings-div">
         <section>
-          <div className="container">
+          <div className="settings-container">
             <h1 className="inicia-sesion">Cambia tu contraseña</h1>
             <div className="loginForm">
               <p className="p-login-account">Contraseña antigua</p>

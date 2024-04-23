@@ -226,9 +226,9 @@ function Flecha({ dir }) {
 function TrapDoor({ idx }) {
   let style = {};
   if (idx == 0) style = { rotate: '315deg' };
-  else if (idx == 23) style = { rotate: '90deg' };
-  else if (idx == 552) style = { rotate: '180deg' };
-  else if (idx == 575) style = { rotate: '0deg' };
+  else if (idx == 23) style = { rotate: '45deg' };
+  else if (idx == 552) style = { rotate: '225deg' };
+  else if (idx == 575) style = { rotate: '135deg' };
   else return idx;
   return (
     <svg

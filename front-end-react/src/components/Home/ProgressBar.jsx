@@ -3,11 +3,11 @@ import { useCookies } from 'react-cookie';
 import { useState, useEffect } from 'react';
 import { BACKEND_URL } from '../../consts';
 
-export function ProgressBar({ width = '550px', height = '70px' }) {
+export function ProgressBar({ width = '100%', height = '70px', completedSetter, lvlSetter }) {
   const colorPalette = ['red', 'orange', 'yellow', 'green', 'blue']; // Define your color palette here
 
   const [completed, setCompleted] = useState(undefined);
-  const [level, setLevel] = useState(undefined);
+  const [level] = useState(undefined);
 
   const containerStyles = {
     height: height,
@@ -23,25 +23,18 @@ export function ProgressBar({ width = '550px', height = '70px' }) {
     */
   const obtainXP = async () => {
     const url = `${BACKEND_URL}/obtainXP?username=${cookies.username}`;
-    // console.log(url);
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data.XP); // 621
     return data.XP;
   };
 
   const calculateLevel = (xp) => {
-    // xp = 700;
-    // console.log(Math.floor(Math.sqrt(xp))); // 24
-    // console.log(Math.floor(Math.pow(xp, 0.4))); // 13
     return Math.floor(Math.pow(xp, 0.4)) /* Math.floor(Math.sqrt(xp)) */;
   };
 
   const calculateXP = (lvl, xp) => {
-    // console.log((Math.trunc((Math.pow(xp, 0.4) - lvl) * 100))); // 9
-    // console.log(Math.trunc((Math.sqrt(xp) - lvl) * 100) ); // 91
-    // const percentage = Math.trunc((Math.sqrt(xp) - lvl) * 100);
     const percentage = Math.trunc((Math.pow(xp, 0.4) - lvl) * 100);
+    completedSetter(percentage);
     setCompleted(percentage);
   };
 
@@ -49,32 +42,27 @@ export function ProgressBar({ width = '550px', height = '70px' }) {
     obtainXP().then((xp) => {
       const lvl = calculateLevel(xp);
       console.log(lvl);
-      setLevel(lvl);
+      lvlSetter(lvl);
       calculateXP(lvl, xp);
     });
   }, []);
 
   let color;
-  switch (completed) {
-    case completed < 20:
-      color = colorPalette[0];
-      break;
-    case completed < 40:
-      color = colorPalette[1];
-      break;
-    case completed < 60:
-      color = colorPalette[2];
-      break;
-    case completed < 80:
-      color = colorPalette[3];
-      break;
-    default:
-      color = colorPalette[4];
+  if (completed < 20) {
+    color = colorPalette[0];
+  } else if (completed < 40) {
+    color = colorPalette[1];
+  } else if (completed < 60) {
+    color = colorPalette[2];
+  } else if (completed < 80) {
+    color = colorPalette[3];
+  } else {
+    color = colorPalette[4];
   }
 
   // Set default values
-  !completed ?? setCompleted(0);
-  !level ?? setLevel(0);
+  !completed ?? completedSetter(0);
+  !level ?? lvlSetter(0);
 
   return (
     <div className="container-progress" style={containerStyles}>
@@ -82,8 +70,6 @@ export function ProgressBar({ width = '550px', height = '70px' }) {
         <div className="filler-styles" style={{ width: `${completed}%`, backgroundColor: color }} />
         <div className="border" />
       </div>
-      {completed && <span className="xp-percentage">{`${completed}%`}</span>}
-      {level && <span className="xp-level">{`Lvl: ${level}`}</span>}
     </div>
   );
 }

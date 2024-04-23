@@ -7,9 +7,25 @@ import '../../../../../front-end-shared/css/Home/Home.css';
 import boardGame from '../../../../../front-end-shared/images/boardGame.png';
 
 export function Home() {
-  const [showGameModes, setShowGameModes] = useState(true);
   const navigate = useNavigate();
   const [cookies] = useCookies(['username']);
+  
+  const [completed, setCompleted] = useState(0);
+  const [level, setLevel] = useState(0);
+  
+  const [showGameModes, setShowGameModes] = useState(false);
+  const [gameMode, setGameMode] = useState(''); // singleplayer, multiplayer
+
+  const showGameModesSingleplayer = () => {
+    setShowGameModes(true);
+    setGameMode('singleplayer');
+  };
+
+  const showGameModesMultiplayer = () => {
+    setShowGameModes(true);
+    setGameMode('multiplayer');
+  };
+
 
   const newGameClick = () => {
     navigate('/game');
@@ -22,16 +38,17 @@ export function Home() {
     }
   };
 
-  // console.log(username)
-
   return (
     <div className="home-root">
       <NavbarHome />
-      <section className="aux">
+      <section className="home-info">
         <div className="home-username">
-          <p>{cookies.username}</p>
+          <h1>{cookies.username}</h1>
+          <h4>
+            {`${completed}%`} - Lvl {level}
+          </h4>
         </div>
-        <ProgressBar />
+        <ProgressBar completedSetter={setCompleted} lvlSetter={setLevel} />
       </section>
 
       <section className="home-body">
@@ -40,30 +57,23 @@ export function Home() {
           alt="Tablero del juego"
           width={400}
           height={400}
-          // className="provisional-board-image"
         />
 
         <aside className="gameModes">
-          {showGameModes ? (
-            <>
-              <button
-                className="gamemode-button"
-                onClick={() => {
-                  setShowGameModes(!showGameModes);
-                }}
-              >
-                Solitario
-              </button>
-              <button
-                className="gamemode-button"
-                onClick={() => {
-                  setShowGameModes(!showGameModes);
-                }}
-              >
-                Multijugador
-              </button>
-            </>
-          ) : (
+          <button
+            className={`gamemode-button ${gameMode === 'singleplayer' ? 'active' : ''}`}
+            onClick={showGameModesSingleplayer}
+          >
+            Solitario
+          </button>
+          <button
+            className={`gamemode-button ${gameMode === 'multiplayer' ? 'active' : ''}`}
+            onClick={showGameModesMultiplayer}
+          >
+            Multijugador
+          </button>
+
+          {showGameModes && (
             <>
               <button className="gamemode-button" onClick={newGameClick}>
                 Nueva partida
