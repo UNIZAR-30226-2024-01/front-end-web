@@ -11,6 +11,7 @@ import { gameLogicTurnoAsksFor, gameLogicTurnoMovesTo } from '../../../logic/Gam
 import { SocketContext } from '../../../context/socket';
 import { useCookies } from 'react-cookie';
 import { CeldasContext } from '../../../context/celdas';
+import { infoTablero, infoHabitaciones } from '../../../../../../front-end-shared/infoTablero';
 
 export function Turno() {
   const { dados, parteTurno, setParteTurno, setTurnoOwner } = useContext(TurnoContext);
@@ -20,17 +21,24 @@ export function Turno() {
 
   const [characterSelected, setCharacterSelected] = useState('mr SOPER');
   const [gunSelected, setGunSelected] = useState('teclado');
-  const [roomSelected, setRoomSelected] = useState('cafeteria');
+  const [roomSelected, setRoomSelected] = useState(rooms[0] || 'c');
 
   const [cookies] = useCookies(['username']);
 
   // ocultar todos los desplegables al inicio del turno
   useEffect(() => {
-    // setChatDesplegado(false);
-    // setTarjetaDesplegado(false);
-    // setCartasDesplegado(false);
-    // setOpcionesDesplegado(false);
-  }, []);
+    let room_idx = playerPositions[usernames.indexOf(cookies.username)] || 0;
+    room_idx = infoTablero[room_idx].roomName - 1;
+    const room_name = infoHabitaciones[room_idx]?.roomName;
+
+    // quitar tildes a los nombres de las habitaciones
+    const room_name_clean = room_name?.replace(/[áéíóú]/g, (char) => {
+      return { á: 'a', é: 'e', í: 'i', ó: 'o', ú: 'u' }[char];
+    });
+
+    console.log('room_idx: ' + room_idx);
+    setRoomSelected(room_name_clean?.toLowerCase() || 'sin habitacion');
+  }, [playerPositions]);
 
   useEffect(() => {
     console.log('Nueva parte del turno: ' + parteTurno);
@@ -60,7 +68,7 @@ export function Turno() {
         setGunSelected(value);
         break;
       case 'where':
-        setRoomSelected(value);
+        setRoomSelected(value.toLowerCase());
         break;
       default:
         console.log('Error en el tipo de carta');
@@ -91,9 +99,9 @@ export function Turno() {
         </div>
       )}
 
-      {(parteTurno == 'dados' || parteTurno == 'elegir-casilla' || parteTurno == 'elegir-pregunta') && (
-        <Temporizador tiempo={45} temporizadorDone={finTemporizador} />
-      )}
+      {(parteTurno == 'dados' || parteTurno == 'elegir-casilla' || parteTurno == 'elegir-pregunta') &&
+        // <Temporizador tiempo={45} temporizadorDone={finTemporizador} />
+        null}
 
       {parteTurno == 'dados' && (
         <div id="turno-dados">
@@ -109,29 +117,30 @@ export function Turno() {
       )}
 
       {parteTurno == 'elegir-pregunta' && (
-        <div id="turno-cartas">
-          <h1>Elige una pregunta</h1>
-          <div className="container-cartas">
-            <div className="carta-quien">
-              <h2>¿Quién lo hizo?</h2>
-              <p>Elige un sospechoso</p>
-              <Carrusel options={characters} onChange={onChange} type={'who'} />
+        <>
+          <div id="turno-cartas">
+            <h1>Haz tu pregunta:</h1>
+            <div className="container-cartas">
+              <div className="carta-quien">
+                <h2 className="pregunta">¿Quién lo hizo?</h2>
+                <Carrusel options={characters} onChange={onChange} type={'who'} />
+                {/* <p>Elige un sospechoso</p> */}
+              </div>
+              <div className="carta-arma">
+                <h2 className="pregunta">¿Con qué lo hizo?</h2>
+                <Carrusel options={guns} onChange={onChange} type={'what'} />
+                {/* <p>Elige un arma</p> */}
+              </div>
+              {/* Cambiar, no dejar seleccionar WHERE y fijarlo a donde estás */}
+              <div className="carta-donde">
+                <h2 className="pregunta">¿Dónde lo hizo?</h2>
+                <Carrusel options={[roomSelected, 'a']} onChange={onChange} type={'where'} />
+                <p></p>
+              </div>
             </div>
-            <div className="carta-arma">
-              <h2>¿Con qué lo hizo?</h2>
-              <p>Elige un arma</p>
-              <Carrusel options={guns} onChange={onChange} type={'what'} />
-            </div>
-            {/* Cambiar, no dejar seleccionar WHERE y fijarlo a donde estás */}
-            <div className="carta-donde">
-              <h2>¿Dónde lo hizo?</h2>
-              <p>Elige una habitación</p>
-              <Carrusel options={rooms} onChange={onChange} type={'where'} />
-            </div>
+            <button onClick={finTurnoPregunta}>Realizar sospecha</button>
           </div>
-
-          <button onClick={finTurnoPregunta}>Realizar sospecha🧐</button>
-        </div>
+        </>
       )}
     </div>
   );
