@@ -15,11 +15,17 @@ export function Chat() {
   const [messages, setMessages] = useState([]);
   const { chatDesplegado, setChatDesplegado } = useContext(DesplegablesContext);
   const { socket } = useContext(SocketContext);
+  const [unReadMessages, setUnReadMessages] = useState(0);
 
   const style = { left: `${chatDesplegado ? '0px' : '-425px'}` };
 
   const sendMessage = (message) => {
     socket.emit('chat-message', message);
+  };
+
+  const toggleChatDesplegado = () => {
+    setChatDesplegado((prev) => !prev);
+    setUnReadMessages(0);
   };
 
   useEffect(() => {
@@ -33,6 +39,11 @@ export function Chat() {
     ) => {
       const messageReceived = onChatResponse(username, message, serverOffset, timeStamp, character);
       setMessages((messages) => [...messages, messageReceived]);
+      if (!chatDesplegado) {
+        setUnReadMessages((prev) => prev + 1);
+      } else {
+        setUnReadMessages(0);
+      }
     };
 
     const onChatTurnLocal = (username) => {
@@ -48,11 +59,20 @@ export function Chat() {
       socket.off('chat-response', onChatResponseLocal);
       socket.off('chat turn', onChatTurnLocal);
     };
-  }, [socket]);
+  }, [socket, chatDesplegado]);
+
+  const circleFill = unReadMessages > 0 ? 'flex' : 'none';
+  const styleCircle = {
+    display: circleFill,
+  };
 
   return (
     <div className="chat-container" style={style}>
-      <Desplegable left_initial={false} desplegado={chatDesplegado} setDesplegado={setChatDesplegado} />
+      <Desplegable left_initial={false} desplegado={chatDesplegado} setDesplegado={toggleChatDesplegado}>
+        <div className="desplegable-circle-message " style={styleCircle}>
+          <p>{unReadMessages > 9 ? '+9' : unReadMessages}</p>
+        </div>
+      </Desplegable>
 
       <MessageList messages={messages} />
       <div className="">
