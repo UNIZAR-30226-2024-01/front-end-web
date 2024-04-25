@@ -14,17 +14,28 @@ export function GameInfoProvider({ children }) {
   const [cards, setCards] = useState([]);
   const [started, setStarted] = useState(false);
 
+  const restartGameInfo = () => {
+    setCharacters([]);
+    setUsernames([]);
+    setGuns([]);
+    setRooms([]);
+    setCards([]);
+    setStarted(false);
+  };
+
   useEffect(() => {
     if (!socket) return;
 
+    console.log('Requesting game info...');
     socket.emit('request-game-info', {});
 
     const onCards = (data) => {
-      console.log('Cards:', data);
+      // console.log('Cards:', data);
       setCards(data);
     };
 
     const onGameInfoLocal = (data) => {
+      // console.log('Game info:', data);
       // console.log("Available characters:", data.names);
       // console.log("Available guns:", data.guns);
       // console.log("Available rooms:", data.rooms);
@@ -50,6 +61,8 @@ export function GameInfoProvider({ children }) {
   return (
     <GameInfoContext.Provider
       value={{
+        restartGameInfo,
+
         characters,
         setCharacters,
         usernames,

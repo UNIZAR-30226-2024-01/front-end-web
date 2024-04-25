@@ -24,10 +24,20 @@ import { BACKEND_URL } from '../../consts';
 
 export function Game() {
   const [cookies] = useCookies(['username', 'group']);
-  const { turnoOwner, setTurnoOwner } = useContext(TurnoContext);
+  const { turnoOwner } = useContext(TurnoContext);
   const { usernames, started, setStarted } = useContext(GameInfoContext);
-  const haveISelected = usernames.includes(cookies.username);
+
+  // console.log('usernames:', usernames);
+  // console.log('cookies.username:', cookies.username);
+  const haveISelected = usernames?.includes(cookies.username);
+
+  // console.log('haveISelected:', haveISelected);
   const [characterSelection, setCharacterSelection] = useState(!haveISelected);
+
+  // Evitar renderizados erróneos al recargar la partida
+  useEffect(() => {
+    setCharacterSelection(!usernames?.includes(cookies.username));
+  }, [usernames, cookies.username, haveISelected]);
 
   const navigate = useNavigate();
   const { idGame } = useParams();

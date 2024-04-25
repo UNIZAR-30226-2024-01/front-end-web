@@ -29,11 +29,13 @@ export function ProgressBar({ width = '100%', height = '70px', completedSetter, 
   };
 
   const calculateLevel = (xp) => {
-    return Math.floor(Math.pow(xp, 0.4)) /* Math.floor(Math.sqrt(xp)) */;
+    return Math.floor(xp / 31);
+    // return Math.floor(Math.pow(xp, 0.15));
   };
 
-  const calculateXP = (lvl, xp) => {
-    const percentage = Math.trunc((Math.pow(xp, 0.4) - lvl) * 100);
+  const calculateXP = (/* lvl,  */xp) => {
+    // const percentage = Math.trunc((Math.pow(xp, 0.15) - lvl) * 100);
+    const percentage = Math.trunc(((xp % 31) / 31) * 100);
     completedSetter(percentage);
     setCompleted(percentage);
   };
@@ -43,7 +45,7 @@ export function ProgressBar({ width = '100%', height = '70px', completedSetter, 
       const lvl = calculateLevel(xp);
       console.log(lvl);
       lvlSetter(lvl);
-      calculateXP(lvl, xp);
+      calculateXP(/* lvl,  */xp);
     });
   }, []);
 
