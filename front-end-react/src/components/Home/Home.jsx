@@ -5,36 +5,77 @@ import { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import '../../../../../front-end-shared/css/Home/Home.css';
 import boardGame from '../../../../../front-end-shared/images/boardGame.png';
+import { BACKEND_URL } from '../../consts';
 
 export function Home() {
   const navigate = useNavigate();
   const [cookies] = useCookies(['username']);
-  
+
   const [completed, setCompleted] = useState(0);
   const [level, setLevel] = useState(0);
-  
+
   const [showGameModes, setShowGameModes] = useState(false);
-  const [gameMode, setGameMode] = useState(''); // singleplayer, multiplayer
+  const [gameMode, setGameMode] = useState(''); // l--> local, o--> online
 
   const showGameModesSingleplayer = () => {
     setShowGameModes(true);
-    setGameMode('singleplayer');
+    setGameMode('l');
   };
 
   const showGameModesMultiplayer = () => {
     setShowGameModes(true);
-    setGameMode('multiplayer');
+    setGameMode('o');
   };
 
+  const newGameClick = async () => {
+    // Comprobación extra para asegurarse de que se ha seleccionado un modo de juego
+    // no debería de pasar ya se  obliga a seleccionar
+    if (gameMode === '') {
+      alert('Por favor, selecciona un modo de juego.');
+      return;
+    }
 
-  const newGameClick = () => {
-    navigate('/game');
+    // crear nueva partida llamando a la API/createGame (POST)
+    const url = BACKEND_URL + '/createGame';
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        type: gameMode,
+      }),
+    });
+
+    const data = await response.json();
+    if (data.exito === true) {
+      const idGame = data.id_partida;
+      navigate('/game/' + idGame);
+    } else {
+      alert('No se ha podido crear la partida. Inténtalo de nuevo.');
+    }
   };
 
-  const joinGameClick = () => {
-    const gameId = window.prompt('Please enter the game ID:');
+  const joinGameClick = async () => {
+    const gameId = window.prompt('Introduzca el ID de la partida (6 dígitos):');
     if (gameId) {
-      navigate(`/game/${gameId}`);
+      // ver si existe idGam partida llamando a la API/getGame (POST)
+      const url = BACKEND_URL + '/getGame?idGame=' + gameId;
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+      if (data.exito === true) {
+        navigate(`/game/${gameId}`);
+      } else {
+        alert('No se ha podido unirse a la partida. Inténtalo de nuevo.');
+      }
+    } else {
+      alert('ID de partida no válido.');
     }
   };
 
@@ -52,22 +93,14 @@ export function Home() {
       </section>
 
       <section className="home-body">
-        <img
-          src={boardGame}
-          alt="Tablero del juego"
-          width={400}
-          height={400}
-        />
+        <img src={boardGame} alt="Tablero del juego" width={400} height={400} />
 
         <aside className="gameModes">
-          <button
-            className={`gamemode-button ${gameMode === 'singleplayer' ? 'active' : ''}`}
-            onClick={showGameModesSingleplayer}
-          >
+          <button className={`gamemode-button ${gameMode === 'l' ? 'active' : ''}`} onClick={showGameModesSingleplayer}>
             Solitario
           </button>
           <button
-            className={`gamemode-button ${gameMode === 'multiplayer' ? 'active' : ''} add-buttons-space`}
+            className={`gamemode-button ${gameMode === 'o' ? 'active' : ''} add-buttons-space`}
             onClick={showGameModesMultiplayer}
           >
             Multijugador

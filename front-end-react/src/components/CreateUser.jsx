@@ -40,7 +40,7 @@ export function CreateUser() {
     if (data.success === true) {
       setCookie('token', 'valid', { path: '/' });
       setCookie('username', username, { path: '/' });
-      navigate('/home');
+      navigate('/');
     } else {
       alert('No se ha podido crear la cuenta. Inténtalo de nuevo.');
     }

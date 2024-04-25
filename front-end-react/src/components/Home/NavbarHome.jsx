@@ -22,7 +22,7 @@ export function NavbarHome() {
     removeCookie('username', { path: '/' });
 
     // Navigate to the login page
-    navigate('/');
+    navigate('/login');
   };
 
   return (

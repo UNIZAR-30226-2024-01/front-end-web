@@ -26,10 +26,9 @@ export function Login() {
     });
     const data = await response.json();
     if (data.success === true) {
-      // setCookie("token", data.token, { path: "/" }); <-- Implement the token response from the backend
       setCookie('token', 'valid', { path: '/' });
       setCookie('username', username, { path: '/' });
-      navigate('/home');
+      navigate('/');
     } else {
       alert('Usuario o contraseña incorrectos');
     }
@@ -43,11 +42,6 @@ export function Login() {
 
   return (
     <>
-      {/* 🎃 BORRAR 🎃 */}
-      {/* <div className="aviso-login">
-        <h1>se han eliminado todas las cuentas</h1>
-        <h2>cree su cuenta de nuevo</h2>
-      </div> */}
       <div className="login-body">
         <div className="login-container">
           <h1 className="inicia-sesion">Inicia sesión</h1>
@@ -64,9 +58,6 @@ export function Login() {
         <div>
           <Link to="/createUser" className="login-link">
             No tengo cuenta...
-          </Link>
-          <Link to="/game" className="login-link" onClick={handleGuestGame}>
-            Jugar como invitado
           </Link>
         </div>
         <a target="_blank" href="https://github.com/UNIZAR-30226-2024-01" className="logo-to-github">

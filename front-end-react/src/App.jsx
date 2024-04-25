@@ -15,39 +15,34 @@ function App() {
   const [cookies] = useCookies(['token']);
 
   let element = useRoutes([
-    { path: '/', element: <Login /> },
-    { path: '/createuser', element: <CreateUser /> },
     {
-      path: '/home',
-      element: cookies.token ? <Home /> : <Navigate to="/" replace />,
+      path: '/login',
+      element: cookies.token ? <Navigate to="/" /> : <Login />,
+    },
+    {
+      path: '/createuser',
+      element: cookies.token ? <Navigate to="/" /> : <CreateUser />,
+    },
+    {
+      path: '/',
+      element: cookies.token ? <Home /> : <Navigate to="/login" replace />,
     },
     {
       path: 'settings',
-      element: cookies.token ? <Settings /> : <Navigate to="/" replace />,
+      element: cookies.token ? <Settings /> : <Navigate to="/login" replace />,
     },
     {
-      path: '/game',
-      element: cookies.token ? <Game /> : <Navigate to="/" replace />,
+      path: '/game/:idGame',
+      element: cookies.token ? <Game /> : <Navigate to="/login" replace />,
     },
     {
       path: '/cartas',
-      element: cookies.token ? <ShowCartas /> : <Navigate to="/" replace />,
+      element: cookies.token ? <ShowCartas /> : <Navigate to="/login" replace />,
     },
     { path: '*', element: <Page404 /> },
   ]);
 
   return <Contexts>{element}</Contexts>;
-
-  // return (
-  //   <Routes>
-  //     <Route path="/" element={<Login />} />
-  //     <Route path="/createuser" element={<CreateUser />} />
-  //     <ProtectedRoute path="/home" element={<Home />} />
-  //     <ProtectedRoute path="/game" element={<Game />} />
-  //     <ProtectedRoute path="/cartas" element={<ShowCartas />} />
-  //     <Route path="*" element={<Page404 />} />
-  //   </Routes>
-  // );
 }
 
 export default App;

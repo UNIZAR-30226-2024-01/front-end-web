@@ -28,7 +28,7 @@ export function Settings() {
 
     const data = await response.json();
     if (data.success === true) {
-      navigate(-1);
+      navigate('/login');
     } else {
       alert('Usuario o contraseña incorrectos');
     }

@@ -11,6 +11,7 @@ import { CartaShower } from './Cartas/CartaShower.jsx';
 import { useEffect, useState, useContext } from 'react';
 // import { useFetch } from "../../hooks/useFetch.jsx";
 import { useCookies } from 'react-cookie';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { SocketContext } from '../../context/socket';
 import { socketio } from '../../socketio';
@@ -19,6 +20,7 @@ import { GameInfoContext } from '../../context/gameinfo.jsx';
 import { TurnoContext } from '../../context/turno.jsx';
 import { GameLogic } from '../../logic/GameLogic.jsx';
 import { ShowCardsContext } from '../../context/showcards.jsx';
+import { BACKEND_URL } from '../../consts';
 
 export function Game() {
   const [cookies] = useCookies(['username', 'group']);
@@ -27,16 +29,37 @@ export function Game() {
   const haveISelected = usernames.includes(cookies.username);
   const [characterSelection, setCharacterSelection] = useState(!haveISelected);
 
+  const navigate = useNavigate();
+  const { idGame } = useParams();
+
   const { socket, setSocket } = useContext(SocketContext);
 
+  // Check if the game exists and if that't the case, assign the socket to the context
   useEffect(() => {
-    setSocket(socketio);
+    console.log('Checking if game exists');
+    const url = BACKEND_URL + '/getGame?idGame=' + idGame;
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.exito === true) {
+          console.log('Game exists');
+          setSocket(socketio);
+        } else {
+          alert('La partida no existe. Inténtalo de nuevo.');
+          navigate('/');
+        }
+      });
   }, []);
 
   useEffect(() => {
     if (!socket) return;
     socket.auth.username = cookies.username ?? 'anonymous';
-    socket.auth.group = cookies.group ?? '0';
+    socket.auth.group = idGame ?? cookies.group ?? '0';
     socket.connect();
   }, [socket]);
 
