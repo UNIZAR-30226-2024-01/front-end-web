@@ -20,6 +20,7 @@ export function NavbarHome() {
     // Remove the token cookie
     removeCookie('token', { path: '/' });
     removeCookie('username', { path: '/' });
+    removeCookie('partida_actual&estado', { path: '/' });
 
     // Navigate to the login page
     navigate('/login');

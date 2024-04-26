@@ -6,28 +6,21 @@ import { useCookies } from 'react-cookie';
 import '../../../../../front-end-shared/css/Home/Home.css';
 import boardGame from '../../../../../front-end-shared/images/boardGame.png';
 import { BACKEND_URL } from '../../consts';
+import { useJoinGame } from '../../hooks/useJoinGame';
 
 export function Home() {
   const navigate = useNavigate();
-  const [cookies] = useCookies(['username']);
+  const [cookies, setCookies] = useCookies(['username', 'partida_actual&estado']);
 
   const [completed, setCompleted] = useState(0);
   const [level, setLevel] = useState(0);
 
-  const [showGameModes, setShowGameModes] = useState(false);
-  const [gameMode, setGameMode] = useState(''); // l--> local, o--> online
+  // const [gameMode, setGameMode] = useState(''); // l--> local, o--> online
 
-  const showGameModesSingleplayer = () => {
-    setShowGameModes(true);
-    setGameMode('l');
-  };
+  const { partida } = cookies['partida_actual&estado'] ?? {};
+  // console.log(partida, estado);
 
-  const showGameModesMultiplayer = () => {
-    setShowGameModes(true);
-    setGameMode('o');
-  };
-
-  const newGameClick = async () => {
+  const newGameClick = async (gameMode) => {
     // Comprobación extra para asegurarse de que se ha seleccionado un modo de juego
     // no debería de pasar ya se  obliga a seleccionar
     if (gameMode === '') {
@@ -56,27 +49,24 @@ export function Home() {
     }
   };
 
-  const joinGameClick = async () => {
-    const gameId = window.prompt('Introduzca el ID de la partida (6 dígitos):');
-    if (gameId) {
-      // ver si existe idGam partida llamando a la API/getGame (POST)
-      const url = BACKEND_URL + '/getGame?idGame=' + gameId;
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+  /*
+    SOLITARIO:
+      - Si existe, recuperar el id de la partida en progreso (de las cookies) en local de ese usuario
+      - Si no, muestra un error: "No hay partida en progreso"
+    MULTIJUGADOR:
+      - Si existe, recuperar el id de la partida en progreso (de las cookies) en multiplayer de ese usuario
+      - Si no, prompt pidiendo el id de la partida a la que unirse
+  */
+  const useJoinGameClick = async () => {
+    let execute = true;
 
-      const data = await response.json();
-      if (data.exito === true) {
-        navigate(`/game/${gameId}`);
-      } else {
-        alert('No se ha podido unirse a la partida. Inténtalo de nuevo.');
-      }
-    } else {
-      alert('ID de partida no válido.');
+    if (partida) {
+      navigate(`/game/${partida}`);
+      execute = false;
     }
+
+    const ret = await useJoinGame(null, execute, false, setCookies);
+    if (ret?.navigateRoute) navigate(ret?.navigateRoute);
   };
 
   return (
@@ -96,27 +86,20 @@ export function Home() {
         <img src={boardGame} alt="Tablero del juego" width={400} height={400} />
 
         <aside className="gameModes">
-          <button className={`gamemode-button ${gameMode === 'l' ? 'active' : ''}`} onClick={showGameModesSingleplayer}>
-            Solitario
-          </button>
-          <button
-            className={`gamemode-button ${gameMode === 'o' ? 'active' : ''} add-buttons-space`}
-            onClick={showGameModesMultiplayer}
-          >
-            Multijugador
-          </button>
-
-          {showGameModes && (
+          {!partida && (
             <>
-              <button className="gamemode-button" onClick={newGameClick}>
-                Nueva partida
+              <button className={'gamemode-button'} onClick={() => newGameClick('l')}>
+                Crear partida solitario
               </button>
-
-              <button className="gamemode-button" onClick={joinGameClick}>
-                Unirse a partida
+              <button className={'gamemode-button'} onClick={() => newGameClick('o')}>
+                Crear partida multijugador
               </button>
             </>
           )}
+
+          <button className={'gamemode-button'} onClick={useJoinGameClick}>
+            {partida ? `Continuar partida: ${partida}` : 'Unirse a partida'}
+          </button>
         </aside>
       </section>
     </div>

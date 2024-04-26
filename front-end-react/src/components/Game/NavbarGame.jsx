@@ -13,7 +13,7 @@ export function NavbarGame() {
     setOpcionesDesplegado /* , setChatDesplegado, setCartasDesplegado, setTarjetaDesplegado */,
   } = useContext(DesplegablesContext);
 
-  const [cookies] = useCookies(['username']);
+  const [cookies, , removeCookie] = useCookies(['username, partida_actual&estado']);
   // const { idGame } = useParams();
 
   const { socket, setSocket } = useContext(SocketContext);
@@ -28,6 +28,8 @@ export function NavbarGame() {
     //eliminar la cookie del personaje
     socket.emit('bye-bye', {});
     restartGameInfo();
+
+    removeCookie('partida_actual&estado', { path: '/' });
 
     setSocket(null);
     navigate('/');

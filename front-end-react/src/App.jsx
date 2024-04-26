@@ -39,6 +39,13 @@ function App() {
       path: '/cartas',
       element: cookies.token ? <ShowCartas /> : <Navigate to="/login" replace />,
     },
+    {
+      // EASTER EGG
+      path: '/helloworld',
+      element: (
+        <h1 style={{ color: 'white', height: '100vh' }}>Hello World. Enhorabuena, ¡encontraste un easter egg🥚!</h1>
+      ),
+    },
     { path: '*', element: <Page404 /> },
   ]);
 

@@ -25,9 +25,16 @@ export function Login() {
       }),
     });
     const data = await response.json();
-    if (data.success === true) {
+    if (data.exito === true) {
       setCookie('token', 'valid', { path: '/' });
       setCookie('username', username, { path: '/' });
+      setCookie(
+        'partida_actual&estado',
+        JSON.stringify({ partida: data.id_partida_actual, estado: data.tipo_partida }),
+        {
+          path: '/',
+        }
+      );
       navigate('/');
     } else {
       alert('Usuario o contraseña incorrectos');
