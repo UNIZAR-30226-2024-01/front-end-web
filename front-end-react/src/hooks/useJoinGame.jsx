@@ -2,7 +2,7 @@ import { BACKEND_URL } from '../consts';
 // import { useCookies } from 'react-cookie';
 
 export const useJoinGame = async (gameId = null, execute, fromUrl = true, setCookie) => {
-  //   const [, setCookie] = useCookies(['username', 'partida_actual&estado']);
+  //   const [, setCookie] = useCookies(['username', 'partida_actual']);
   if (execute) {
     console.log('gameId:', gameId);
     if (!gameId) gameId = window.prompt('Introduzca el ID de la partida (6 dígitos):');
@@ -22,14 +22,14 @@ export const useJoinGame = async (gameId = null, execute, fromUrl = true, setCoo
 
       if (data.exito === true) {
         if (fromUrl) {
-          setCookie('partida_actual&estado', JSON.stringify({ partida: gameId, estado: data.estado }), { path: '/' });
+          setCookie('partida_actual', JSON.stringify({ partida: gameId }), { path: '/' });
         } else {
           if (data.tipo === 'l') {
             // partida local
             alert('No se puede unir a una partida local.');
           } else if (data.tipo === 'o') {
             // partida online
-            setCookie('partida_actual&estado', JSON.stringify({ partida: gameId, estado: data.estado }), { path: '/' });
+            setCookie('partida_actual', JSON.stringify({ partida: gameId }), { path: '/' });
             return { navigateRoute: '/game/' + gameId };
           } else {
             alert('Error al obtener el tipo de partida.');

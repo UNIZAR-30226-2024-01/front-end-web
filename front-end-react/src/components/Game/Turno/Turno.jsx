@@ -23,6 +23,7 @@ export function Turno() {
   const [gunSelected, setGunSelected] = useState('teclado');
   const [roomSelected, setRoomSelected] = useState(rooms[0] || 'c');
 
+  const [tipoPregunta, setTipoPregunta] = useState(false); // false = sospecha, true = acusacion
   const [cookies] = useCookies(['username']);
 
   // ocultar todos los desplegables al inicio del turno
@@ -55,8 +56,8 @@ export function Turno() {
   const finTurnoPregunta = () => {
     setParteTurno('espera-resto');
     const username_asking = cookies.username;
-    // 📩
-    gameLogicTurnoAsksFor(socket, username_asking, characterSelected, gunSelected, roomSelected);
+    const is_final = tipoPregunta; // false = sospecha, true = acusacion final
+    gameLogicTurnoAsksFor(socket, username_asking, characterSelected, gunSelected, roomSelected, is_final);
   };
 
   const onChange = (value, type) => {
@@ -75,6 +76,13 @@ export function Turno() {
         break;
     }
   };
+
+  const toggleTipoPregunta = () => {
+    // false = sospecha, true = acusacion
+    setTipoPregunta((prev) => !prev);
+  };
+
+  const claseTipoPregunta = tipoPregunta ? 'acusacion' : 'sospecha';
 
   return (
     <div className="turno">
@@ -118,7 +126,10 @@ export function Turno() {
 
       {parteTurno == 'elegir-pregunta' && (
         <>
-          <div id="turno-cartas">
+          <div id="turno-cartas" className={claseTipoPregunta}>
+            <button className={'turno-boton-acusacion-final ' + claseTipoPregunta} onClick={toggleTipoPregunta}>
+              {tipoPregunta ? 'Cambiar a sospecha' : 'Cambiar a acusación final'}
+            </button>
             <h1>Haz tu pregunta:</h1>
             <div className="container-cartas">
               <div className="carta-quien">
@@ -138,7 +149,10 @@ export function Turno() {
                 <p></p>
               </div>
             </div>
-            <button onClick={finTurnoPregunta}>Realizar sospecha</button>
+
+            <button className={'turno-boton-sospecha ' + claseTipoPregunta} onClick={finTurnoPregunta}>
+              {tipoPregunta ? 'Realizar acusación final' : 'Realizar sospecha'}
+            </button>
           </div>
         </>
       )}

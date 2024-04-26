@@ -43,7 +43,7 @@ export function ProgressBar({ width = '100%', height = '70px', completedSetter, 
   useEffect(() => {
     obtainXP().then((xp) => {
       const lvl = calculateLevel(xp);
-      console.log(lvl);
+      // console.log(lvl);
       lvlSetter(lvl);
       calculateXP(/* lvl,  */xp);
     });

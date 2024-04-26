@@ -10,14 +10,14 @@ import { useJoinGame } from '../../hooks/useJoinGame';
 
 export function Home() {
   const navigate = useNavigate();
-  const [cookies, setCookies] = useCookies(['username', 'partida_actual&estado']);
+  const [cookies, setCookies] = useCookies(['username', 'partida_actual']);
 
   const [completed, setCompleted] = useState(0);
   const [level, setLevel] = useState(0);
 
   // const [gameMode, setGameMode] = useState(''); // l--> local, o--> online
 
-  const { partida } = cookies['partida_actual&estado'] ?? {};
+  const { partida } = cookies['partida_actual'] ?? {};
   // console.log(partida, estado);
 
   const newGameClick = async (gameMode) => {
@@ -49,14 +49,6 @@ export function Home() {
     }
   };
 
-  /*
-    SOLITARIO:
-      - Si existe, recuperar el id de la partida en progreso (de las cookies) en local de ese usuario
-      - Si no, muestra un error: "No hay partida en progreso"
-    MULTIJUGADOR:
-      - Si existe, recuperar el id de la partida en progreso (de las cookies) en multiplayer de ese usuario
-      - Si no, prompt pidiendo el id de la partida a la que unirse
-  */
   const useJoinGameClick = async () => {
     let execute = true;
 

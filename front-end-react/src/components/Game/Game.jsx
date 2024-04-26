@@ -19,11 +19,24 @@ import { MainTablero } from './Tablero/MainTablero.jsx';
 import { GameInfoContext } from '../../context/gameinfo.jsx';
 import { TurnoContext } from '../../context/turno.jsx';
 import { GameLogic } from '../../logic/GameLogic.jsx';
-import { ShowCardsContext } from '../../context/showcards.jsx';
+// import { ShowCardsContext } from '../../context/showcards.jsx';
 import { BACKEND_URL } from '../../consts';
 
+// import { useJoinGame } from '../../hooks/useJoinGame.jsx';
+
 export function Game() {
-  const [cookies] = useCookies(['username', 'group']);
+  const navigate = useNavigate();
+  const { idGame } = useParams();
+  const [cookies, setCookies] = useCookies(['username', 'group', 'partida_actual']);
+
+  // si hay algo distinto al codigo de la partida, NAVIGATE
+  // si no hay nada, o si esta el codigo, NO NAVIGATE
+  useEffect(() => {
+    if (!cookies['partida_actual'] || cookies['partida_actual']?.partida != idGame) navigate('/');
+  }, [idGame]);
+
+  if (cookies['partida_actual'] == {}) setCookies('partida_actual', { partida: idGame }, { path: '/' });
+
   const { turnoOwner } = useContext(TurnoContext);
   const { usernames, started, setStarted } = useContext(GameInfoContext);
 
@@ -37,10 +50,7 @@ export function Game() {
   // Evitar renderizados erróneos al recargar la partida
   useEffect(() => {
     setCharacterSelection(!usernames?.includes(cookies.username));
-  }, [usernames, cookies.username, haveISelected]);
-
-  const navigate = useNavigate();
-  const { idGame } = useParams();
+  }, [usernames, haveISelected]);
 
   const { socket, setSocket } = useContext(SocketContext);
 
@@ -87,17 +97,6 @@ export function Game() {
     setCharacterSelection(false);
   };
 
-  // const { showQuestion, showCardShowed, showCardElection } = useContext(ShowCardsContext);
-  // useEffect(() => {
-  //   // showQuestion('Mr Soper', ['MISS IA', 'SUSPENSO', 'CAFETERIA']);
-  //   // showCardShowed('rold', 'mat', ['MISS IA'], ['MISS IA', 'SUSPENSO', 'CAFETERIA']);
-  //   const onClick = (card) => {
-  //     console.log('card selected', card);
-
-  //   };
-  //   showCardElection('mat', ['MISS IA', 'SUSPENSO', 'CAFETERIA'], ['MISS IA', 'SUSPENSO', 'baños'], onClick);
-  // }, []);
-
   return (
     <>
       {characterSelection && (
@@ -111,15 +110,8 @@ export function Game() {
         </button>
       )}
 
-      {/* <button
-        onClick={() => {
-          setTurnoOwner(cookies.username);
-        }}
-      >
-        Set turnoOwner a mi nombre
-      </button> */}
-
       <GameLogic />
+      {/* {turnoOwner === turnoOwner && <Turno />} */}
       {turnoOwner === cookies.username && <Turno />}
 
       <CartaShower />

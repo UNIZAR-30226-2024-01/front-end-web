@@ -28,23 +28,13 @@ export function Login() {
     if (data.exito === true) {
       setCookie('token', 'valid', { path: '/' });
       setCookie('username', username, { path: '/' });
-      setCookie(
-        'partida_actual&estado',
-        JSON.stringify({ partida: data.id_partida_actual, estado: data.tipo_partida }),
-        {
-          path: '/',
-        }
-      );
+      setCookie('partida_actual', JSON.stringify({ partida: data.id_partida_actual }), {
+        path: '/',
+      });
       navigate('/');
     } else {
       alert('Usuario o contraseña incorrectos');
     }
-  };
-
-  //
-  const handleGuestGame = () => {
-    setCookie('token', 'valid', { path: '/' });
-    setCookie('username', 'anonymous', { path: '/', maxAge: 3600 });
   };
 
   return (

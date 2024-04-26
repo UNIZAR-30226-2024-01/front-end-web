@@ -17,9 +17,9 @@ export function gameLogicTurnoMovesTo(socket, username, position, fin) {
   socket.emit('turno-moves-to', username, position, fin);
 }
 
-export function gameLogicTurnoAsksFor(socket, username_asking, character, gun, room) {
-  console.log('GameLogicTurnoAsksFor', username_asking, character, gun, room);
-  socket.emit('turno-asks-for', username_asking, character, gun, room);
+export function gameLogicTurnoAsksFor(socket, username_asking, character, gun, room, is_final) {
+  console.log('GameLogicTurnoAsksFor', username_asking, character, gun, room, is_final);
+  socket.emit('turno-asks-for', username_asking, character, gun, room, is_final);
 }
 
 // Llamadas WS gestionando los != eventos de la partida
@@ -83,8 +83,8 @@ export function GameLogic() {
     };
 
     // turno-asks-for
-    const onTurnoAsksForResponse = (username_asking, character, gun, room) => {
-      if (verbose) console.log('onTurnoAsksForResponse', username_asking, character, gun, room);
+    const onTurnoAsksForResponse = (username_asking, character, gun, room, win) => {
+      if (verbose) console.log('onTurnoAsksForResponse', username_asking, character, gun, room, win);
       // mustra un modal enseñando que pregunta ha hecho el jugador
       // const text = `${username_asking} ha preguntado: ¿ha sido ${character} con ${gun} en ${room}?`;
       const cards = [character, gun, room];
@@ -92,11 +92,18 @@ export function GameLogic() {
       showQuestion(username_asking, cards);
     };
 
+    const onGameOver = (username, win) => {
+      console.log('onGameOver', username, win);
+      // muestra un modal diciendo que ha ganado el jugador
+      alert('El usuario ' + username + win ? ' ha ganado' : ' ha perdido' + ' la partida.');
+    };
+
     socket.on('turno-owner', onTurnoOwner);
     socket.on('turno-moves-to-response', onTurnoMovesToResponse);
     socket.on('turno-show-cards', onTurnoShowCards);
     socket.on('turno-select-to-show', onTurnoSelectToShow);
     socket.on('turno-asks-for-response', onTurnoAsksForResponse);
+    socket.on('game-over', onGameOver);
 
     return () => {
       socket.off('turno-owner', onTurnoOwner);
@@ -104,6 +111,7 @@ export function GameLogic() {
       socket.off('turno-show-cards', onTurnoShowCards);
       socket.off('turno-select-to-show', onTurnoSelectToShow);
       socket.off('turno-asks-for-response', onTurnoAsksForResponse);
+      socket.off('game-over', onGameOver);
     };
   }),
     [socket];
