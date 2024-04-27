@@ -66,11 +66,12 @@ export function Game() {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.exito === true) {
+        const am_i_in = data.areAvailable.includes(cookies.username);
+        if (data.exito === true || am_i_in) {
           console.log('Game exists');
           setSocket(socketio);
         } else {
-          alert('La partida no existe. Inténtalo de nuevo.');
+          alert('No se ha podido unirse a la partida. Inténtalo de nuevo.');
           navigate('/');
         }
       });
@@ -97,8 +98,17 @@ export function Game() {
     setCharacterSelection(false);
   };
 
+  const sendDeleteMessage = () => {
+    socket.emit('hola-javisin-adios', {});
+  };
+
   return (
     <>
+      {
+        <button style={{ position: 'absolute', top: '5%', left: '20%' }} onClick={sendDeleteMessage}>
+          delete
+        </button>
+      }
       {characterSelection && (
         <div className="game-characters-selection">
           <CharacterSelection onCharacterSelected={handleCharacterSelection} />

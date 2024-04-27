@@ -8,8 +8,8 @@ import { GameInfoContext } from '../context/gameinfo';
 import { ShowCardsContext } from '../context/showcards';
 
 const useSocket = () => {
-  const { socket } = useContext(SocketContext);
-  return socket;
+  const { socket, setSocket } = useContext(SocketContext);
+  return { socket, setSocket };
 };
 
 export function gameLogicTurnoMovesTo(socket, username, position, fin) {
@@ -26,7 +26,7 @@ export function gameLogicTurnoAsksFor(socket, username_asking, character, gun, r
 export function GameLogic() {
   const verbose = true;
   const [cookies] = useCookies(['username']);
-  const socket = useSocket();
+  const { socket, setSocket } = useSocket();
   const { setTurnoOwner, setParteTurno } = useContext(TurnoContext);
   const { setPlayerPositions } = useContext(CeldasContext);
   const { cards, usernames } = useContext(GameInfoContext);
@@ -98,12 +98,20 @@ export function GameLogic() {
       alert('El usuario ' + username + win ? ' ha ganado' : ' ha perdido' + ' la partida.');
     };
 
+    const onCloseConnection = () => {
+      console.log('onCloseConnection');
+      // muestra un modal diciendo que se ha cerrado la conexión
+      alert('Conectado en otro dispositivo. Conexión cerrada.');
+      setSocket(null);
+    };
+
     socket.on('turno-owner', onTurnoOwner);
     socket.on('turno-moves-to-response', onTurnoMovesToResponse);
     socket.on('turno-show-cards', onTurnoShowCards);
     socket.on('turno-select-to-show', onTurnoSelectToShow);
     socket.on('turno-asks-for-response', onTurnoAsksForResponse);
     socket.on('game-over', onGameOver);
+    socket.on('close-connection', onCloseConnection);
 
     return () => {
       socket.off('turno-owner', onTurnoOwner);
@@ -112,6 +120,7 @@ export function GameLogic() {
       socket.off('turno-select-to-show', onTurnoSelectToShow);
       socket.off('turno-asks-for-response', onTurnoAsksForResponse);
       socket.off('game-over', onGameOver);
+      socket.off('close-connection', onCloseConnection);
     };
   }),
     [socket];

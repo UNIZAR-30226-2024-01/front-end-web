@@ -1,12 +1,14 @@
 import { ProgressBar } from './ProgressBar';
 import { NavbarHome } from './NavbarHome';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import '../../../../../front-end-shared/css/Home/Home.css';
 import boardGame from '../../../../../front-end-shared/images/boardGame.png';
 import { BACKEND_URL } from '../../consts';
 import { useJoinGame } from '../../hooks/useJoinGame';
+
+import { GameInfoContext } from '../../context/gameinfo';
 
 export function Home() {
   const navigate = useNavigate();
@@ -14,6 +16,11 @@ export function Home() {
 
   const [completed, setCompleted] = useState(0);
   const [level, setLevel] = useState(0);
+  const { restartGameInfo } = useContext(GameInfoContext);
+
+  useEffect(() => {
+    restartGameInfo();
+  }, []);
 
   // const [gameMode, setGameMode] = useState(''); // l--> local, o--> online
 

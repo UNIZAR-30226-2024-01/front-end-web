@@ -17,7 +17,6 @@ export function NavbarGame() {
   // const { idGame } = useParams();
 
   const { socket, setSocket } = useContext(SocketContext);
-  const { restartGameInfo } = useContext(GameInfoContext);
 
   const navigate = useNavigate();
   const toggleMenu = () => {
@@ -27,7 +26,6 @@ export function NavbarGame() {
   const leaveGame = () => {
     //eliminar la cookie del personaje
     socket.emit('bye-bye', {});
-    restartGameInfo();
 
     setCookie('partida_actual', { partida: '' }, { path: '/' });
 
