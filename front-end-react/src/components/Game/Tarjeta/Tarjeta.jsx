@@ -19,7 +19,14 @@ export function Tarjeta() {
   useEffect(() => {
     const session = sessionStorage.getItem('tarjeta');
     if (session === null) {
-      sessionStorage.setItem('tarjeta', JSON.stringify(Array(28).fill('')));
+      let tarjeta = Array(28).fill('');
+      tarjeta[1] = 'SOP';
+      tarjeta[2] = 'RED';
+      tarjeta[3] = 'PRO';
+      tarjeta[4] = 'FIS';
+      tarjeta[5] = 'DIS';
+      tarjeta[6] = 'IA';
+      sessionStorage.setItem('tarjeta', JSON.stringify(tarjeta));
     }
   }, []);
 
