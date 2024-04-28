@@ -98,23 +98,23 @@ export function Game() {
     setCharacterSelection(false);
   };
 
-  const sendDeleteMessage = () => {
-    socket.emit('hola-javisin-adios', {});
-  };
+  // const sendDeleteMessage = () => {
+  //   socket.emit('hola-javisin-adios', {});
+  // };
 
   return (
     <>
-      {
+      {/* {
         <button style={{ position: 'absolute', top: '5%', left: '20%' }} onClick={sendDeleteMessage}>
           delete
         </button>
-      }
+      } */}
       {characterSelection && (
         <div className="game-characters-selection">
           <CharacterSelection onCharacterSelected={handleCharacterSelection} />
         </div>
       )}
-      {!started && (
+      {/* !started */true && (
         <button className="start-game-button" onClick={startGame}>
           Comenzar partida
         </button>

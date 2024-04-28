@@ -50,6 +50,7 @@ export function Home() {
     const data = await response.json();
     if (data.exito === true) {
       const idGame = data.id_partida;
+      setCookies('partida_actual', {partida: idGame});
       navigate('/game/' + idGame);
     } else {
       alert('No se ha podido crear la partida. Inténtalo de nuevo.');

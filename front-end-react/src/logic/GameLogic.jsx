@@ -7,6 +7,8 @@ import { CeldasContext } from '../context/celdas';
 import { GameInfoContext } from '../context/gameinfo';
 import { ShowCardsContext } from '../context/showcards';
 
+import { onGameInfo } from '../socketio';
+
 const useSocket = () => {
   const { socket, setSocket } = useContext(SocketContext);
   return { socket, setSocket };
@@ -29,8 +31,9 @@ export function GameLogic() {
   const { socket, setSocket } = useSocket();
   const { setTurnoOwner, setParteTurno } = useContext(TurnoContext);
   const { setPlayerPositions } = useContext(CeldasContext);
-  const { cards, usernames } = useContext(GameInfoContext);
-  const { showQuestion, showCardElection, setSelectCardsToShow, showCardShowed } = useContext(ShowCardsContext);
+  const { cards, usernames, setCards, setCharacters, setUsernames, setGuns, setRooms, setSospechas, setStarted } =
+    useContext(GameInfoContext);
+  const { showQuestion, showCardElection, /* setSelectCardsToShow, */ showCardShowed } = useContext(ShowCardsContext);
 
   useEffect(() => {
     if (!socket) return;
@@ -47,6 +50,7 @@ export function GameLogic() {
       if (verbose) console.log('onTurnoMovesToResponse', username, position);
       const player_idx = usernames.indexOf(username);
       setPlayerPositions((prev) => {
+        console.log('prev', prev);
         const newPlayerPositions = [...prev];
         newPlayerPositions[player_idx] = position;
         return newPlayerPositions;
@@ -92,17 +96,74 @@ export function GameLogic() {
       showQuestion(username_asking, cards);
     };
 
+    // game-over
     const onGameOver = (username, win) => {
       console.log('onGameOver', username, win);
       // muestra un modal diciendo que ha ganado el jugador
       alert('El usuario ' + username + win ? ' ha ganado' : ' ha perdido' + ' la partida.');
     };
 
+    // close-connection
     const onCloseConnection = () => {
       console.log('onCloseConnection');
       // muestra un modal diciendo que se ha cerrado la conexión
       alert('Conectado en otro dispositivo. Conexión cerrada.');
       setSocket(null);
+    };
+
+    // game-state
+    const onGameState = ({ posiciones, cartas, sospechas, turnoOwner }) => {
+      setPlayerPositions(posiciones);
+      setCards(cartas);
+      setSospechas(sospechas);
+      setTurnoOwner(turnoOwner);
+    };
+
+    const onCards = (data) => {
+      // console.log('Cards:', data);
+      setCards(data);
+    };
+
+    const useOnGameInfoLocal = (data) => {
+      // console.log('Game info:', data);
+      // console.log("Available characters:", data.names);
+      // console.log("Available guns:", data.guns);
+      // console.log("Available rooms:", data.rooms);
+      onGameInfo(data, setCharacters, setUsernames, setGuns, setRooms);
+      // console.log('positions', data.posiciones);
+
+      // Solamente actualizar los datos si se han recibido  (no se envían en todos los casos)
+      // console.log('Game info:', data);
+      if (data.cards) {
+        // console.log('cards', data.cards);
+        setCards(data.cards);
+        setStarted(true);
+      }
+      if (data.sospechas) {
+        // console.log('sospechas', data.sospechas);
+        setSospechas(data.sospechas);
+      }
+      if (data.posiciones) {
+        // console.log('posiciones', data.posiciones);
+        setPlayerPositions(data.posiciones);
+      }
+      if (data.turnoOwner) {
+        // console.log('turnoOwner', data.turnoOwner);
+        setTurnoOwner(data.turnoOwner);
+        setParteTurno('es-tu-turno');
+      }
+      // onGameInfoExtra(data.cards, data.sospechas, data.positions, data.turnoOwner);
+
+      // setCards(data.cards);
+      // setSospechas(data.sospechas);
+      // setPlayerPositions(data.positions);
+      // setTurnoOwner(data.turnoOwner);
+    };
+
+    const onStartGame = (data) => {
+      setStarted(true);
+      setPlayerPositions(data.posiciones);
+      onGameInfo(data, setCharacters, setUsernames, setGuns, setRooms);
     };
 
     socket.on('turno-owner', onTurnoOwner);
@@ -112,6 +173,11 @@ export function GameLogic() {
     socket.on('turno-asks-for-response', onTurnoAsksForResponse);
     socket.on('game-over', onGameOver);
     socket.on('close-connection', onCloseConnection);
+    socket.on('game-state', onGameState);
+    // Game-info
+    socket.on('cards', onCards);
+    socket.on('game-info', useOnGameInfoLocal);
+    socket.on('start-game', onStartGame);
 
     return () => {
       socket.off('turno-owner', onTurnoOwner);
@@ -121,6 +187,11 @@ export function GameLogic() {
       socket.off('turno-asks-for-response', onTurnoAsksForResponse);
       socket.off('game-over', onGameOver);
       socket.off('close-connection', onCloseConnection);
+      socket.off('game-state', onGameState);
+      // Game-info
+      socket.off('game-info', useOnGameInfoLocal);
+      socket.off('cards', onCards);
+      socket.off('start-game', onStartGame);
     };
   }),
     [socket];

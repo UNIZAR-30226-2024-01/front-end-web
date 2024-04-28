@@ -25,13 +25,18 @@ export function NavbarGame() {
 
   const leaveGame = () => {
     //eliminar la cookie del personaje
-    socket.emit('bye-bye', {});
+    socket.emit('leave-game', {});
 
     setCookie('partida_actual', { partida: '' }, { path: '/' });
 
     setSocket(null);
     navigate('/');
   };
+
+  const handlePauseClick = () => {
+    alert('Impleméntame 😢');
+    // socket.emit('pause-game', {});
+  }
 
   return (
     <nav className="navbar-game">
@@ -52,9 +57,7 @@ export function NavbarGame() {
           <p onClick={leaveGame}>Abandonar partida</p>
 
           <p
-            onClick={() => {
-              alert('Impleméntame 😢');
-            }}
+            onClick={handlePauseClick}
           >
             Pausar partida
           </p>

@@ -18,7 +18,7 @@ export function CeldasProvider({ children }) {
     return array;
   });
 
-  const [playerPositions, setPlayerPositions] = useState([120, 432, 561, 16, 191, 566]);
+  const [playerPositions, setPlayerPositions] = useState([]);
 
   useEffect(() => {
     if (!dados) return;

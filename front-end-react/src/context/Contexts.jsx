@@ -9,13 +9,13 @@ export function Contexts({ children }) {
   return (
     <SocketProvider>
       <DesplegablesProvider>
-        <TurnoProvider>
           <ShowCardsProvider>
             <GameInfoProvider>
+             <TurnoProvider>
               <CeldasProvider>{children}</CeldasProvider>
+              </TurnoProvider>
             </GameInfoProvider>
           </ShowCardsProvider>
-        </TurnoProvider>
       </DesplegablesProvider>
     </SocketProvider>
   );

@@ -11,7 +11,7 @@ import { GameInfoContext } from '../../../context/gameinfo.jsx';
 
 export function Tarjeta() {
   const { tarjetaDesplegado, setTarjetaDesplegado } = useContext(DesplegablesContext);
-  const { characters, guns, rooms } = useContext(GameInfoContext);
+  const { characters, guns, rooms, sospechas, setSospechas } = useContext(GameInfoContext);
 
   const style = { right: `${tarjetaDesplegado ? '0px' : '-470px'}` };
   const max_chars = 4;
