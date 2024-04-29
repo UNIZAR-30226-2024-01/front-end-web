@@ -19,6 +19,9 @@ import { MainTablero } from './Tablero/MainTablero.jsx';
 import { GameInfoContext } from '../../context/gameinfo.jsx';
 import { TurnoContext } from '../../context/turno.jsx';
 import { GameLogic } from '../../logic/GameLogic.jsx';
+import Confetti from 'react-confetti';
+import useWindowSize from 'react-use/lib/useWindowSize';
+
 // import { ShowCardsContext } from '../../context/showcards.jsx';
 import { BACKEND_URL } from '../../consts';
 
@@ -27,7 +30,7 @@ import { BACKEND_URL } from '../../consts';
 export function Game() {
   const navigate = useNavigate();
   const { idGame } = useParams();
-  const [cookies, setCookies] = useCookies(['username', 'group', 'partida_actual']);
+  const [cookies, setCookies] = useCookies(['username', 'partida_actual']);
 
   // si hay algo distinto al codigo de la partida, NAVIGATE
   // si no hay nada, o si esta el codigo, NO NAVIGATE
@@ -57,6 +60,9 @@ export function Game() {
 
   const { socket, setSocket } = useContext(SocketContext);
 
+  const [winnedGame, setWinnedGame] = useState(false);
+  const { width, height } = useWindowSize();
+
   // Check if the game exists and if that't the case, assign the socket to the context
   useEffect(() => {
     console.log('Checking if game exists');
@@ -69,6 +75,7 @@ export function Game() {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         const am_i_in = data.areAvailable.includes(cookies.username);
         if (data.exito === true || am_i_in) {
           console.log('Game exists');
@@ -117,16 +124,19 @@ export function Game() {
           <CharacterSelection onCharacterSelected={handleCharacterSelection} />
         </div>
       )}
-      {/* !started */true && (
-        <button className="start-game-button" onClick={startGame}>
-          Comenzar partida
-        </button>
+      {!characterSelection && !started && (
+        <section className="start-game-button-main">
+          <div className="start-game-button-container">
+            <h1>Esperando a que empiece la partida...</h1>
+            <button className="start-game-button" onClick={startGame}>
+              Comenzar partida
+            </button>
+          </div>
+        </section>
       )}
-
-      <GameLogic />
-      {/* {turnoOwner === turnoOwner && <Turno />} */}
+      <GameLogic setWinnedGame={setWinnedGame} />
+      {winnedGame && <Confetti width={width} height={height} />}
       {turnoOwner === cookies.username && <Turno />}
-
       <CartaShower />
       <NavbarGame />
       <Tarjeta />

@@ -7,7 +7,9 @@ import { Game } from './components/Game/Game';
 import { Page404 } from './components/Page404';
 import { ShowCartas } from './components/Cartas/ShowCartas';
 import { useCookies } from 'react-cookie';
-import { Navigate, useRoutes, useParams } from 'react-router-dom';
+import { Navigate, useRoutes /* , useParams */ } from 'react-router-dom';
+
+import { useEffect, useRef } from 'react';
 
 import { Contexts } from './context/Contexts';
 
@@ -49,7 +51,45 @@ function App() {
     { path: '*', element: <Page404 /> },
   ]);
 
-  return <Contexts>{element}</Contexts>;
+  return (
+    <Contexts>
+      <Audio />
+      {element}
+    </Contexts>
+  );
 }
+
+function Audio() {
+  const audioRef = useRef(); // Create a ref
+
+  useEffect(() => {
+    const playAudio = () => {
+      // Play the audio when this function is called
+      audioRef.current.play();
+    };
+
+    // Add event listener for 'mousemove' event
+
+    document.addEventListener('click', playAudio);
+
+    // Remove event listener on cleanup
+    return () => {
+      document.removeEventListener('click', playAudio);
+    };
+  }, []);
+
+  // ¿Bajarle el volumen?
+  return <audio loop={true} ref={audioRef} src="/CluedoBanger.mp3" type="audio/mpeg" />;
+}
+
+// function Audio() {
+//   // return <audio src="/CluedoBanger.mp3" autoPlay type="audio/mpeg" />;
+//   return (
+//     <audio controls autoPlay muted src="/CluedoBanger.mp3" type="audio/mpeg" />
+//     // {/* <source src="../../../front-end-shared/CluedoBanger.mp3" type="audio/mpeg" /> */}
+//     // {/* <source src="/CluedoBanger.mp3" type="audio/mpeg" /> */}
+//     // </audio>
+//   );
+// }
 
 export default App;

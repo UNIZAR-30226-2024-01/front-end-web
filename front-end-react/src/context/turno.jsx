@@ -14,6 +14,12 @@ export function TurnoProvider({ children }) {
   const [parteTurno, setParteTurno] = useState('espera-resto');
   const [dados, setDados] = useState();
 
+  const restartTurno = () => {
+    setTurnoOwner('');
+    setParteTurno('espera-resto');
+    setDados();
+  };
+
   return (
     <TurnoContext.Provider
       value={{
@@ -23,6 +29,7 @@ export function TurnoProvider({ children }) {
         setParteTurno,
         dados,
         setDados,
+        restartTurno,
       }}
     >
       {children}

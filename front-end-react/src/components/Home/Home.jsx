@@ -9,6 +9,8 @@ import { BACKEND_URL } from '../../consts';
 import { useJoinGame } from '../../hooks/useJoinGame';
 
 import { GameInfoContext } from '../../context/gameinfo';
+import { TurnoContext } from '../../context/turno';
+import { DesplegablesContext } from '../../context/desplegables';
 
 export function Home() {
   const navigate = useNavigate();
@@ -17,11 +19,16 @@ export function Home() {
   const [completed, setCompleted] = useState(0);
   const [level, setLevel] = useState(0);
   const { restartGameInfo } = useContext(GameInfoContext);
+  const { restartTurno } = useContext(TurnoContext);
+  const { restartDesplegables } = useContext(DesplegablesContext);
 
   const [partida, setPartida] = useState(cookies['partida_actual']?.partida ?? '');
 
   useEffect(() => {
+    console.log('Home mounted again');
     restartGameInfo();
+    restartTurno();
+    restartDesplegables();
   }, []);
 
   useEffect(() => {
@@ -29,7 +36,6 @@ export function Home() {
   }, [cookies['partida_actual'?.partida]]);
 
   // const [gameMode, setGameMode] = useState(''); // l--> local, o--> online
-
 
   const newGameClick = async (gameMode) => {
     // Comprobación extra para asegurarse de que se ha seleccionado un modo de juego
@@ -54,7 +60,7 @@ export function Home() {
     const data = await response.json();
     if (data.exito === true) {
       const idGame = data.id_partida;
-      setCookies('partida_actual', {partida: idGame});
+      setCookies('partida_actual', { partida: idGame }, { path: '/' });
       navigate('/game/' + idGame);
     } else {
       alert('No se ha podido crear la partida. Inténtalo de nuevo.');

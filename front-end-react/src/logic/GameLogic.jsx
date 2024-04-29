@@ -1,11 +1,13 @@
 /* eslint-disable react-refresh/only-export-components */
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { SocketContext } from '../context/socket';
 import { TurnoContext } from '../context/turno';
 import { CeldasContext } from '../context/celdas';
 import { GameInfoContext } from '../context/gameinfo';
 import { ShowCardsContext } from '../context/showcards';
+import { useNavigate } from 'react-router-dom';
+
 
 import { onGameInfo } from '../socketio';
 
@@ -25,7 +27,7 @@ export function gameLogicTurnoAsksFor(socket, username_asking, character, gun, r
 }
 
 // Llamadas WS gestionando los != eventos de la partida
-export function GameLogic() {
+export function GameLogic({ setWinnedGame }) {
   const verbose = true;
   const [cookies, setCookie] = useCookies(['username']);
   const { socket, setSocket } = useSocket();
@@ -34,6 +36,8 @@ export function GameLogic() {
   const { cards, usernames, setCards, setCharacters, setUsernames, setGuns, setRooms, setSospechas, setStarted } =
     useContext(GameInfoContext);
   const { showQuestion, showCardElection, /* setSelectCardsToShow, */ showCardShowed } = useContext(ShowCardsContext);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!socket) return;
@@ -49,6 +53,7 @@ export function GameLogic() {
     const onTurnoMovesToResponse = (username, position) => {
       if (verbose) console.log('onTurnoMovesToResponse', username, position);
       const player_idx = usernames.indexOf(username);
+      // si se ha entrado a habitación, añadir sonido de la puerta 🎃
       setPlayerPositions((prev) => {
         console.log('prev', prev);
         const newPlayerPositions = [...prev];
@@ -100,10 +105,16 @@ export function GameLogic() {
     const onGameOver = (username_asking, win) => {
       if (verbose) console.log('onGameOver', username_asking, win);
 
-      if (win) setCookie('partida_actual', { partida: '' }, { path: '/' });
+      if (win) {
+        setCookie('partida_actual', { partida: '' }, { path: '/' });
+        // console.log(width, height);
+        setWinnedGame(true);
+      }
+      alert('El usuario ' + username_asking + (win ? ' ha ganado' : ' ha perdido') + ' la partida.');
 
       // muestra un modal diciendo que ha ganado el jugador
-      alert('El usuario ' + username_asking + (win ? ' ha ganado' : ' ha perdido') + ' la partida.');
+      if (win) navigate('/'); // volver a la pantalla de inicio
+      // else --> te puedes quedar en la partida visualizándola pero no podrás hacer nada (turnoOwner ya no puede asociarse a tu usuario)
     };
 
     // close-connection

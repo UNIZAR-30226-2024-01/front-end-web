@@ -8,6 +8,13 @@ export function DesplegablesProvider({ children }) {
   const [cartasDesplegado, setCartasDesplegado] = useState(false);
   const [tarjetaDesplegado, setTarjetaDesplegado] = useState(false);
 
+  const restartDesplegables = () => {
+    setOpcionesDesplegado(false);
+    setChatDesplegado(false);
+    setCartasDesplegado(false);
+    setTarjetaDesplegado(false);
+  }
+
   return (
     <DesplegablesContext.Provider
       value={{
@@ -19,6 +26,7 @@ export function DesplegablesProvider({ children }) {
         setCartasDesplegado,
         opcionesDesplegado,
         setOpcionesDesplegado,
+        restartDesplegables,
       }}
     >
       {children}

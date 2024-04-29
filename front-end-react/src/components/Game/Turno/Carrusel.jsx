@@ -20,8 +20,6 @@ export function Carrusel({ options, onChange, type }) {
     },
   };
 
-  console.log(options);
-
   const styleSlider = {
     width: '210px',
     height: 'auto',
