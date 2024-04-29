@@ -1,7 +1,7 @@
 import { infoTablero } from '../../../front-end-shared/infoTablero';
 
 // Comprobación de que una casilla es válida
-function checkIndex(indexVecino, index) {
+function checkIndex(indexVecino, index, pjs_pos) {
   if (indexVecino < 0 || indexVecino >= infoTablero.length) {
     return false;
   }
@@ -10,6 +10,11 @@ function checkIndex(indexVecino, index) {
   }
   if (indexVecino % 24 === 23 && index % 24 === 0) {
     return false;
+  }
+  for(let i = 0; i < pjs_pos.length; i++) {
+    if (indexVecino === pjs_pos[i]) {
+      return false;
+    }
   }
   if (
     !infoTablero[indexVecino]['isWalkable'] ||
@@ -21,7 +26,7 @@ function checkIndex(indexVecino, index) {
 }
 
 // Comprobación de qué casillas vecinas son válidas
-function checkNeighbours(index, vecinos) {
+function checkNeighbours(index, vecinos, pjs_pos) {
   const checked = [];
   if (infoTablero[index]['isDoor'] !== false) {
     if (infoTablero[index]['isDoor'] === 'd') {
@@ -35,7 +40,7 @@ function checkNeighbours(index, vecinos) {
     }
   } else {
     for (let i = 0; i < 4; i++) {
-      if (checkIndex(index + vecinos[i], index)) {
+      if (checkIndex(index + vecinos[i], index, pjs_pos)) {
         if (infoTablero[index + vecinos[i]]['isDoor'] !== false) {
           if (infoTablero[index + vecinos[i]]['isDoor'] === 'u') {
             checked.push(index + vecinos[0]);
@@ -55,7 +60,7 @@ function checkNeighbours(index, vecinos) {
   return checked;
 }
 
-function bfs(casilla, dados, vecinos) {
+function bfs(casilla, dados, vecinos, pjs_pos) {
   const visited = [];
   let frontera;
   if (infoTablero[casilla]['roomName'] !== '') {
@@ -75,7 +80,7 @@ function bfs(casilla, dados, vecinos) {
     for (let i = 0; i < fronteraLength; i++) {
       const casilla = frontera.shift();
       visited.push(casilla);
-      checkNeighbours(casilla, vecinos).forEach((neighbour) => {
+      checkNeighbours(casilla, vecinos, pjs_pos).forEach((neighbour) => {
         if (!visited.includes(neighbour) && !frontera.includes(neighbour)) {
           frontera.push(neighbour);
         }
@@ -99,10 +104,10 @@ function bfs(casilla, dados, vecinos) {
 
 // console.log(candidatos.sort((a, b) => a - b));
 
-export const cellsClose = (casilla, dados) => {
+export const cellsClose = (casilla, dados, pjs_pos) => {
   const n_cols = 24;
   const vecinos = [n_cols, 1, -n_cols, -1];
-  let list = bfs(casilla, dados, vecinos);
+  let list = bfs(casilla, dados, vecinos, pjs_pos);
   // verificar qué habitación es la casilla actual, y quitar de list las casillas que tengan isDoor a true
   const roomName = infoTablero[casilla]['roomName'];
   list = list.filter((c) => infoTablero[c]['roomName'] !== roomName || infoTablero[c]['isDoor'] === false);
