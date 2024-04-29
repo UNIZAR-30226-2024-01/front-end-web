@@ -18,14 +18,18 @@ export function Home() {
   const [level, setLevel] = useState(0);
   const { restartGameInfo } = useContext(GameInfoContext);
 
+  const [partida, setPartida] = useState(cookies['partida_actual']?.partida ?? '');
+
   useEffect(() => {
     restartGameInfo();
   }, []);
 
+  useEffect(() => {
+    setPartida(cookies['partida_actual']?.partida ?? '');
+  }, [cookies['partida_actual'?.partida]]);
+
   // const [gameMode, setGameMode] = useState(''); // l--> local, o--> online
 
-  const { partida } = cookies['partida_actual'] ?? {};
-  // console.log(partida, estado);
 
   const newGameClick = async (gameMode) => {
     // Comprobación extra para asegurarse de que se ha seleccionado un modo de juego

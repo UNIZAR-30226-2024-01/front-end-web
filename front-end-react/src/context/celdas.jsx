@@ -27,7 +27,7 @@ export function CeldasProvider({ children }) {
     const player_idx = usernames.indexOf(cookies.username);
     const pp = playerPositions[player_idx];
     if (!pp) return;
-    const bfs = cellsClose(pp, dados);
+    const bfs = cellsClose(pp, dados, playerPositions);
 
     setCeldasOptions((prev) => {
       let newPrev = [...prev];

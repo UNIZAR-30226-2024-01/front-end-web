@@ -27,7 +27,7 @@ export function gameLogicTurnoAsksFor(socket, username_asking, character, gun, r
 // Llamadas WS gestionando los != eventos de la partida
 export function GameLogic() {
   const verbose = true;
-  const [cookies] = useCookies(['username']);
+  const [cookies, setCookie] = useCookies(['username']);
   const { socket, setSocket } = useSocket();
   const { setTurnoOwner, setParteTurno } = useContext(TurnoContext);
   const { setPlayerPositions } = useContext(CeldasContext);
@@ -98,14 +98,17 @@ export function GameLogic() {
 
     // game-over
     const onGameOver = (username_asking, win) => {
-      console.log('onGameOver', username_asking, win);
+      if (verbose) console.log('onGameOver', username_asking, win);
+
+      if (win) setCookie('partida_actual', { partida: '' }, { path: '/' });
+
       // muestra un modal diciendo que ha ganado el jugador
       alert('El usuario ' + username_asking + (win ? ' ha ganado' : ' ha perdido') + ' la partida.');
     };
 
     // close-connection
     const onCloseConnection = () => {
-      console.log('onCloseConnection');
+      if (verbose) console.log('onCloseConnection');
       // muestra un modal diciendo que se ha cerrado la conexión
       alert('Conectado en otro dispositivo. Conexión cerrada.');
       setSocket(null);
@@ -113,20 +116,22 @@ export function GameLogic() {
 
     // game-state
     const onGameState = ({ posiciones, cartas, sospechas, turnoOwner }) => {
+      if (verbose) console.log('onGameState', posiciones, cartas, sospechas, turnoOwner);
       setPlayerPositions(posiciones);
       setCards(cartas);
       setSospechas(sospechas);
       setTurnoOwner(turnoOwner);
     };
 
-    
+    // card
     const onCards = (data) => {
-      // console.log('Cards:', data);
+      if (verbose) console.log('Cards:', data);
       setCards(data);
     };
 
+    // game-info
     const useOnGameInfoLocal = (data) => {
-      // console.log('Game info:', data);
+      if (verbose) console.log('Game info:', data);
       // console.log("Available characters:", data.names);
       // console.log("Available guns:", data.guns);
       // console.log("Available rooms:", data.rooms);
@@ -161,7 +166,9 @@ export function GameLogic() {
       // setTurnoOwner(data.turnoOwner);
     };
 
+    // start-game
     const onStartGame = (data) => {
+      if (verbose) console.log('onStartGame', data);
       setStarted(true);
       setPlayerPositions(data.posiciones);
       onGameInfo(data, setCharacters, setUsernames, setGuns, setRooms);

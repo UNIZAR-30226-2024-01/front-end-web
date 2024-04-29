@@ -30,7 +30,7 @@ export function GameInfoProvider({ children }) {
     // puesto por que es posible que envie un mensaje antes de que el socket este conectado
     setTimeout(() => { 
       socket.emit('request-game-info', {});
-    }, 100);
+    }, 1000);
   }, [socket]);
 
   return (

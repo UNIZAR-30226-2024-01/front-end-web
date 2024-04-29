@@ -35,7 +35,10 @@ export function Game() {
     if (!cookies['partida_actual'] || cookies['partida_actual']?.partida != idGame) navigate('/');
   }, [idGame]);
 
-  if (cookies['partida_actual'] == {}) setCookies('partida_actual', { partida: idGame }, { path: '/' });
+  if (cookies['partida_actual'] == {}) {
+    console.log('se actualiza partida actual a ', idGame);
+    setCookies('partida_actual', { partida: idGame }, { path: '/' });
+  }
 
   const { turnoOwner } = useContext(TurnoContext);
   const { usernames, started, setStarted } = useContext(GameInfoContext);

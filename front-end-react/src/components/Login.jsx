@@ -28,9 +28,7 @@ export function Login() {
     if (data.exito === true) {
       setCookie('token', 'valid', { path: '/' });
       setCookie('username', username, { path: '/' });
-      setCookie('partida_actual', JSON.stringify({ partida: data.id_partida_actual }), {
-        path: '/',
-      });
+      setCookie('partida_actual', { partida: data.id_partida_actual }, {path: '/',});
       navigate('/');
     } else {
       alert('Usuario o contraseña incorrectos');

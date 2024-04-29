@@ -35,6 +35,7 @@ export function ShowCardsProvider({ children }) {
 
   // Se muestra cuando se elige la carta a mostrar
   const showCardShowed = (username_showed, username_shower, card, cards_asked) => {
+    setSelectCardsToShow(['back'])
     const text =
       card[0] != '' ? `${username_shower} ha enseñado a ${username_showed}:` : `Nadie ha enseñado a ${username_showed}`;
 
