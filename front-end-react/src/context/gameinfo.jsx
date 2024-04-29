@@ -26,7 +26,11 @@ export function GameInfoProvider({ children }) {
   useEffect(() => {
     if (!socket) return;
     console.log('Requesting game info...');
-    socket.emit('request-game-info', {});
+    
+    // puesto por que es posible que envie un mensaje antes de que el socket este conectado
+    setTimeout(() => { 
+      socket.emit('request-game-info', {});
+    }, 100);
   }, [socket]);
 
   return (

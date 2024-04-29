@@ -28,8 +28,8 @@ export function NavbarGame() {
     socket.emit('leave-game', {});
 
     setCookie('partida_actual', { partida: '' }, { path: '/' });
-
     setSocket(null);
+    
     navigate('/');
   };
 

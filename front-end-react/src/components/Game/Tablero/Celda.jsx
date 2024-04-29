@@ -161,18 +161,14 @@ export function Celda({ fil, col, tam = 'm', handleClickOnCell }) {
       // cells.remove((c) => playerPositions.includes(c)); // eliminar las casillas ya ocupadas
       const randomCell = cells[Math.floor(Math.random() * cells.length)];
       handleClickOnCell(randomCell, false);
-      setTimeout(() => {
-        setParteTurno('elegir-pregunta');
-      }, 2000);
+      setParteTurno('elegir-pregunta');
       return;
     }
 
     if (playerPositions.includes(index)) return; // Si la casilla ya está ocupada, no se procesa el click
 
     handleClickOnCell(index, true);
-    setTimeout(() => {
-      setParteTurno('espera-resto');
-    }, 2000);
+    setParteTurno('espera-resto');
   };
 
   let cellDisplay = '';

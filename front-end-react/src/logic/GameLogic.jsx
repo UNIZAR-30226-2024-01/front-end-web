@@ -97,10 +97,10 @@ export function GameLogic() {
     };
 
     // game-over
-    const onGameOver = (username, win) => {
-      console.log('onGameOver', username, win);
+    const onGameOver = (username_asking, win) => {
+      console.log('onGameOver', username_asking, win);
       // muestra un modal diciendo que ha ganado el jugador
-      alert('El usuario ' + username + win ? ' ha ganado' : ' ha perdido' + ' la partida.');
+      alert('El usuario ' + username_asking + (win ? ' ha ganado' : ' ha perdido') + ' la partida.');
     };
 
     // close-connection
@@ -119,6 +119,7 @@ export function GameLogic() {
       setTurnoOwner(turnoOwner);
     };
 
+    
     const onCards = (data) => {
       // console.log('Cards:', data);
       setCards(data);

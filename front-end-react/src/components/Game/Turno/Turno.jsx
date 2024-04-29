@@ -108,8 +108,8 @@ export function Turno() {
       )}
 
       {(parteTurno == 'dados' || parteTurno == 'elegir-casilla' || parteTurno == 'elegir-pregunta') &&
-        // <Temporizador tiempo={45} temporizadorDone={finTemporizador} />
-        null}
+        <Temporizador tiempo={45} temporizadorDone={finTemporizador} />
+      }
 
       {parteTurno == 'dados' && (
         <div id="turno-dados">
