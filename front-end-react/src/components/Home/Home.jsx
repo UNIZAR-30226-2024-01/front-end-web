@@ -11,6 +11,7 @@ import { useJoinGame } from '../../hooks/useJoinGame';
 import { GameInfoContext } from '../../context/gameinfo';
 import { TurnoContext } from '../../context/turno';
 import { DesplegablesContext } from '../../context/desplegables';
+import { ShowCardsContext } from '../../context/showCards';
 
 export function Home() {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ export function Home() {
   const { restartGameInfo } = useContext(GameInfoContext);
   const { restartTurno } = useContext(TurnoContext);
   const { restartDesplegables } = useContext(DesplegablesContext);
+  const { restartShowCartas } = useContext(ShowCardsContext);
 
   const [partida, setPartida] = useState(cookies['partida_actual']?.partida ?? '');
 
@@ -29,6 +31,7 @@ export function Home() {
     restartGameInfo();
     restartTurno();
     restartDesplegables();
+    restartShowCartas();
   }, []);
 
   useEffect(() => {

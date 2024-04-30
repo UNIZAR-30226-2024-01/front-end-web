@@ -35,7 +35,7 @@ export function ShowCardsProvider({ children }) {
 
   // Se muestra cuando se elige la carta a mostrar
   const showCardShowed = (username_showed, username_shower, card, cards_asked) => {
-    setSelectCardsToShow(['back'])
+    setSelectCardsToShow(['back']);
     const text =
       card[0] != '' ? `${username_shower} ha enseñado a ${username_showed}:` : `Nadie ha enseñado a ${username_showed}`;
 
@@ -61,6 +61,16 @@ export function ShowCardsProvider({ children }) {
     setSelectCardsToShow(my_cards);
     setIsCardElection(true);
     setHasToShow(true);
+  };
+
+  const restartShowCartas = () => {
+    setHasToShow(false);
+    setText('');
+    setSubtext('');
+    setIsCardElection(false);
+    setSelectCardsToShow([]);
+    setBlockCards([]);
+    setOnClickedCard(() => {});
   };
 
   return (
@@ -89,6 +99,8 @@ export function ShowCardsProvider({ children }) {
 
         onClickedCard,
         setOnClickedCard,
+
+        restartShowCartas,
       }}
     >
       {children}

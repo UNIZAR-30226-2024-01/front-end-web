@@ -29,14 +29,14 @@ export function NavbarGame() {
 
     setCookie('partida_actual', { partida: '' }, { path: '/' });
     setSocket(null);
-    
+
     navigate('/');
   };
 
   const handlePauseClick = () => {
     alert('Impleméntame 😢');
     // socket.emit('pause-game', {});
-  }
+  };
 
   return (
     <nav className="navbar-game">
@@ -56,11 +56,7 @@ export function NavbarGame() {
         <div className="menu">
           <p onClick={leaveGame}>Abandonar partida</p>
 
-          <p
-            onClick={handlePauseClick}
-          >
-            Pausar partida
-          </p>
+          <p onClick={handlePauseClick}>Pausar partida</p>
 
           {/* <p>
             Partida: {idGame}

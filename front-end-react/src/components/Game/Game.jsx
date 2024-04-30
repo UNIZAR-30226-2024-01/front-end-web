@@ -91,6 +91,8 @@ export function Game() {
     if (!socket) return;
     socket.auth.username = cookies.username ?? 'anonymous';
     socket.auth.group = idGame ?? cookies.group ?? '0';
+
+    console.log('Connecting socket with username:', socket.auth.username, 'and group:', socket.auth.group);
     socket.connect();
   }, [socket]);
 

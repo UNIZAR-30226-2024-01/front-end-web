@@ -8,7 +8,6 @@ import { GameInfoContext } from '../context/gameinfo';
 import { ShowCardsContext } from '../context/showcards';
 import { useNavigate } from 'react-router-dom';
 
-
 import { onGameInfo } from '../socketio';
 
 const useSocket = () => {
@@ -122,6 +121,7 @@ export function GameLogic({ setWinnedGame }) {
       if (verbose) console.log('onCloseConnection');
       // muestra un modal diciendo que se ha cerrado la conexión
       alert('Conectado en otro dispositivo. Conexión cerrada.');
+      socket.disconnect();
       setSocket(null);
     };
 
