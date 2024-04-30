@@ -30,10 +30,21 @@ export function GameLogic({ setWinnedGame }) {
   const verbose = true;
   const [cookies, setCookie] = useCookies(['username']);
   const { socket, setSocket } = useSocket();
-  const { setTurnoOwner, setParteTurno } = useContext(TurnoContext);
+  const { setTurnoOwner, setParteTurno, restartTurno } = useContext(TurnoContext);
   const { setPlayerPositions } = useContext(CeldasContext);
-  const { cards, usernames, setCards, setCharacters, setUsernames, setGuns, setRooms, setSospechas, setStarted } =
-    useContext(GameInfoContext);
+  const {
+    cards,
+    usernames,
+    setCards,
+    setCharacters,
+    setUsernames,
+    setGuns,
+    setRooms,
+    setSospechas,
+    setStarted,
+    setPausedGame,
+    setRequestedPause,
+  } = useContext(GameInfoContext);
   const { showQuestion, showCardElection, /* setSelectCardsToShow, */ showCardShowed } = useContext(ShowCardsContext);
 
   const navigate = useNavigate();
@@ -123,6 +134,8 @@ export function GameLogic({ setWinnedGame }) {
       alert('Conectado en otro dispositivo. Conexión cerrada.');
       socket.disconnect();
       setSocket(null);
+
+      navigate('/');
     };
 
     // game-state
@@ -131,7 +144,13 @@ export function GameLogic({ setWinnedGame }) {
       setPlayerPositions(posiciones);
       setCards(cartas);
       setSospechas(sospechas);
-      setTurnoOwner(turnoOwner);
+      if (turnoOwner === socket.auth.username) {
+        console.log('Reiniciando turno...');
+        restartTurno();
+      } else {
+        console.log('turnoOwner != a mí mismo', turnoOwner);
+        setTurnoOwner(turnoOwner);
+      }
     };
 
     // card
@@ -166,15 +185,15 @@ export function GameLogic({ setWinnedGame }) {
       }
       if (data.turnoOwner) {
         // console.log('turnoOwner', data.turnoOwner);
-        setTurnoOwner(data.turnoOwner);
-        setParteTurno('es-tu-turno');
+        if (data.turnoOwner === socket.auth.username) {
+          console.log('Reiniciando turno...');
+          restartTurno();
+        } else {
+          console.log('turnoOwner != a mí mismo', data.turnoOwner);
+          setTurnoOwner(data.turnoOwner);
+          setParteTurno('es-tu-turno');
+        }
       }
-      // onGameInfoExtra(data.cards, data.sospechas, data.positions, data.turnoOwner);
-
-      // setCards(data.cards);
-      // setSospechas(data.sospechas);
-      // setPlayerPositions(data.positions);
-      // setTurnoOwner(data.turnoOwner);
     };
 
     // start-game
@@ -183,6 +202,24 @@ export function GameLogic({ setWinnedGame }) {
       setStarted(true);
       setPlayerPositions(data.posiciones);
       onGameInfo(data, setCharacters, setUsernames, setGuns, setRooms);
+    };
+
+    // game-paused-response
+    const onGamePausedResponse = () => {
+      console.log('Game paused');
+      alert('La partida ha sido pausada.');
+
+      setRequestedPause(false);
+      setPausedGame(true);
+    };
+
+    // game-resumed-response
+    const onGameResumedResponse = () => {
+      console.log('Game resumed');
+      alert('La partida ha sido reanudada.');
+
+      setRequestedPause(false);
+      setPausedGame(false);
     };
 
     socket.on('turno-owner', onTurnoOwner);
@@ -198,6 +235,10 @@ export function GameLogic({ setWinnedGame }) {
     socket.on('game-info', useOnGameInfoLocal);
     socket.on('start-game', onStartGame);
 
+    // Pausado de partida
+    socket.on('game-paused-response', onGamePausedResponse);
+    socket.on('game-resumed-response', onGameResumedResponse);
+
     return () => {
       socket.off('turno-owner', onTurnoOwner);
       socket.off('turno-moves-to-response', onTurnoMovesToResponse);
@@ -211,6 +252,9 @@ export function GameLogic({ setWinnedGame }) {
       socket.off('game-info', useOnGameInfoLocal);
       socket.off('cards', onCards);
       socket.off('start-game', onStartGame);
+
+      socket.off('game-paused-response', onGamePausedResponse);
+      socket.off('game-resumed-response', onGameResumedResponse);
     };
   }),
     [socket];

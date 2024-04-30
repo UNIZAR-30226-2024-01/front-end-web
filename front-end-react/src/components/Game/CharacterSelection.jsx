@@ -22,16 +22,19 @@ export function CharacterSelection({ onCharacterSelected }) {
 
   return (
     <div className="characters-selection">
-      <h1>
-        <u>ID de partida:</u> {idGame}
-      </h1>
+      <div className="characters-selection-texts">
+        <h1>Selecciona tu personaje</h1>
+        <h3>
+          <u>ID de partida:</u> {idGame}
+        </h3>
+      </div>
       <div className="characters-container">
         {characters.map((character, index) => {
           const isAvailable = usernames[index] == '';
           return (
             <div
               key={character}
-              className={`individual-character ${isAvailable ? '' : 'selected'}`}
+              className={`${character.split(' ').join('').toLowerCase()} individual-character ${isAvailable ? '' : 'selected'}`}
               onClick={selectCharacter}
             >
               {character}

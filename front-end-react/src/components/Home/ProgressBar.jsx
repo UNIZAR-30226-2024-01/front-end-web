@@ -23,7 +23,9 @@ export function ProgressBar({ width = '100%', height = '70px', completedSetter, 
     */
   const obtainXP = async () => {
     const url = `${BACKEND_URL}/obtainXP?username=${cookies.username}`;
+    console.log("fetch previo");
     const response = await fetch(url);
+    console.log("fetch hecho");
     const data = await response.json();
     return data.XP;
   };

@@ -12,6 +12,10 @@ export function GameInfoProvider({ children }) {
   const [rooms, setRooms] = useState([]);
   const [cards, setCards] = useState([]);
   const [sospechas, setSospechas] = useState([]);
+  
+  const [requestedPause, setRequestedPause] = useState(false);
+  const [pausedGame, setPausedGame] = useState(false);
+  
   const [started, setStarted] = useState(false);
 
   const restartGameInfo = () => {
@@ -21,14 +25,17 @@ export function GameInfoProvider({ children }) {
     setRooms([]);
     setCards([]);
     setStarted(false);
+    setSospechas([]);
+    setRequestedPause(false);
+    setPausedGame(false);
   };
 
   useEffect(() => {
     if (!socket) return;
     console.log('Requesting game info...');
-    
+
     // puesto por que es posible que envie un mensaje antes de que el socket este conectado
-    setTimeout(() => { 
+    setTimeout(() => {
       socket.emit('request-game-info', {});
     }, 1000);
   }, [socket]);
@@ -52,6 +59,11 @@ export function GameInfoProvider({ children }) {
         setStarted,
         sospechas,
         setSospechas,
+
+        requestedPause,
+        setRequestedPause,
+        pausedGame,
+        setPausedGame,
       }}
     >
       {children}

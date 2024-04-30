@@ -29,14 +29,11 @@ import { BACKEND_URL } from '../../consts';
 
 export function Game() {
   const navigate = useNavigate();
-  const { idGame } = useParams();
   const [cookies, setCookies] = useCookies(['username', 'partida_actual']);
+  // const [cookiesHaveChanged, setCookiesHaveChanged] = useState();
 
   // si hay algo distinto al codigo de la partida, NAVIGATE
   // si no hay nada, o si esta el codigo, NO NAVIGATE
-  useEffect(() => {
-    if (!cookies['partida_actual'] || cookies['partida_actual']?.partida != idGame) navigate('/');
-  }, [idGame]);
 
   if (cookies['partida_actual'] == {}) {
     console.log('se actualiza partida actual a ', idGame);
@@ -63,6 +60,8 @@ export function Game() {
   const [winnedGame, setWinnedGame] = useState(false);
   const { width, height } = useWindowSize();
 
+  const { idGame } = useParams();
+
   // Check if the game exists and if that't the case, assign the socket to the context
   useEffect(() => {
     console.log('Checking if game exists');
@@ -76,8 +75,23 @@ export function Game() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        const am_i_in = data.areAvailable.includes(cookies.username);
-        if (data.exito === true || am_i_in) {
+        const am_i_in = data.areAvailable?.includes(cookies.username);
+        /**
+         * Deja entrar en una partida en los siguientes casos:
+         * - Ya estoy dentro de la partida (tengo un personaje seleccionado)
+         * - No ha habido error, no ha empezado todavía y no estoy en otra partida
+         * - Mis cookies son correctas (idGame adecuado)
+         * - Es una partida local y esta vacia de jugadores
+         */
+        if (
+          am_i_in ||
+          (data.exito && data.estado === '0' && data.tipo == 'o' && cookies['partida_actual']?.partida === '') ||
+          cookies['partida_actual']?.partida == idGame ||
+          (data.areAvailable?.every((item) => item === '') && data.estado === '0' && data.tipo === 'l')
+        ) {
+          // no ha habido error y no ha empezado todavía, o bien estoy en la partida y mis cookies son correctas
+          setCookies('partida_actual', { partida: idGame }, { path: '/' });
+          // setCookiesHaveChanged(idGame);
           console.log('Game exists');
           setSocket(socketio);
         } else {
@@ -86,6 +100,15 @@ export function Game() {
         }
       });
   }, []);
+
+  // useEffect(() => {
+  //   console.log(cookiesHaveChanged)
+  //   if ((!cookies['partida_actual']) || cookies['partida_actual']?.partida != idGame) {
+  //     console.log('No partida actual');
+  //     navigate('/');
+  //   }
+  //   setCookiesHaveChanged(null);
+  // }, [idGame]);
 
   useEffect(() => {
     if (!socket) return;
@@ -130,6 +153,9 @@ export function Game() {
         <section className="start-game-button-main">
           <div className="start-game-button-container">
             <h1>Esperando a que empiece la partida...</h1>
+            <h2>
+              <u>ID de partida:</u> {idGame}
+            </h2>
             <button className="start-game-button" onClick={startGame}>
               Comenzar partida
             </button>

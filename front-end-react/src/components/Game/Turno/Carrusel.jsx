@@ -11,6 +11,7 @@ export function Carrusel({ options, onChange, type }) {
     speed: 500,
     slidesToShow: 1,
     initialSlide: 0,
+    slidesToScroll: type == 'where' ? 0 : 1,
 
     nextArrow: <NextArrow type={type} />,
     prevArrow: <PrevArrow type={type} />,

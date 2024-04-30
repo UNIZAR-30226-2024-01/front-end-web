@@ -6,12 +6,11 @@ import { useCookies } from 'react-cookie';
 import '../../../../../front-end-shared/css/Home/Home.css';
 import boardGame from '../../../../../front-end-shared/images/boardGame.png';
 import { BACKEND_URL } from '../../consts';
-import { useJoinGame } from '../../hooks/useJoinGame';
 
 import { GameInfoContext } from '../../context/gameinfo';
 import { TurnoContext } from '../../context/turno';
 import { DesplegablesContext } from '../../context/desplegables';
-import { ShowCardsContext } from '../../context/showCards';
+import { ShowCardsContext } from '../../context/showcards';
 
 export function Home() {
   const navigate = useNavigate();
@@ -32,11 +31,23 @@ export function Home() {
     restartTurno();
     restartDesplegables();
     restartShowCartas();
+    // recuperar la partida actual de la BD y asignárselo a la cookie
+    const url = BACKEND_URL + '/playerInformation?username=' + cookies.username;
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.exito === true && data.partida_actual) {
+          setCookies('partida_actual', { partida: data.partida_actual }, { path: '/' });
+        } else {
+          setCookies('partida_actual', { partida: '' }, { path: '/' });
+        }
+      });
   }, []);
 
   useEffect(() => {
     setPartida(cookies['partida_actual']?.partida ?? '');
-  }, [cookies['partida_actual'?.partida]]);
+  }, [cookies]);
 
   // const [gameMode, setGameMode] = useState(''); // l--> local, o--> online
 
@@ -70,16 +81,18 @@ export function Home() {
     }
   };
 
-  const useJoinGameClick = async () => {
-    let execute = true;
-
-    if (partida) {
-      navigate(`/game/${partida}`);
-      execute = false;
+  const joinGameClick = async () => {
+    if (!partida) {
+      let par = window.prompt('Introduzca el ID de la partida (6 dígitos):');
+      if (par) {
+        navigate(`/game/${par}`);
+      } else {
+        alert('ID de partida no válido.');
+      }
+      return;
     }
-
-    const ret = await useJoinGame(null, execute, false, setCookies);
-    if (ret?.navigateRoute) navigate(ret?.navigateRoute);
+    navigate(`/game/${partida}`);
+    return;
   };
 
   return (
@@ -110,7 +123,7 @@ export function Home() {
             </>
           )}
 
-          <button className={'gamemode-button'} onClick={useJoinGameClick}>
+          <button className={'gamemode-button'} onClick={joinGameClick}>
             {partida ? `Continuar partida: ${partida}` : 'Unirse a partida'}
           </button>
         </aside>
