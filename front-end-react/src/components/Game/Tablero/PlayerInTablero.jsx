@@ -4,6 +4,8 @@ import { GameInfoContext } from '../../../context/gameinfo';
 import { GameItems } from '../Cartas/GameItems';
 import { TurnoContext } from '../../../context/turno';
 
+import { defaultBotNames } from '../../../../../../front-end-shared/infoTablero';
+
 export function PlayerInTablero({ index }) {
   const { characters, usernames } = useContext(GameInfoContext);
   const { turnoOwner } = useContext(TurnoContext);
@@ -12,8 +14,14 @@ export function PlayerInTablero({ index }) {
   let username = usernames[index];
   const side = index < 3 ? 'left' : 'right';
 
+  // const defaultBots = ['Intel', 'WiFi', 'Python', 'Newton', 'Grafo', 'GPT'];
+
   if (!username) {
     username = '...';
+  }
+
+  if (username.startsWith('bot')) {
+    username = defaultBotNames[index];
   }
 
   const className = turnoOwner === username ? `player ${side} turn` : `player ${side}`;

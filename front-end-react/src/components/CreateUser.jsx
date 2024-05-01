@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
+import { defaultBotNames } from '../../../../front-end-shared/infoTablero.js';
+
 import { BACKEND_URL } from '../consts';
 
 export function CreateUser() {
@@ -14,7 +16,13 @@ export function CreateUser() {
   const [, setCookie] = useCookies(['username, token']);
 
   const HandleCreateAccount = async () => {
-    if (username.startsWith(' ') || username.endsWith(' ') || username === '' || username.startsWith('bot')) {
+    if (
+      username.startsWith(' ') ||
+      username.endsWith(' ') ||
+      username === '' ||
+      username.startsWith('bot') ||
+      defaultBotNames.includes(username)
+    ) {
       alert('Invalid username');
       return;
     }

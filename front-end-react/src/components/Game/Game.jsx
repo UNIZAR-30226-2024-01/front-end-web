@@ -25,7 +25,6 @@ import useWindowSize from 'react-use/lib/useWindowSize';
 // import { ShowCardsContext } from '../../context/showcards.jsx';
 import { BACKEND_URL } from '../../consts';
 
-// import { useJoinGame } from '../../hooks/useJoinGame.jsx';
 
 export function Game() {
   const navigate = useNavigate();
