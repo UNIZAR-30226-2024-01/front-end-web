@@ -20,6 +20,11 @@ export function CeldasProvider({ children }) {
 
   const [playerPositions, setPlayerPositions] = useState([]);
 
+  const restartCeldas = () => {
+    setCeldasOptions(Array(24 * 24).fill(false));
+    setPlayerPositions([]);
+  }
+
   useEffect(() => {
     if (!dados) return;
     // Actualizar css de celdas a las que se puede mover
@@ -50,6 +55,8 @@ export function CeldasProvider({ children }) {
         setCeldasOptions,
         playerPositions,
         setPlayerPositions,
+
+        restartCeldas,
       }}
     >
       {children}

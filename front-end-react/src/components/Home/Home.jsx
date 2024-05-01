@@ -11,6 +11,7 @@ import { GameInfoContext } from '../../context/gameinfo';
 import { TurnoContext } from '../../context/turno';
 import { DesplegablesContext } from '../../context/desplegables';
 import { ShowCardsContext } from '../../context/showcards';
+import { CeldasContext } from '../../context/celdas';
 
 export function Home() {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export function Home() {
   const { restartTurno } = useContext(TurnoContext);
   const { restartDesplegables } = useContext(DesplegablesContext);
   const { restartShowCartas } = useContext(ShowCardsContext);
+  const { restartCeldas } = useContext(CeldasContext);
 
   const [partida, setPartida] = useState(cookies['partida_actual']?.partida ?? '');
 
@@ -31,6 +33,7 @@ export function Home() {
     restartTurno();
     restartDesplegables();
     restartShowCartas();
+    restartCeldas();
     // recuperar la partida actual de la BD y asignárselo a la cookie
     const url = BACKEND_URL + '/playerInformation?username=' + cookies.username;
     fetch(url)
