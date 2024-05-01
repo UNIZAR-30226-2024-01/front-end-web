@@ -46,18 +46,13 @@ export function Chat() {
       }
     };
 
-    const onChatTurnLocal = (username) => {
-      return onChatTurn(username);
-    };
 
     socket.on('connect', onConnect);
     socket.on('chat-response', onChatResponseLocal);
-    socket.on('chat turn', onChatTurnLocal);
 
     return () => {
       socket.off('connect', onConnect);
       socket.off('chat-response', onChatResponseLocal);
-      socket.off('chat turn', onChatTurnLocal);
     };
   }, [socket, chatDesplegado]);
 

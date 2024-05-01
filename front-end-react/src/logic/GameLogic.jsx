@@ -272,7 +272,7 @@ export function GameLogic({ setWinnedGame }) {
     // Game-info
     socket.on('cards', onCards);
     socket.on('game-info', useOnGameInfoLocal);
-    socket.on('start-game', onStartGame);
+    socket.on('start-game-response', onStartGame);
 
     // Pausado de partida
     socket.on('game-paused-response', onGamePausedResponse);
@@ -293,7 +293,7 @@ export function GameLogic({ setWinnedGame }) {
       // Game-info
       socket.off('game-info', useOnGameInfoLocal);
       socket.off('cards', onCards);
-      socket.off('start-game', onStartGame);
+      socket.off('start-game-response', onStartGame);
 
       socket.off('game-paused-response', onGamePausedResponse);
       socket.off('game-resumed-response', onGameResumedResponse);
