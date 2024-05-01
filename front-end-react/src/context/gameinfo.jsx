@@ -11,11 +11,11 @@ export function GameInfoProvider({ children }) {
   const [guns, setGuns] = useState([]);
   const [rooms, setRooms] = useState([]);
   const [cards, setCards] = useState([]);
-  const [sospechas, setSospechas] = useState([]);
-  
+  const [sospechas, setSospechas] = useState(Array(28).fill(''));
+
   const [requestedPause, setRequestedPause] = useState(false);
   const [pausedGame, setPausedGame] = useState(false);
-  
+
   const [started, setStarted] = useState(false);
 
   const restartGameInfo = () => {
@@ -25,7 +25,16 @@ export function GameInfoProvider({ children }) {
     setRooms([]);
     setCards([]);
     setStarted(false);
-    setSospechas([]);
+
+    // let tarjeta = Array(28).fill('');
+    // tarjeta[1] = 'SOP';
+    // tarjeta[2] = 'RED';
+    // tarjeta[3] = 'PRO';
+    // tarjeta[4] = 'FIS';
+    // tarjeta[5] = 'DIS';
+    // tarjeta[6] = 'IA';
+    // setSospechas(JSON.stringify(tarjeta));
+
     setRequestedPause(false);
     setPausedGame(false);
   };

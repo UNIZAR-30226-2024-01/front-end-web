@@ -36,7 +36,6 @@ export function Home() {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data.exito === true && data.partida_actual) {
           setCookies('partida_actual', { partida: data.partida_actual }, { path: '/' });
         } else {

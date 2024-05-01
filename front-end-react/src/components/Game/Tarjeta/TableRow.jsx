@@ -4,11 +4,19 @@ import { useEffect, useState } from 'react';
 
 export const TableRow = ({ name, initialState = null, handleChange, fila }) => {
   const [estado, setEstado] = useState(() => {
-    if ((initialState === '') | (initialState === null)) {
+    if (initialState === '' || initialState === null) {
       return Array(7).fill(0);
     }
     return Object.values(initialState);
   });
+
+  useEffect(() => {
+    if (initialState === '' || initialState === null) {
+      setEstado(Array(7).fill(0));
+    } else {
+      setEstado(Object.values(initialState));
+    }
+  }, [initialState]);
 
   const [estadoAnterior, setEstadoAnterior] = useState(Array(7).fill(0));
 

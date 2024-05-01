@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export const TableCell = ({ idx, state, setEstado }) => {
+  // console.log('idx:', idx, 'state:', state);
   const texts = ['', '❌', '✔', '❔'];
   const colors = ['#ffffff', '#995555', '#559955', '#555599'];
 

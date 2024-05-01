@@ -9,6 +9,7 @@ import { ShowCardsContext } from '../context/showcards';
 import { useNavigate } from 'react-router-dom';
 
 import { onGameInfo } from '../socketio';
+import { infoTablero, casillasPorHabitacion } from '../../../../front-end-shared/infoTablero';
 
 const useSocket = () => {
   const { socket, setSocket } = useContext(SocketContext);
@@ -31,10 +32,11 @@ export function GameLogic({ setWinnedGame }) {
   const [cookies, setCookie] = useCookies(['username']);
   const { socket, setSocket } = useSocket();
   const { setTurnoOwner, setParteTurno, restartTurno } = useContext(TurnoContext);
-  const { setPlayerPositions } = useContext(CeldasContext);
+  const { playerPositions, setPlayerPositions } = useContext(CeldasContext);
   const {
     cards,
     usernames,
+    sospechas,
     setCards,
     setCharacters,
     setUsernames,
@@ -62,6 +64,16 @@ export function GameLogic({ setWinnedGame }) {
     // turno-moves-to
     const onTurnoMovesToResponse = (username, position) => {
       if (verbose) console.log('onTurnoMovesToResponse', username, position);
+      // let newCell = position;
+
+      // cambiar position por una casilla libre de la habitación correspondiente de infoTablero.casillasPorHabitacion
+      if (infoTablero[position].isRoom) {
+        const roomName = infoTablero[position].roomName;
+        let { cells } = casillasPorHabitacion[parseInt(roomName) - 1];
+        cells = cells.filter((c) => !playerPositions.includes(c));
+        position = cells[Math.floor(Math.random() * cells.length)];
+      }
+
       const player_idx = usernames.indexOf(username);
       // si se ha entrado a habitación, añadir sonido de la puerta 🎃
       setPlayerPositions((prev) => {
@@ -143,7 +155,7 @@ export function GameLogic({ setWinnedGame }) {
       if (verbose) console.log('onGameState', posiciones, cartas, sospechas, turnoOwner);
       setPlayerPositions(posiciones);
       setCards(cartas);
-      setSospechas(sospechas);
+      // setSospechas(sospechas);
       if (turnoOwner === socket.auth.username) {
         console.log('Reiniciando turno...');
         restartTurno();
@@ -177,11 +189,32 @@ export function GameLogic({ setWinnedGame }) {
       }
       if (data.sospechas) {
         // console.log('sospechas', data.sospechas);
-        setSospechas(data.sospechas);
+
+        const json = data.sospechas.replace(/{/g, '[').replace(/}/g, ']');
+        const newSospechas = JSON.parse(json);
+
+        // console.log('newSospechas', newSospechas);
+        setSospechas(newSospechas);
       }
       if (data.posiciones) {
-        // console.log('posiciones', data.posiciones);
-        setPlayerPositions(data.posiciones);
+        const new_positions = [];
+        // Si hay alguien en una habitación, debe de asignarles una celda random de dentro de ésta
+        for (const pos of data.posiciones) {
+          // mirar si esta en una habitacion
+          const in_room = infoTablero[pos].isRoom;
+          if (in_room) {
+            // si esta en una habitacion, asignarle una celda random de dentro de la habitacion
+            const roomName = infoTablero[pos].roomName;
+            let { cells } = casillasPorHabitacion[parseInt(roomName) - 1];
+            cells = cells.filter((c) => !new_positions.includes(c));
+            const randomCell = cells[Math.floor(Math.random() * cells.length)];
+            new_positions.push(randomCell);
+          } else {
+            // si no, no hacer nada
+            new_positions.push(pos);
+          }
+        }
+        setPlayerPositions(new_positions);
       }
       if (data.turnoOwner) {
         // console.log('turnoOwner', data.turnoOwner);
@@ -222,6 +255,12 @@ export function GameLogic({ setWinnedGame }) {
       setPausedGame(false);
     };
 
+    // request-sospechas
+    const onRequestSospechas = () => {
+      console.log('sospechas', sospechas);
+      socket.emit('response-sospechas', sospechas);
+    };
+
     socket.on('turno-owner', onTurnoOwner);
     socket.on('turno-moves-to-response', onTurnoMovesToResponse);
     socket.on('turno-show-cards', onTurnoShowCards);
@@ -239,6 +278,9 @@ export function GameLogic({ setWinnedGame }) {
     socket.on('game-paused-response', onGamePausedResponse);
     socket.on('game-resumed-response', onGameResumedResponse);
 
+    // Solictud de tarjeta sospecha
+    socket.on('request-sospechas', onRequestSospechas);
+
     return () => {
       socket.off('turno-owner', onTurnoOwner);
       socket.off('turno-moves-to-response', onTurnoMovesToResponse);
@@ -255,6 +297,8 @@ export function GameLogic({ setWinnedGame }) {
 
       socket.off('game-paused-response', onGamePausedResponse);
       socket.off('game-resumed-response', onGameResumedResponse);
+
+      socket.off('request-sospechas', onRequestSospechas);
     };
   }),
     [socket];
