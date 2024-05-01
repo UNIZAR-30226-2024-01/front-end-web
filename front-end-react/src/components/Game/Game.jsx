@@ -56,6 +56,7 @@ export function Game() {
   }, [usernames, haveISelected]);
 
   const { socket, setSocket } = useContext(SocketContext);
+  const { setPausedGame, setRequestedPause } = useContext(GameInfoContext);
 
   const [winnedGame, setWinnedGame] = useState(false);
   const { width, height } = useWindowSize();
@@ -91,7 +92,10 @@ export function Game() {
         ) {
           // no ha habido error y no ha empezado todavía, o bien estoy en la partida y mis cookies son correctas
           setCookies('partida_actual', { partida: idGame }, { path: '/' });
-          // setCookiesHaveChanged(idGame);
+
+          setPausedGame(data.estado === 'p');
+          setRequestedPause(false);
+
           console.log('Game exists');
           setSocket(socketio);
         } else {
@@ -101,15 +105,6 @@ export function Game() {
       });
   }, []);
 
-  // useEffect(() => {
-  //   console.log(cookiesHaveChanged)
-  //   if ((!cookies['partida_actual']) || cookies['partida_actual']?.partida != idGame) {
-  //     console.log('No partida actual');
-  //     navigate('/');
-  //   }
-  //   setCookiesHaveChanged(null);
-  // }, [idGame]);
-
   useEffect(() => {
     if (!socket) return;
     socket.auth.username = cookies.username ?? 'anonymous';
@@ -118,9 +113,6 @@ export function Game() {
     console.log('Connecting socket with username:', socket.auth.username, 'and group:', socket.auth.group);
     socket.connect();
   }, [socket]);
-
-  /* Get the users from the database and if there isn't 
-    enough players, set the name 'Bot_i' */
 
   const startGame = () => {
     setStarted(true);
@@ -133,17 +125,8 @@ export function Game() {
     setCharacterSelection(false);
   };
 
-  // const sendDeleteMessage = () => {
-  //   socket.emit('hola-javisin-adios', {});
-  // };
-
   return (
     <>
-      {/* {
-        <button style={{ position: 'absolute', top: '5%', left: '20%' }} onClick={sendDeleteMessage}>
-          delete
-        </button>
-      } */}
       {characterSelection && (
         <div className="game-characters-selection">
           <CharacterSelection onCharacterSelected={handleCharacterSelection} />

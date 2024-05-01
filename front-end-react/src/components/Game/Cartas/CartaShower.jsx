@@ -25,7 +25,7 @@ export function CartaShower() {
         <div className="carta-shower-container">
           {selectCardsToShow.map((carta, index) =>
             !isCardElection ? (
-              <div style={carta === '' ? { opacity: 0 } : {}} key={index} className="carta">
+              <div style={carta === '' ? { opacity: 0, transition: 'none' } : {}} key={index} className="carta">
                 <Carta player_name={carta} hover={false} />
               </div>
             ) : (

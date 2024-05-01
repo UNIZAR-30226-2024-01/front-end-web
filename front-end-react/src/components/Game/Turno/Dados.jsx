@@ -16,7 +16,7 @@ export function Dados({ buttonText }) {
       setDiceState(!diceState);
       return;
     }
-    setDados(12);
+    setDados(12); // <-- 🎃 para pruebas
     // setDados(totalValue);
     setTimeout(() => {
       setParteTurno('elegir-casilla');

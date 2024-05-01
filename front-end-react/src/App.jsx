@@ -63,6 +63,10 @@ function Audio() {
   const audioRef = useRef(); // Create a ref
 
   useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.3; // Set volume to 30%
+    }
+
     const playAudio = () => {
       // Play the audio when this function is called
       audioRef.current.play();

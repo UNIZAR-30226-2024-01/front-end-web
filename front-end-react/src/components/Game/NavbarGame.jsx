@@ -2,7 +2,7 @@
 import '../../../../../front-end-shared/css/Game/NavbarGame.css';
 import { useCookies } from 'react-cookie';
 import { useNavigate /* , useParams */ } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { DesplegablesContext } from '../../context/desplegables';
 import { SocketContext } from '../../context/socket';
 import { GameInfoContext } from '../../context/gameinfo';
@@ -24,6 +24,12 @@ export function NavbarGame() {
     setOpcionesDesplegado((prev) => !prev);
   };
 
+  useEffect(() => {
+    if (pausedGame) {
+      setRequestedPause(true);
+    }
+  }, []);
+
   const leaveGame = () => {
     //eliminar la cookie del personaje
     socket.emit('leave-game', {});
@@ -37,6 +43,7 @@ export function NavbarGame() {
   const handlePauseClick = () => {
     // alert('Impleméntame 😢');
     if (pausedGame) { // Reanudar partida
+      console.log('Reanudo partida')
       socket.emit('request-resume-game', {});
       setPausedGame(false);
       setRequestedPause(false);

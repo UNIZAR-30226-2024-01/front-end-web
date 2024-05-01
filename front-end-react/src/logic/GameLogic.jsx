@@ -75,7 +75,6 @@ export function GameLogic({ setWinnedGame }) {
       }
 
       const player_idx = usernames.indexOf(username);
-      // si se ha entrado a habitación, añadir sonido de la puerta 🎃
       setPlayerPositions((prev) => {
         console.log('prev', prev);
         const newPlayerPositions = [...prev];
