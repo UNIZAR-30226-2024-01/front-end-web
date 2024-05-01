@@ -268,7 +268,7 @@ export function GameLogic({ setWinnedGame }) {
     socket.on('turno-asks-for-response', onTurnoAsksForResponse);
     socket.on('game-over', onGameOver);
     socket.on('close-connection', onCloseConnection);
-    socket.on('game-state', onGameState);
+    // socket.on('game-state', onGameState);
     // Game-info
     socket.on('cards', onCards);
     socket.on('game-info', useOnGameInfoLocal);
@@ -289,7 +289,7 @@ export function GameLogic({ setWinnedGame }) {
       socket.off('turno-asks-for-response', onTurnoAsksForResponse);
       socket.off('game-over', onGameOver);
       socket.off('close-connection', onCloseConnection);
-      socket.off('game-state', onGameState);
+      // socket.off('game-state', onGameState);
       // Game-info
       socket.off('game-info', useOnGameInfoLocal);
       socket.off('cards', onCards);
