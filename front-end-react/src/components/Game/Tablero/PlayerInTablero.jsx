@@ -19,12 +19,12 @@ export function PlayerInTablero({ index }) {
   if (!username) {
     username = '...';
   }
+  
+  const className = turnoOwner === username ? `player ${side} turn` : `player ${side}`;
 
   if (username.startsWith('bot')) {
     username = defaultBotNames[index];
   }
-
-  const className = turnoOwner === username ? `player ${side} turn` : `player ${side}`;
 
   let style = {};
   switch (character) {
