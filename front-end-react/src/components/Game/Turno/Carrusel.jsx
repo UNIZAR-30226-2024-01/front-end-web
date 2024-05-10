@@ -3,7 +3,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import { Carta } from '../Cartas/Carta';
-
+import React from 'react';
 export function Carrusel({ options, onChange, type }) {
   const settings = {
     lazyLoad: true,

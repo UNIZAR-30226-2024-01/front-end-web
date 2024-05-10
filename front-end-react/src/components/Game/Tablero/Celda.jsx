@@ -3,7 +3,7 @@ import '../../../../../../front-end-shared/css/Game/Tablero/Celda.css';
 import { infoTablero } from '../../../../../../front-end-shared/infoTablero.js';
 import { CeldasContext } from '../../../context/celdas.jsx';
 import { Door } from '../../Icons.jsx';
-
+import React from 'react';
 import { cellsClose } from '../../../bfs.mjs';
 import { TurnoContext } from '../../../context/turno.jsx';
 import { Game } from '../Game.jsx';

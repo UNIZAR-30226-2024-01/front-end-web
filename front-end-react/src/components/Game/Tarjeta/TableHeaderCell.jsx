@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-
+import React from 'react';
 export const TableHeaderCell = ({ max_chars, text, fila, handleChange }) => {
   return (
     <th className="table-head">

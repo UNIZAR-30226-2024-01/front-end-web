@@ -7,7 +7,7 @@ import { CeldasContext } from '../context/celdas';
 import { GameInfoContext } from '../context/gameinfo';
 import { ShowCardsContext } from '../context/showcards';
 import { useNavigate } from 'react-router-dom';
-
+import React from 'react';
 import { onGameInfo } from '../socketio';
 import { infoTablero, casillasPorHabitacion } from '../../../../front-end-shared/infoTablero';
 

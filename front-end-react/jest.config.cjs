@@ -1,4 +1,4 @@
-  // Definir la configuración de Jest
+// Definir la configuración de Jest
 module.exports = {
   testEnvironment: 'jsdom',
   moduleFileExtensions: ['js', 'jsx', 'mjs'], // Agregamos la extensión mjs
@@ -13,7 +13,8 @@ module.exports = {
   transformIgnorePatterns: [
     "/node_modules/",
     "^.+\\.css$"
-  ]
+  ],
+  setupFilesAfterEnv: ['./jest.setup.js'], // Add this line
 };
 
   

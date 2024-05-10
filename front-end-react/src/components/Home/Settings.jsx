@@ -3,7 +3,7 @@ import '../../../../../front-end-shared/css/Home/Settings.css';
 // import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-
+import React from 'react';
 import { BACKEND_URL } from '../../consts';
 
 export function Settings() {

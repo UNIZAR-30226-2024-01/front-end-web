@@ -3,7 +3,7 @@ import '../../../../front-end-shared/css/Login/CreateUser.css';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-
+import React from 'react';
 import { defaultBotNames } from '../../../../front-end-shared/infoTablero.js';
 
 import { BACKEND_URL } from '../consts';

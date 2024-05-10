@@ -4,7 +4,7 @@ import { cellsClose } from '../bfs.mjs';
 import { useCookies } from 'react-cookie';
 import { GameInfoContext } from './gameinfo';
 import { infoTablero } from '../../../../front-end-shared/infoTablero';
-
+import React from 'react';
 export const CeldasContext = createContext();
 
 export function CeldasProvider({ children }) {

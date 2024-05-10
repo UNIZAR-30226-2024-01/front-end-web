@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { TableCell } from './TableCell';
 import { useEffect, useState } from 'react';
-
+import React from 'react';
 export const TableRow = ({ name, initialState = null, handleChange, fila }) => {
   const [estado, setEstado] = useState(() => {
     if (initialState === '' || initialState === null) {

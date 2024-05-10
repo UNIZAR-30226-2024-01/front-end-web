@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-
+import React from 'react';
 export const TableCell = ({ idx, state, setEstado }) => {
   // console.log('idx:', idx, 'state:', state);
   const texts = ['', '❌', '✔', '❔'];

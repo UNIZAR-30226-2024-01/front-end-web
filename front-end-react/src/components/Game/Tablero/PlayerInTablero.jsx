@@ -3,7 +3,7 @@ import '../../../../../../front-end-shared/css/Game/Tablero/PlayerInTablero.css'
 import { GameInfoContext } from '../../../context/gameinfo';
 import { GameItems } from '../Cartas/GameItems';
 import { TurnoContext } from '../../../context/turno';
-
+import React from 'react';
 import { defaultBotNames } from '../../../../../../front-end-shared/infoTablero';
 
 export function PlayerInTablero({ index }) {
