@@ -60,7 +60,7 @@ export function CreateUser() {
         <div className="create-user-container">
           <div>
             <h1 className="create-account">Crear una cuenta</h1>
-            <div className="loginForm">
+            <div className="loginForm" data-testid="create-user-form">
               <p className="p-login">Nombre de usuario</p>
               <input type="text" placeholder="username" onChange={(e) => setUsername(e.target.value)} />
               <p className="p-login">Contraseña</p>
