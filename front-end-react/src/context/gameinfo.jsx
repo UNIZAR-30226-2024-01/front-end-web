@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { SocketContext } from './socket';
-
+import React from 'react';
 export const GameInfoContext = createContext();
 
 export function GameInfoProvider({ children }) {

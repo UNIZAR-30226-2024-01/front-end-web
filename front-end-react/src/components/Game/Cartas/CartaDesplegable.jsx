@@ -4,7 +4,7 @@ import { Desplegable } from '../Desplegable';
 import { Carta } from './Carta';
 import { DesplegablesContext } from '../../../context/desplegables';
 import { GameInfoContext } from '../../../context/gameinfo';
-
+import React from 'react';
 export function CartaDesplegable() {
 
   const { cartasDesplegado, setCartasDesplegado } = useContext(DesplegablesContext);
