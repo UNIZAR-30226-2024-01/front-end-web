@@ -2,7 +2,7 @@ import '../../../../../../front-end-shared/css/Game/Turno/Dados.css';
 import ReactDice from 'react-dice-complete';
 import { useContext, useRef, useState } from 'react';
 import { TurnoContext } from '../../../context/turno';
-
+import React from 'react';
 export function Dados({ buttonText }) {
   const reactDice = useRef(null);
   const [diceState, setDiceState] = useState(false);

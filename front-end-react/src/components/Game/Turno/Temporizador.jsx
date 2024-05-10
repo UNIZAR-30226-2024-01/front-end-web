@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import '../../../../../../front-end-shared/css/Game/Turno/Temporizador.css';
 import { TurnoContext } from '../../../context/turno';
-
+import React from 'react';
 export function Temporizador({ tiempo, temporizadorDone }) {
   const [segundos, setSegundos] = useState(tiempo);
 

@@ -6,7 +6,7 @@ import { useContext, useEffect } from 'react';
 import { DesplegablesContext } from '../../context/desplegables';
 import { SocketContext } from '../../context/socket';
 import { GameInfoContext } from '../../context/gameinfo';
-
+import React from 'react';
 export function NavbarGame() {
   const {
     opcionesDesplegado,

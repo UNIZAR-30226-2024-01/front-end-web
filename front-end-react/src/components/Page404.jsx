@@ -1,5 +1,5 @@
 import '../../../../front-end-shared/css/Page404.css';
-
+import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 
 export function Page404() {

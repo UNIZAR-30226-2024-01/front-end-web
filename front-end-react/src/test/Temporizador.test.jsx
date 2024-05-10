@@ -1,12 +1,3 @@
-//PASA
-
-/*
- * Conjunto de test para el componente Temporizador:
- * COMPRUEBA:
- *        - que se renderiza
- *        - que se detiene en 0
- */
-
 import { render, screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Temporizador } from '../components/Game/Turno/Temporizador';
@@ -36,7 +27,7 @@ describe('Temporizador', () => {
     await act(async () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
     });
-    expect(screen.getByText('0')).toBeInTheDocument();
+    expect(screen.getByText('Tiempo restante: 0')).toBeInTheDocument();
   }, 10000); //Para que no se ejecute infinitamente
 
 });

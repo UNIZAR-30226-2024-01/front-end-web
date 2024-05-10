@@ -9,7 +9,7 @@ import { CeldasContext } from '../../../context/celdas.jsx';
 import { GameInfoContext } from '../../../context/gameinfo.jsx';
 import { gameLogicTurnoMovesTo } from '../../../logic/GameLogic.jsx';
 import { SocketContext } from '../../../context/socket.jsx';
-
+import React from 'react';
 // import { useGameLogicTurnoMovesTo } from '../../../logic/GameLogic.jsx';
 
 export function Tablero() {

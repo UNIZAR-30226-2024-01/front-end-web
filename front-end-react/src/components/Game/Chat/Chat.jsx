@@ -4,7 +4,7 @@ import { MessageList } from './MessageList.jsx';
 import { InputMessage } from './InputMessage.jsx';
 import { Desplegable } from '../Desplegable.jsx';
 // import { useCookies } from "react-cookie";
-
+import React from 'react';
 import { onConnect, onChatResponse, onChatTurn } from '../../../socketio.js';
 import { DesplegablesContext } from '../../../context/desplegables.jsx';
 import { SocketContext } from '../../../context/socket.jsx';

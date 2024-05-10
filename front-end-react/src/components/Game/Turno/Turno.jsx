@@ -12,7 +12,7 @@ import { SocketContext } from '../../../context/socket';
 import { useCookies } from 'react-cookie';
 import { CeldasContext } from '../../../context/celdas';
 import { infoTablero, infoHabitaciones } from '../../../../../../front-end-shared/infoTablero';
-
+import React from 'react';
 export function Turno() {
   const { dados, parteTurno, setParteTurno, setTurnoOwner } = useContext(TurnoContext);
   const { characters, guns, rooms, usernames } = useContext(GameInfoContext);

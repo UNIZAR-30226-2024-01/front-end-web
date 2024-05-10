@@ -8,7 +8,7 @@ import { TableHeaderCell } from './TableHeaderCell.jsx';
 import { Desplegable } from '../Desplegable.jsx';
 import { DesplegablesContext } from '../../../context/desplegables.jsx';
 import { GameInfoContext } from '../../../context/gameinfo.jsx';
-
+import React from 'react';
 export function Tarjeta() {
   const { tarjetaDesplegado, setTarjetaDesplegado } = useContext(DesplegablesContext);
   const { characters, guns, rooms, sospechas, setSospechas } = useContext(GameInfoContext);
