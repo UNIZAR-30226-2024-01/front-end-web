@@ -2,7 +2,7 @@ import '../../../../../front-end-shared/css/Home/NavbarHome.css';
 import { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
-
+import React from 'react';
 export function NavbarHome() {
   const [isOpen, setIsOpen] = useState(false);
   const [, , removeCookie] = useCookies(['token']);
