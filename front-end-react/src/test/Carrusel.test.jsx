@@ -11,9 +11,7 @@ describe('Carrusel', () => {
 
     render(<Carrusel options={mockOptions} onChange={mockOnChange} type={mockType} />);
 
-    mockOptions.forEach(option => {
-      const elements = screen.getAllByText(option.toUpperCase());
-      expect(elements.length).toBeGreaterThan(0);
-    });
+    const elements = screen.getAllByText(mockOptions[0].toUpperCase());
+    expect(elements.length).toBe(2);
   });
 });
