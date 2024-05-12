@@ -29,4 +29,5 @@ describe('Celda component', () => {
       </CeldasContext.Provider>
     );
   });
+  
 });

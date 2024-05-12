@@ -32,7 +32,7 @@ export function Tarjeta() {
 
   return (
     <div className="tarjeta" data-hidden="true" style={style}>
-      <Desplegable left_initial={true} desplegado={tarjetaDesplegado} setDesplegado={setTarjetaDesplegado} />
+      <Desplegable left_initial={true} desplegado={tarjetaDesplegado} setDesplegado={setTarjetaDesplegado} data-testid="desplegable" />
 
       <table className="tabla">
         <thead className="cabecera">

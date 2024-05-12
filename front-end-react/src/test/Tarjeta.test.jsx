@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import { DesplegablesContext } from '../context/desplegables.jsx';
 import { GameInfoContext } from '../context/gameinfo.jsx';
 import { Tarjeta } from '../components/Game/Tarjeta/Tarjeta.jsx';
@@ -6,11 +6,12 @@ import React from 'react';
 import '@testing-library/jest-dom';
 
 describe('Tarjeta', () => {
+  const mockDesplegablesContext = {
+    tarjetaDesplegado: false,
+    setTarjetaDesplegado: jest.fn(),
+  };
   test('renders Tarjeta component', () => {
-    const mockDesplegablesContext = {
-      tarjetaDesplegado: false,
-      setTarjetaDesplegado: jest.fn(),
-    };
+    
 
     const mockGameInfoContext = {
       characters: ['character1', 'character2', 'character3', 'character4', 'character5', 'character6'],
@@ -30,4 +31,5 @@ describe('Tarjeta', () => {
 
     expect(screen.getByText(/Desarrollado por Grace Hopper/i)).toBeInTheDocument();
   });
+
 });
