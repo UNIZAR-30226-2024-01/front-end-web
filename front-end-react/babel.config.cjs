@@ -1,28 +1,16 @@
-/*module.exports = {
-  presets: [
-    [
-      "@babel/preset-env",
-      {
-        targets: {
-          node: "current"
-        }
-      }
-    ],
-    "@babel/preset-react"
-  ]
-};*/
 module.exports = {
   presets: [
     [
-      "@babel/preset-env",
+      '@babel/preset-env',
       {
         targets: {
-          node: "current"
-        }
-      }
+          node: 'current',
+        },
+        modules: 'auto', // Enable automatic module detection
+      },
     ],
-    "@babel/preset-react"
+    '@babel/preset-react',
   ],
-  plugins: ["inline-react-svg"]
+  plugins: ['inline-react-svg'],
 };
 

@@ -4,16 +4,13 @@ module.exports = {
   moduleFileExtensions: ['js', 'jsx', 'mjs'], // Agregamos la extensión mjs
   testMatch: ['**/__tests__/**/*.test.jsx', '**/?(*.)+(spec|test).jsx'],
   transform: {
-    '^.+\\.jsx?$': 'babel-jest',
-    '^.+\\.mjs$': 'babel-jest', // Agregamos la transformación para archivos mjs
+    '^.+\\.jsx?$': 'babel-jest', // Transform JS and JSX files
+    '^.+\\.mjs$': 'babel-jest', // Transform MJS files with Babel
   },
   moduleNameMapper: {
-    "\\.(css|less|scss)$": "identity-obj-proxy",
+    '\\.(css|less|scss)$': 'identity-obj-proxy',
   },
-  transformIgnorePatterns: [
-    "/node_modules/",
-    "^.+\\.css$"
-  ],
+  transformIgnorePatterns: ['/node_modules/', '^.+\\.css$'],
   setupFilesAfterEnv: ['./jest.setup.js'], // Add this line
 };
 
