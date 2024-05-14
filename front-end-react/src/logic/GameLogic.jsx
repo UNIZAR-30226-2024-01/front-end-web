@@ -134,7 +134,7 @@ export function GameLogic({ setWinnedGame }) {
       alert('El usuario ' + username_asking + (win ? ' ha ganado' : ' ha perdido') + ' la partida.');
 
       // muestra un modal diciendo que ha ganado el jugador
-      if (win) navigate('/'); // volver a la pantalla de inicio
+      if (username_asking == socket.auth.username) navigate('/'); // volver a la pantalla de inicio
       // else --> te puedes quedar en la partida visualizándola pero no podrás hacer nada (turnoOwner ya no puede asociarse a tu usuario)
     };
 
